@@ -1,0 +1,2294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MSEED – Empowering Futures</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="style.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- ===== ENROLL MODAL ===== -->
+  <div id="modal-enroll" class="hidden">
+    <div class="modal-overlay" onclick="closeModal('modal-enroll')">
+      <div class="modal" onclick="event.stopPropagation()" style="max-width:550px;">
+        <div class="modal-close" onclick="closeModal('modal-enroll')">✕</div>
+        <div id="enroll-step-form">
+          <div class="tag" style="margin-bottom:15px">Live Class Enrolment</div>
+          <h2 style="margin-bottom:20px">Join the Program</h2>
+          <div class="form-group"><label>Student Name</label><input type="text" class="form-input" id="en-name"
+              placeholder="Enter full name"></div>
+          <div class="grid-2" style="gap:15px">
+            <div class="form-group"><label>Department</label><input type="text" class="form-input" id="en-dept"
+                placeholder="CSE, IT, ECE..."></div>
+            <div class="form-group"><label>Domain/Course</label><input type="text" class="form-input" id="en-course"
+                placeholder="e.g. Data Science"></div>
+          </div>
+          <div class="form-group"><label>Mobile Number</label><input type="tel" class="form-input" id="en-phone"
+              placeholder="+91 00000 00000"></div>
+          <div class="form-group"><label>Email ID</label><input type="email" class="form-input" id="en-email"
+              placeholder="example@email.com"></div>
+          <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="submitEnrolment()">Next
+            →</button>
+        </div>
+        <div id="enroll-step-success" class="hidden" style="text-align:center;padding:20px 0">
+          <div style="font-size:50px;margin-bottom:20px">🚀</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:24px;margin-bottom:15px;color:var(--green)">
+            Congratulations!</h3>
+          <p style="font-size:15px;line-height:1.8;color:var(--grey);margin-bottom:20px">
+            <br><br>
+            📞 <strong>Our team will contact you soon!</strong><br><br>
+            📚 Meanwhile, visit the Pre-Recorded Courses Page to access free learning materials.
+          </p>
+          <p style="font-weight:700;color:var(--green);margin-bottom:25px">Keep pushing forward — your growth journey
+            starts now!</p>
+          <button class="btn btn-outline" style="width:100%;justify-content:center"
+            onclick="closeModal('modal-enroll')">Got it!</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== AUTO ENROLL MODAL ===== -->
+  <div id="modal-auto-enroll" class="hidden">
+    <div class="modal-overlay" onclick="closeModal('modal-auto-enroll')">
+      <div class="modal auto-enroll-modal" onclick="event.stopPropagation()"
+        style="max-width:500px; padding:48px 40px; border-top:6px solid var(--green);">
+        <div class="modal-close" onclick="closeModal('modal-auto-enroll')">✕</div>
+        <div id="auto-enroll-step-form">
+          <div class="tag" style="margin-bottom:15px; background:rgba(0,177,123,0.1); color:var(--green);">Career
+            Support ✨</div>
+          <h2 style="margin-bottom:12px; font-size:32px;">Ready to Elevate?</h2>
+          <p style="color:var(--grey-mid); font-size:15px; margin-bottom:24px;">Register now to unlock personalized
+            guidance, mock interviews, and career tracking.</p>
+          <div class="form-group"><label>Student Name</label><input type="text" class="form-input" id="ae-name"
+              placeholder="John Doe"></div>
+          <div class="grid-2" style="gap:15px">
+            <div class="form-group"><label>Department</label><input type="text" class="form-input" id="ae-dept"
+                placeholder="CSE, IT, ECE..."></div>
+            <div class="form-group"><label>Domain/Course</label><input type="text" class="form-input" id="ae-course"
+                placeholder="e.g. Data Science"></div>
+          </div>
+          <div class="form-group"><label>Mobile Number</label><input type="tel" class="form-input" id="ae-phone"
+              placeholder="+91 00000 00000"></div>
+          <div class="form-group"><label>Email ID</label><input type="email" class="form-input" id="ae-email"
+              placeholder="example@email.com"></div>
+          <button class="btn btn-primary"
+            style="width:100%; justify-content:center; margin-top:16px; font-size:15px; box-shadow:0 8px 24px rgba(0,177,123,0.25)"
+            onclick="submitAutoEnrolment()">Next →</button>
+        </div>
+        <div id="auto-enroll-step-success" class="hidden" style="text-align:center; padding:30px 0;">
+          <div style="font-size:64px; margin-bottom:24px; animation:splashPop 0.8s ease;">🌟</div>
+          <h3 style="font-family:'Playfair Display',serif; font-size:28px; margin-bottom:16px; color:var(--green)">
+            You're Registered!</h3>
+          <p style="font-size:16px; line-height:1.7; color:var(--grey-mid); margin-bottom:24px">
+            Thank you for taking a step towards your bright career. We have received your details safely.<br><br>
+            💬 <strong>Our career advisors will reach out to you shortly via WhatsApp.</strong>
+          </p>
+          <button class="btn btn-white" style="width:100%; justify-content:center; border:2px solid var(--milk-dark);"
+            onclick="closeModal('modal-auto-enroll')">Return to Home</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SYLLABUS MODAL ===== -->
+  <div id="modal-syllabus" class="hidden" onscroll="checkSyllabusScroll()">
+    <div class="modal-overlay" onclick="closeModal('modal-syllabus')">
+      <div class="modal" onclick="event.stopPropagation()"
+        style="max-width:600px; padding:0; display:flex; flex-direction:column; background:transparent; box-shadow:none;">
+        <div
+          style="background:#fff; border-radius:var(--radius); display:flex; flex-direction:column; max-height:85vh;">
+          <div class="modal-close" onclick="closeModal('modal-syllabus')" style="top:20px; right:20px; z-index:10;">✕
+          </div>
+          <div style="padding:24px 30px; border-bottom:1px solid var(--grey-pale); flex-shrink:0;">
+            <div class="tag" style="margin-bottom:12px">Live Class Syllabus</div>
+            <h2 id="syllabus-title"
+              style="font-family:'Playfair Display',serif; font-size:24px; margin:0; padding-right:30px;">Course Name
+            </h2>
+          </div>
+
+          <div id="syllabus-content" style="padding:0; overflow-y:auto; flex-grow:1;"
+            onscroll="checkSyllabusScroll(this)">
+            <div style="padding:24px 30px;" id="syllabus-roadmap-inject">
+              <!-- Roadmap content generated here -->
+            </div>
+          </div>
+
+          <div
+            style="padding:16px 30px; border-top:1px solid var(--grey-pale); flex-shrink:0; display:flex; justify-content:flex-end; gap:12px; background:#fff; border-radius:0 0 var(--radius) var(--radius);">
+            <button class="btn btn-outline" onclick="closeModal('modal-syllabus')">Close</button>
+            <button id="syllabus-enroll-btn" class="btn btn-primary" onclick="triggerSyllabusEnroll()">Enroll
+              Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SPLASH SCREEN ===== -->
+  <div id="splash">
+    <div class="splash-logo">
+      <img src="https://res.cloudinary.com/drlg1t6pk/image/upload/v1771854440/1_1_p0yx8f.png" alt="MSEED"
+        style="height:250px; object-fit:contain; display:block; margin:0 auto 24px">
+      <p style="color:#f4f4f4;">Empowering Future Professionals</p>
+      <div class="splash-bar">
+        <div class="splash-bar-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PORTAL SELECTION PAGE ===== -->
+  <div id="page-portal" class="page active">
+    <div class="portal-hero">
+      <div class="container">
+        <div class="tag" style="margin-bottom:20px;background:rgba(255,255,255,0.2);color:#fff">Welcome to MSEED</div>
+        <h1>Choose Your Learning Portal</h1>
+        <p>Transforming education through industry-aligned skill development for students at every stage</p>
+      </div>
+    </div>
+    <div class="portal-cards">
+      <div class="portal-card" onclick="navigate('mseed')">
+        <div class="portal-card-icon">🎓</div>
+        <div class="sub">Higher Education</div>
+        <h2>MSEED</h2>
+        <p>College students, institutions & industry-ready career acceleration programs with ATS-optimized tools</p>
+        <button class="btn btn-primary portal-btn">Enter MSEED Portal →</button>
+      </div>
+      <div class="portal-card" onclick="navigate('junior')">
+        <div class="portal-card-icon">🌱</div>
+        <div class="sub">School Education</div>
+        <h2>MSEED Junior</h2>
+        <p>Foundational skill-building programs, career awareness & digital curriculum for school students</p>
+        <button class="btn btn-primary portal-btn">Enter Junior Portal →</button>
+      </div>
+    </div>
+    <div style="text-align:center;padding-bottom:60px">
+      <p style="color:var(--grey-mid);font-size:14px">Trusted by <strong>500+</strong> institutions across India
+        &nbsp;·&nbsp; <strong>50,000+</strong> students trained &nbsp;·&nbsp; <strong>85%</strong> placement rate</p>
+    </div>
+  </div>
+
+  <!-- ===== MSEED PORTAL ===== -->
+  <div id="page-mseed" class="page">
+    <div id="mseed-portal-select">
+      <div class="portal-hero">
+        <div class="container">
+          <div style="margin-bottom:20px"><button class="back-btn" onclick="navigate('portal')"><svg width="16"
+                height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M19 12H5M12 5l-7 7 7 7" />
+              </svg> Back to Portal Select</button></div>
+          <div class="tag" style="margin-bottom:20px;background:rgba(255,255,255,0.2);color:#fff">MSEED</div>
+          <h1>Who are you?</h1>
+          <p>Select your portal to access customized resources, tools and programs</p>
+        </div>
+      </div>
+      <div class="portal-cards">
+        <div class="portal-card" onclick="navigate('college-student')">
+          <div class="portal-card-icon">📚</div>
+          <div class="sub">For Students</div>
+          <h2>Student Portal</h2>
+          <p>Resume tools, live classes, skill games, resources and career-building programs tailored for college
+            students</p>
+          <button class="btn btn-primary portal-btn">Enter Student Portal →</button>
+        </div>
+        <div class="portal-card" onclick="navigate('institution')">
+          <div class="portal-card-icon">🏛️</div>
+          <div class="sub">For Institutions</div>
+          <h2>Institution Portal</h2>
+          <p>Campus connect solutions, dashboards, industry tie-ups and comprehensive placement training</p>
+          <button class="btn btn-primary portal-btn">Enter Institution Portal →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== COLLEGE STUDENT PORTAL ===== -->
+  <div id="page-college-student" class="page">
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="navbar-inner">
+        <div class="navbar-logo">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="MSEED"
+            style="height:38px;object-fit:contain;display:block">
+          <span
+            style="font-size:13px;color:var(--grey-mid);font-family:'DM Sans',sans-serif;font-weight:400;margin-left:8px">Student</span>
+        </div>
+        <div class="nav-links" id="student-nav-links">
+          <span class="nav-link active" onclick="showTab('home')">Home</span>
+          <span class="nav-link" onclick="showTab('courses')">Live Classes</span>
+          <div class="nav-item">
+            <span class="nav-link" onclick="showTab('resources')">Resources <span class="dropdown-icon">▼</span></span>
+            <div class="dropdown-menu">
+              <span class="dropdown-item" onclick="showTab('resources')">Study Materials</span>
+              <span class="dropdown-item" onclick="showTab('resources')">Ultimate Templates</span>
+            </div>
+          </div>
+          <div class="nav-item">
+            <span class="nav-link" onclick="showTab('games')">Games <span class="dropdown-icon">▼</span></span>
+            <div class="dropdown-menu">
+              <span class="dropdown-item" onclick="showTab('games')">Career Quiz</span>
+              <span class="dropdown-item" onclick="showTab('games')">Interview Simulator</span>
+            </div>
+          </div>
+          <span class="nav-link" onclick="showTab('ats')">ATS Tools</span>
+          <span class="nav-link" onclick="showTab('precourses')">Courses</span>
+        </div>
+        <div class="nav-actions">
+          <button class="hamburger-btn" id="hamburger-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+            <span></span><span></span><span></span>
+          </button>
+          <button class="back-btn" onclick="navigate('mseed')"><svg width="14" height="14" fill="none"
+              stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M19 12H5M12 5l-7 7 7 7" />
+            </svg> Portals</button>
+          <button class="btn btn-primary" style="padding:10px 20px;font-size:13px"
+            onclick="openEnrollModal('General')">Enroll Now</button>
+        </div>
+      </div>
+      <!-- Mobile menu -->
+      <div class="mobile-menu hidden" id="mobile-menu">
+        <span class="nav-link" onclick="showTab('home');closeMobileMenu()">Home</span>
+        <span class="nav-link" onclick="showTab('courses');closeMobileMenu()">Live Classes</span>
+        <span class="nav-link" onclick="showTab('resources');closeMobileMenu()">Resources</span>
+        <span class="nav-link" onclick="showTab('games');closeMobileMenu()">Games</span>
+        <span class="nav-link" onclick="showTab('ats');closeMobileMenu()">ATS Tools</span>
+        <span class="nav-link" onclick="showTab('precourses');closeMobileMenu()">Courses</span>
+      </div>
+    </nav>
+
+    <!-- ===== TAB: HOME ===== -->
+    <div id="tab-home" class="tab-content">
+
+      <!-- PROMO NOTIFICATION STRIP -->
+      <div class="promo-strip" onclick="showTab('precourses')">
+        <div class="promo-strip-content" id="promo-strip-content">
+          <span>🎯 Try our Free Trial Tutorial Courses today! &rarr;</span>
+        </div>
+      </div>
+
+      <!-- HERO CAROUSEL -->
+      <section class="hero-carousel-wrap">
+        <div class="hc-track" id="hc-track">
+
+          <!-- SLIDE 1: Resume + Live Classes -->
+          <div class="hc-slide">
+            <div class="hc-bg hc-bg-1"></div>
+            <div class="container hc-inner">
+              <div class="hc-content">
+                <div class="hc-eyebrow"><span class="hc-live-dot"></span>🚀 India's #1 Career Readiness Platform</div>
+                <h1 class="hc-headline">Build a Career That<br><span class="hc-accent">Industry Demands</span></h1>
+                <p class="hc-sub">Industry-aligned programs, ATS-ready resumes, and real-world skill training that gets
+                  you hired — not just educated.</p>
+                <div class="hc-trust-pills">
+                  <span class="hc-pill">✅ 85% Placement Rate</span>
+                  <span class="hc-pill">✅ 500+ Hiring Partners</span>
+                  <span class="hc-pill">✅ ATS-Verified Resumes</span>
+                </div>
+                <div class="hc-actions">
+                  <button class="btn btn-white hc-btn" onclick="showTab('ats');setATSMode('checker')">🔍 Check Your
+                    Resume</button>
+                  <button class="btn hc-btn-ghost" onclick="showTab('courses')">Explore Live Classes →</button>
+                </div>
+              </div>
+              <div class="hc-visual yt-gallery-wrap">
+                <div class="yt-gallery">
+
+                  <div class="yt-card" data-vid="h3YBrxbvkMw" data-title="Placement Success Stories"
+                    data-tag="Student Wins 🏆">
+                    <div class="yt-thumb">
+                      <img src="https://img.youtube.com/vi/h3YBrxbvkMw/mqdefault.jpg" alt="Placement Success Stories"
+                        loading="lazy">
+                      <div class="yt-play-btn">
+                        <svg viewBox="0 0 24 24" fill="white" width="28" height="28">
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      </div>
+                      <div class="yt-duration">3:45</div>
+                    </div>
+                    <div class="yt-card-info">
+                      <span class="yt-tag">Student Wins 🏆</span>
+                      <p class="yt-title">Placement Success Stories</p>
+                    </div>
+                  </div>
+
+                  <div class="yt-card" data-vid="dTlDtZ2jPeQ" data-title="Resume Building Masterclass"
+                    data-tag="ATS Tips 📄">
+                    <div class="yt-thumb">
+                      <img src="https://img.youtube.com/vi/dTlDtZ2jPeQ/mqdefault.jpg" alt="Resume Building Masterclass"
+                        loading="lazy">
+                      <div class="yt-play-btn">
+                        <svg viewBox="0 0 24 24" fill="white" width="28" height="28">
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      </div>
+                      <div class="yt-duration">5:12</div>
+                    </div>
+                    <div class="yt-card-info">
+                      <span class="yt-tag">ATS Tips 📄</span>
+                      <p class="yt-title">Resume Building Masterclass</p>
+                    </div>
+                  </div>
+
+                  <div class="yt-card" data-vid="1KSdvJZ6zcU" data-title="Live Class Preview — Web Dev"
+                    data-tag="Live Class 🎓">
+                    <div class="yt-thumb">
+                      <img src="https://img.youtube.com/vi/1KSdvJZ6zcU/mqdefault.jpg" alt="Live Class Preview"
+                        loading="lazy">
+                      <div class="yt-play-btn">
+                        <svg viewBox="0 0 24 24" fill="white" width="28" height="28">
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      </div>
+                      <div class="yt-duration">8:30</div>
+                    </div>
+                    <div class="yt-card-info">
+                      <span class="yt-tag">Live Class 🎓</span>
+                      <p class="yt-title">Live Class Preview — Web Dev</p>
+                    </div>
+                  </div>
+
+                  <div class="yt-card" data-vid="vP7Cj5n7BNw" data-title="Mock Interview — HR Round"
+                    data-tag="Interview Prep 🎯">
+                    <div class="yt-thumb">
+                      <img src="https://img.youtube.com/vi/vP7Cj5n7BNw/mqdefault.jpg" alt="Mock Interview"
+                        loading="lazy">
+                      <div class="yt-play-btn">
+                        <svg viewBox="0 0 24 24" fill="white" width="28" height="28">
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      </div>
+                      <div class="yt-duration">6:18</div>
+                    </div>
+                    <div class="yt-card-info">
+                      <span class="yt-tag">Interview Prep 🎯</span>
+                      <p class="yt-title">Mock Interview — HR Round</p>
+                    </div>
+                  </div>
+
+                </div><!-- /.yt-gallery -->
+              </div><!-- /.hc-visual -->
+
+            </div>
+          </div>
+
+          <!-- SLIDE 2: Live Class Bundles -->
+          <div class="hc-slide">
+            <div class="hc-bg hc-bg-2"></div>
+            <div class="container hc-inner">
+              <div class="hc-content">
+                <div class="hc-eyebrow"><span class="hc-live-dot" style="background:#FFD600"></span>📦 Smarter Learning,
+                  Better Savings</div>
+                <h1 class="hc-headline">Master More.<br><span class="hc-accent">Pay Less with Bundles</span></h1>
+                <p class="hc-sub">Live Class Bundles are hand-picked combinations of related skills — perfect for
+                  landing roles in top tech, analytics, and engineering companies. One bundle, one price, complete
+                  career readiness.</p>
+                <div class="hc-trust-pills">
+                  <span class="hc-pill">✅ Save up to 40%</span>
+                  <span class="hc-pill">✅ Industry-curated sets</span>
+                  <span class="hc-pill">✅ Dual Certificate</span>
+                </div>
+                <div class="hc-bundle-chips">
+                  <span class="hc-bundle-chip">🧠 AI + ML + Data Science</span>
+                  <span class="hc-bundle-chip">🌐 Web Dev + Cloud + DevOps</span>
+                  <span class="hc-bundle-chip">⚡ EV + CAD + Automation</span>
+                  <span class="hc-bundle-chip">🛡️ Cyber + Networking + IoT</span>
+                </div>
+                <div class="hc-actions">
+                  <button class="btn btn-white hc-btn"
+                    onclick="showTab('courses');setTimeout(()=>filterCourses('bundle',document.querySelector('[data-dept=bundle]')),100)">📦
+                    Explore Bundles</button>
+                  <button class="btn hc-btn-ghost" onclick="showTab('courses')">View All Live Classes →</button>
+                </div>
+              </div>
+              <div class="hc-visual">
+                <div class="hc-bundle-stack">
+                  <div class="hc-bundle-card">
+                    <span class="hc-bc-icon">🚀</span>
+                    <div>
+                      <div class="hc-bc-title">Full Stack Developer</div>
+                      <div class="hc-bc-meta">4 Live Classes · 40 Weeks</div>
+                    </div>
+                    <div class="hc-bc-price"><s>₹24,000</s><b>₹14,999</b></div>
+                  </div>
+                  <div class="hc-bundle-card" style="opacity:.85">
+                    <span class="hc-bc-icon">📊</span>
+                    <div>
+                      <div class="hc-bc-title">Data Analyst Pro</div>
+                      <div class="hc-bc-meta">3 Live Classes · 32 Weeks</div>
+                    </div>
+                    <div class="hc-bc-price"><s>₹18,000</s><b>₹10,999</b></div>
+                  </div>
+                  <div class="hc-bundle-card" style="opacity:.7">
+                    <span class="hc-bc-icon">⚡</span>
+                    <div>
+                      <div class="hc-bc-title">EV & Automation</div>
+                      <div class="hc-bc-meta">3 Live Classes · 32 Weeks</div>
+                    </div>
+                    <div class="hc-bc-price"><s>₹16,000</s><b>₹9,999</b></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SLIDE 3: Services -->
+          <div class="hc-slide">
+            <div class="hc-bg hc-bg-3"></div>
+            <div class="container hc-inner">
+              <div class="hc-content">
+                <div class="hc-eyebrow"><span class="hc-live-dot" style="background:#00E5FF"></span>🎁 Exclusive Student
+                  Benefits</div>
+                <h1 class="hc-headline">Free Live Classes. Fun Games.<br><span class="hc-accent">Real Resources.</span>
+                </h1>
+                <p class="hc-sub">MSEED students get exclusive access to free skill courses, career games with special
+                  discounts, and a full library of placement-ready PDFs — all in one platform.</p>
+                <div class="hc-trust-pills">
+                  <span class="hc-pill">🎮 Games — 20% OFF</span>
+                  <span class="hc-pill">📚 50+ Free Resources</span>
+                  <span class="hc-pill">🎓 Free Starter Live Classes</span>
+                </div>
+                <div class="hc-service-grid">
+                  <button class="hc-service-btn" onclick="showTab('games')"><span class="hc-sb-icon">🎮</span><span
+                      class="hc-sb-label">Skill Games<small>20% OFF Today</small></span></button>
+                  <button class="hc-service-btn" onclick="showTab('resources')"><span class="hc-sb-icon">📚</span><span
+                      class="hc-sb-label">Resources<small>50+ Free Guides</small></span></button>
+                  <button class="hc-service-btn" onclick="showTab('courses')"><span class="hc-sb-icon">🎓</span><span
+                      class="hc-sb-label">Free Live Classes<small>Start Today</small></span></button>
+                </div>
+              </div>
+              <div class="hc-visual hc-services-visual">
+                <div class="hc-svc-float"><span>🎮</span>
+                  <div>
+                    <div class="hc-svc-name">Career Quiz Blitz</div>
+                    <div class="hc-svc-tag">🔥 20% off · Limited time</div>
+                  </div>
+                </div>
+                <div class="hc-svc-float" onclick="showTab('resources')" style="cursor:pointer"><span>📚</span>
+                  <div>
+                    <div class="hc-svc-name">Resume Templates & Guides</div>
+                    <div class="hc-svc-tag">✅ Free Download</div>
+                  </div>
+                </div>
+                <div class="hc-svc-float"><span>🎓</span>
+                  <div>
+                    <div class="hc-svc-name">Web Dev Foundations</div>
+                    <div class="hc-svc-tag">🆓 Free Starter Live Class</div>
+                  </div>
+                </div>
+                <div class="hc-svc-float"><span>🐍</span>
+                  <div>
+                    <div class="hc-svc-name">Python Basics</div>
+                    <div class="hc-svc-tag">🆓 Free Starter Live Class</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /hc-track -->
+
+        <!-- Controls -->
+
+        <div class="hc-progress-track">
+          <div class="hc-progress-fill" id="hc-progress"></div>
+        </div>
+      </section>
+
+      <!-- PARTNER LOGO STRIP -->
+      <section class="partner-strip-section">
+        <div class="partner-strip-label">Trusted by companies hiring our students</div>
+        <div class="partner-strip-wrap">
+          <div class="partner-strip-track">
+
+            <div class="partner-logo-item"><img
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3ETCS%3C/text%3E%3C/svg%3E"
+                alt="TCS"></div>
+            <div class="partner-logo-item"><img
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EInfosys%3C/text%3E%3C/svg%3E"
+                alt="Infosys"></div>
+            <div class="partner-logo-item"><img
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EWipro%3C/text%3E%3C/svg%3E"
+                alt="Wipro"></div>
+            <div class="partner-logo-item"><img
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3ECognizant%3C/text%3E%3C/svg%3E"
+                alt="Cognizant"></div>
+            <div class="partner-logo-item"><img
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EAccenture%3C/text%3E%3C/svg%3E"
+                alt="Accenture"></div>
+            <div class="partner-logo-item"><img
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EZoho%3C/text%3E%3C/svg%3E"
+                alt="Zoho"></div>
+            <div class="partner-logo-item"><img
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EFreshworks%3C/text%3E%3C/svg%3E"
+                alt="Freshworks"></div>
+            <div class="partner-logo-item"><img
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EGoogle%3C/text%3E%3C/svg%3E"
+                alt="Google"></div>
+            <div class="partner-logo-item"><img
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EMicrosoft%3C/text%3E%3C/svg%3E"
+                alt="Microsoft"></div>
+            <div class="partner-logo-item"><img
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EAmazon%3C/text%3E%3C/svg%3E"
+                alt="Amazon"></div>
+            <div class="partner-logo-item"><img
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EMeta%3C/text%3E%3C/svg%3E"
+                alt="Meta"></div>
+            <div class="partner-logo-item"><img
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3ENetflix%3C/text%3E%3C/svg%3E"
+                alt="Netflix"></div>
+            <div class="partner-logo-item"><img
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EApple%3C/text%3E%3C/svg%3E"
+                alt="Apple"></div>
+            <div class="partner-logo-item"><img
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EIBM%3C/text%3E%3C/svg%3E"
+                alt="IBM"></div>
+            <div class="partner-logo-item"><img
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EOracle%3C/text%3E%3C/svg%3E"
+                alt="Oracle"></div>
+
+
+            <div class="partner-logo-item"><img
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3ETCS%3C/text%3E%3C/svg%3E"
+                alt="TCS"></div>
+            <div class="partner-logo-item"><img
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EInfosys%3C/text%3E%3C/svg%3E"
+                alt="Infosys"></div>
+            <div class="partner-logo-item"><img
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EWipro%3C/text%3E%3C/svg%3E"
+                alt="Wipro"></div>
+            <div class="partner-logo-item"><img
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3ECognizant%3C/text%3E%3C/svg%3E"
+                alt="Cognizant"></div>
+            <div class="partner-logo-item"><img
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EAccenture%3C/text%3E%3C/svg%3E"
+                alt="Accenture"></div>
+            <div class="partner-logo-item"><img
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EZoho%3C/text%3E%3C/svg%3E"
+                alt="Zoho"></div>
+            <div class="partner-logo-item"><img
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EFreshworks%3C/text%3E%3C/svg%3E"
+                alt="Freshworks"></div>
+            <div class="partner-logo-item"><img
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EGoogle%3C/text%3E%3C/svg%3E"
+                alt="Google"></div>
+            <div class="partner-logo-item"><img
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EMicrosoft%3C/text%3E%3C/svg%3E"
+                alt="Microsoft"></div>
+            <div class="partner-logo-item"><img
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EAmazon%3C/text%3E%3C/svg%3E"
+                alt="Amazon"></div>
+            <div class="partner-logo-item"><img
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EMeta%3C/text%3E%3C/svg%3E"
+                alt="Meta"></div>
+            <div class="partner-logo-item"><img
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3ENetflix%3C/text%3E%3C/svg%3E"
+                alt="Netflix"></div>
+            <div class="partner-logo-item"><img
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EApple%3C/text%3E%3C/svg%3E"
+                alt="Apple"></div>
+            <div class="partner-logo-item"><img
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EIBM%3C/text%3E%3C/svg%3E"
+                alt="IBM"></div>
+            <div class="partner-logo-item"><img
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EOracle%3C/text%3E%3C/svg%3E"
+                alt="Oracle"></div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- STATS BAR -->
+      <div class="stats-bar">
+        <div class="stats-inner">
+          <div class="stat-item">
+            <div class="stat-num" id="stat1">0+</div>
+            <div class="stat-label">Students Trained</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num" id="stat2">0%</div>
+            <div class="stat-label">Placement Rate</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num" id="stat3">0+</div>
+            <div class="stat-label">Partner Companies</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num" id="stat4">0+</div>
+            <div class="stat-label">Live Classes Available</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num" id="stat5">0+</div>
+            <div class="stat-label">Institutions Partnered</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ATS CTA SECTION -->
+      <section class="section" style="background:rgba(0,177,123,0.08)">
+        <div class="container">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center">
+            <div>
+              <div class="tag">ATS Resume Tools</div>
+              <h2 style="font-family:'Playfair Display',serif;font-size:38px;margin:16px 0">Is Your Resume<br>ATS-Proof?
+              </h2>
+              <p style="color:var(--grey-mid);font-size:16px;line-height:1.8;margin-bottom:28px">75% of resumes get
+                rejected by Applicant Tracking Systems before a human even sees them. Our AI-powered checker gives you a
+                real score, identifies gaps, and helps you fix them in minutes.</p>
+              <div style="display:flex;gap:16px;flex-wrap:wrap">
+                <button class="btn btn-primary" onclick="showTab('ats');setATSMode('checker')">🔍 Check My
+                  Resume</button>
+                <button class="btn btn-outline" onclick="showTab('ats');setATSMode('builder')">✍️ Build ATS
+                  Resume</button>
+              </div>
+            </div>
+            <div style="background:#fff;border-radius:20px;padding:28px;box-shadow:var(--shadow)">
+              <div style="display:flex;flex-direction:column;gap:16px">
+                <div style="display:flex;align-items:center;justify-content:space-between"><span
+                    style="font-size:14px;font-weight:600">Keyword Match</span><span
+                    style="color:var(--green);font-weight:700">72%</span></div>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width:72%"></div>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between"><span
+                    style="font-size:14px;font-weight:600">Format Score</span><span
+                    style="color:var(--green);font-weight:700">88%</span></div>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width:88%"></div>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between"><span
+                    style="font-size:14px;font-weight:600">Skill Alignment</span><span
+                    style="color:#F57F17;font-weight:700">54%</span></div>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width:54%;background:linear-gradient(90deg,#F57F17,#FFB74D)"></div>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between"><span
+                    style="font-size:14px;font-weight:600">Overall ATS Score</span><span
+                    style="color:var(--green);font-weight:900;font-size:18px">71/100</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FEATURED COURSES -->
+      <section class="section">
+        <div class="container">
+          <div class="section-title">
+            <div class="tag">Live Classes</div>
+            <h2>Industry-Aligned Programs</h2>
+            <p>Department-wise courses designed with industry experts to make you job-ready</p>
+          </div>
+          <div class="grid-3" id="home-courses"></div>
+          <div style="text-align:center;margin-top:40px">
+            <button class="btn btn-outline" onclick="showTab('courses')">View All Live Classes →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- WHY MSEED -->
+      <section class="section" style="background:var(--grey);color:#fff">
+        <div class="container">
+          <div class="section-title">
+            <div class="tag" style="background:rgba(255,255,255,0.15);color:#fff">Why MSEED</div>
+            <h2 style="color:#fff">Built for Real Outcomes,<br>Not Just Certificates</h2>
+          </div>
+          <div class="grid-4">
+            <div style="text-align:center;padding:24px">
+              <div style="font-size:40px;margin-bottom:12px">🎯</div>
+              <h4 style="color:#fff;margin-bottom:8px;font-family:'Playfair Display',serif">Industry-Designed</h4>
+              <p style="font-size:13px;color:rgba(255,255,255,0.6)">Curriculum co-created with 200+ companies for real
+                relevance</p>
+            </div>
+            <div style="text-align:center;padding:24px">
+              <div style="font-size:40px;margin-bottom:12px">🤝</div>
+              <h4 style="color:#fff;margin-bottom:8px;font-family:'Playfair Display',serif">Placement Support</h4>
+              <p style="font-size:13px;color:rgba(255,255,255,0.6)">Dedicated placement cell with 85%+ success rate</p>
+            </div>
+            <div style="text-align:center;padding:24px">
+              <div style="font-size:40px;margin-bottom:12px">📊</div>
+              <h4 style="color:#fff;margin-bottom:8px;font-family:'Playfair Display',serif">Live Projects</h4>
+              <p style="font-size:13px;color:rgba(255,255,255,0.6)">Work on actual industry projects during your
+                training</p>
+            </div>
+            <div style="text-align:center;padding:24px">
+              <div style="font-size:40px;margin-bottom:12px">🏆</div>
+              <h4 style="color:#fff;margin-bottom:8px;font-family:'Playfair Display',serif">Dual Certification</h4>
+              <p style="font-size:13px;color:rgba(255,255,255,0.6)">MSEED + Industry partner certificates that carry
+                weight</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PLACEMENT TRUST SECTION -->
+      <section class="placement-section section">
+        <div class="container">
+          <div class="section-title">
+            <div class="tag">Student Transformations</div>
+            <h2>From Campus to Career —<br>Real Stories, Real Outcomes</h2>
+            <p>Meet MSEED students who transformed their careers with industry-aligned training and ATS-ready resumes
+            </p>
+          </div>
+          <div class="placement-grid" id="placement-grid"></div>
+          <div style="text-align:center;margin-top:48px">
+            <button class="btn btn-primary" style="font-size:16px;padding:16px 40px"
+              onclick="openEnrollModal('General')">Start Your Transformation →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="footer">
+        <div class="container">
+          <div class="footer-grid">
+            <div class="footer-brand">
+              <h3>MSEED</h3>
+              <p>Empowering students with industry-relevant skills, ATS-ready tools, and real career outcomes since
+                2018.</p>
+              <div class="social-links">
+                <div class="social-btn">𝕏</div>
+                <div class="social-btn">in</div>
+                <div class="social-btn">▶</div>
+                <div class="social-btn">📷</div>
+              </div>
+            </div>
+            <div class="footer-col">
+              <h4>Programs</h4>
+              <div class="footer-links"><span class="footer-link">Engineering</span><span
+                  class="footer-link">Management</span><span class="footer-link">Commerce</span><span
+                  class="footer-link">Arts & Science</span><span class="footer-link">Law</span></div>
+            </div>
+            <div class="footer-col">
+              <h4>Tools</h4>
+              <div class="footer-links"><span class="footer-link">ATS Checker</span><span class="footer-link">Resume
+                  Builder</span><span class="footer-link">Skill Games</span><span class="footer-link">Content
+                  PDFs</span></div>
+            </div>
+            <div class="footer-col">
+              <h4>Company</h4>
+              <div class="footer-links"><span class="footer-link">About Us</span><span
+                  class="footer-link">Careers</span><span class="footer-link">Blog</span><span
+                  class="footer-link">Contact</span><span class="footer-link">Partner With Us</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div class="container">© 2025 MSEED. All rights reserved. Empowering careers across India.</div>
+        </div>
+      </footer>
+    </div><!-- /tab-home -->
+
+    <!-- TAB: LIVE CLASSES -->
+    <div id="tab-courses" class="tab-content hidden">
+      <div class="container" style="padding-top:60px;padding-bottom:80px">
+        <div class="section-title" style="text-align:left;margin-bottom:32px">
+          <div class="tag">All Programs</div>
+          <h2 style="font-family:'Playfair Display',serif;font-size:38px;margin-top:12px">Live Classes by Department
+          </h2>
+          <p style="color:var(--grey-mid);margin-top:8px">Filter by department to find the perfect program for your
+            career path</p>
+        </div>
+        <div class="dept-filter" id="dept-filter">
+          <button class="dept-btn active" onclick="filterCourses('all',this)">All Departments</button>
+          <button class="dept-btn" onclick="filterCourses('free',this)" data-dept="free">🆓 Free Live Classes</button>
+          <button class="dept-btn" onclick="filterCourses('cse',this)">💻 CSE</button>
+          <button class="dept-btn" onclick="filterCourses('it',this)">💻 IT</button>
+          <button class="dept-btn" onclick="filterCourses('ece',this)">📡 ECE</button>
+          <button class="dept-btn" onclick="filterCourses('eee',this)">⚡ EEE</button>
+          <button class="dept-btn" onclick="filterCourses('mech',this)">⚙️ Mechanical</button>
+          <button class="dept-btn" onclick="filterCourses('bundle',this)" data-dept="bundle">📦 Live Class
+            Bundles</button>
+        </div>
+        <div class="grid-3" id="all-courses"></div>
+      </div>
+    </div>
+
+    <!-- TAB: RESOURCES -->
+    <div id="tab-resources" class="tab-content hidden">
+      <div class="container" style="padding-top:60px;padding-bottom:80px">
+        <div class="section-title" style="text-align:left;margin-bottom:40px">
+          <div class="tag">Learning Resources</div>
+          <h2 style="font-family:'Playfair Display',serif;font-size:38px;margin-top:12px">Your Career Toolkit</h2>
+          <p style="color:var(--grey-mid);margin-top:8px">Curated guides, templates, and study materials</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px" id="resources-list"></div>
+      </div>
+    </div>
+
+    <!-- TAB: GAMES -->
+    <div id="tab-games" class="tab-content hidden">
+      <div class="container" style="padding-top:60px;padding-bottom:80px">
+        <div class="section-title" style="text-align:left;margin-bottom:40px">
+          <div class="tag">Skill Games</div>
+          <h2 style="font-family:'Playfair Display',serif;font-size:38px;margin-top:12px">Learn While You Play</h2>
+          <p style="color:var(--grey-mid);margin-top:8px">Gamified learning experiences to sharpen your professional
+            skills</p>
+        </div>
+        <div class="grid-3" id="games-list"></div>
+      </div>
+    </div>
+
+    <!-- TAB: ATS TOOLS -->
+    <div id="tab-ats" class="tab-content hidden">
+      <div class="container" style="padding-top:60px;padding-bottom:80px;max-width:960px">
+        <div style="display:flex;gap:12px;margin-bottom:40px">
+          <button class="btn btn-primary" id="ats-tab-checker" onclick="setATSMode('checker')">🔍 ATS Checker</button>
+          <button class="btn btn-outline" id="ats-tab-builder" onclick="setATSMode('builder')">✍️ Resume
+            Builder</button>
+        </div>
+        <!-- ATS Checker -->
+        <div id="ats-checker">
+          <div class="section-title" style="text-align:left;margin-bottom:32px">
+            <div class="tag">ATS Resume Checker</div>
+            <h2 style="font-family:'Playfair Display',serif;font-size:36px;margin-top:12px">Upload & Score Your Resume
+            </h2>
+            <p style="color:var(--grey-mid);margin-top:8px">Get an instant ATS compatibility score with actionable
+              improvement insights</p>
+          </div>
+          <div id="ats-upload-section">
+            <div class="ats-upload-zone" id="drop-zone" onclick="simulateUpload()"
+              ondragover="event.preventDefault();this.classList.add('drag-over')"
+              ondragleave="this.classList.remove('drag-over')"
+              ondrop="event.preventDefault();this.classList.remove('drag-over');simulateUpload()">
+              <div class="upload-icon">📄</div>
+              <h3 style="font-family:'Playfair Display',serif;font-size:22px;margin-bottom:8px">Drop your resume here
+              </h3>
+              <p style="color:var(--grey-mid);font-size:14px;margin-bottom:20px">Supports PDF, DOCX, TXT • Max 5MB</p>
+              <button class="btn btn-primary" onclick="event.stopPropagation();simulateUpload()">📁 Browse
+                Files</button>
+            </div>
+            <div
+              style="margin-top:24px;background:#fff;border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)">
+              <h4 style="font-size:14px;font-weight:700;margin-bottom:12px">Or paste job description to check alignment:
+              </h4>
+              <textarea class="form-input" id="jd-input"
+                placeholder="Paste job description here to get keyword match analysis..." rows="4"></textarea>
+            </div>
+          </div>
+          <div id="ats-loading" class="hidden" style="text-align:center;padding:60px 0">
+            <div style="font-size:64px;animation:spin 1s linear infinite;display:inline-block">⚙️</div>
+            <h3 style="font-family:'Playfair Display',serif;font-size:22px;margin-top:20px;margin-bottom:8px">Analyzing
+              Your Resume...</h3>
+            <p style="color:var(--grey-mid)">Running 47 ATS compatibility checks</p>
+          </div>
+          <div id="ats-results" class="hidden ats-result">
+            <div style="display:grid;grid-template-columns:1fr 2fr;gap:32px;align-items:start">
+              <div style="text-align:center">
+                <div class="score-ring">
+                  <svg width="160" height="160" viewBox="0 0 160 160">
+                    <circle cx="80" cy="80" r="68" fill="none" stroke="rgba(0,177,123,0.15)" stroke-width="12" />
+                    <circle cx="80" cy="80" r="68" fill="none" stroke="#00b17b" stroke-width="12" stroke-dasharray="427"
+                      stroke-dashoffset="114" stroke-linecap="round" />
+                  </svg>
+                  <div class="score-text"><span class="score-num">73</span><span class="score-label">ATS Score</span>
+                  </div>
+                </div>
+                <div class="badge" style="margin-bottom:12px">🟡 Good — Can Improve</div>
+                <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:8px"
+                  onclick="openEnrollModal('ATS Masterclass')">Enroll to Optimize →</button>
+              </div>
+              <div>
+                <h3 style="font-family:'Playfair Display',serif;font-size:22px;margin-bottom:20px">Detailed Insights
+                </h3>
+                <div id="ats-insights-list"></div>
+                <div style="margin-top:24px">
+                  <h4 style="font-size:14px;font-weight:700;margin-bottom:12px">Keyword Match Analysis</h4>
+                  <div id="keyword-bars"></div>
+                </div>
+                <div
+                  style="margin-top:24px;background:linear-gradient(135deg,var(--green),#00c98c);border-radius:var(--radius);padding:24px;color:#fff">
+                  <h4 style="font-family:'Playfair Display',serif;font-size:18px;margin-bottom:8px">🚀 Ready to Score
+                    90+?</h4>
+                  <p style="font-size:14px;opacity:0.85;margin-bottom:16px">Our ATS Resume Live Class has helped 15,000+
+                    students land interviews at top companies.</p>
+                  <button class="btn btn-white" onclick="openEnrollModal('ATS Masterclass')">Enroll in ATS
+                    Masterclass</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Resume Builder -->
+        <div id="ats-builder" class="hidden">
+          <div class="section-title" style="text-align:left;margin-bottom:32px">
+            <div class="tag">ATS Resume Builder</div>
+            <h2 style="font-family:'Playfair Display',serif;font-size:36px;margin-top:12px">Build Your Perfect Resume
+            </h2>
+            <p style="color:var(--grey-mid);margin-top:8px">Step-by-step guided builder with ATS optimization at every
+              stage</p>
+          </div>
+          <div class="builder-steps">
+            <div class="builder-step done" onclick="goBuilderStep(1)">1. Personal Info</div>
+            <div class="builder-step active" onclick="goBuilderStep(2)">2. Education</div>
+            <div class="builder-step" onclick="goBuilderStep(3)">3. Experience</div>
+            <div class="builder-step" onclick="goBuilderStep(4)">4. Skills</div>
+            <div class="builder-step" onclick="goBuilderStep(5)">5. Preview</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px">
+            <div>
+              <div id="builder-step-1" class="hidden">
+                <h3 style="font-family:'Playfair Display',serif;font-size:22px;margin-bottom:24px">Personal Information
+                </h3>
+                <div class="grid-2" style="gap:16px">
+                  <div class="form-group"><label>First Name</label><input class="form-input" id="rb-fname"
+                      placeholder="Riya" oninput="updatePreview()"></div>
+                  <div class="form-group"><label>Last Name</label><input class="form-input" id="rb-lname"
+                      placeholder="Sharma" oninput="updatePreview()"></div>
+                </div>
+                <div class="form-group"><label>Email</label><input class="form-input" id="rb-email" type="email"
+                    placeholder="riya@email.com" oninput="updatePreview()"></div>
+                <div class="form-group"><label>Phone</label><input class="form-input" id="rb-phone"
+                    placeholder="+91 98765 43210" oninput="updatePreview()"></div>
+                <div class="form-group"><label>LinkedIn URL</label><input class="form-input" id="rb-linkedin"
+                    placeholder="linkedin.com/in/riyasharma" oninput="updatePreview()"></div>
+                <div class="form-group"><label>Professional Summary</label><textarea class="form-input" id="rb-summary"
+                    placeholder="Motivated Computer Science student with expertise in..."
+                    oninput="updatePreview()"></textarea></div>
+                <button class="btn btn-primary" onclick="goBuilderStep(2)">Next: Education →</button>
+              </div>
+              <div id="builder-step-2">
+                <h3 style="font-family:'Playfair Display',serif;font-size:22px;margin-bottom:24px">Education</h3>
+                <div class="form-group"><label>University / College</label><input class="form-input" id="rb-college"
+                    placeholder="Anna University, Chennai" oninput="updatePreview()"></div>
+                <div class="form-group"><label>Degree & Branch</label><input class="form-input" id="rb-degree"
+                    placeholder="B.Tech Computer Science Engineering" oninput="updatePreview()"></div>
+                <div class="grid-2" style="gap:16px">
+                  <div class="form-group"><label>CGPA / Percentage</label><input class="form-input" id="rb-cgpa"
+                      placeholder="8.6 CGPA" oninput="updatePreview()"></div>
+                  <div class="form-group"><label>Year of Graduation</label><input class="form-input" id="rb-year"
+                      placeholder="2025" oninput="updatePreview()"></div>
+                </div>
+                <div class="form-group"><label>12th Board & Marks</label><input class="form-input" id="rb-12th"
+                    placeholder="CBSE – 92.4%" oninput="updatePreview()"></div>
+                <div style="display:flex;gap:12px;margin-top:8px">
+                  <button class="btn btn-outline" onclick="goBuilderStep(1)">← Back</button>
+                  <button class="btn btn-primary" onclick="goBuilderStep(3)">Next: Experience →</button>
+                </div>
+              </div>
+              <div id="builder-step-3" class="hidden">
+                <h3 style="font-family:'Playfair Display',serif;font-size:22px;margin-bottom:24px">Work Experience /
+                  Internships</h3>
+                <div class="form-group"><label>Company Name</label><input class="form-input" id="rb-company"
+                    placeholder="TCS, Infosys, Startup..." oninput="updatePreview()"></div>
+                <div class="form-group"><label>Role / Designation</label><input class="form-input" id="rb-role"
+                    placeholder="Software Intern / Data Analyst Intern" oninput="updatePreview()"></div>
+                <div class="grid-2" style="gap:16px">
+                  <div class="form-group"><label>From</label><input class="form-input" id="rb-from"
+                      placeholder="June 2024" oninput="updatePreview()"></div>
+                  <div class="form-group"><label>To</label><input class="form-input" id="rb-to" placeholder="Aug 2024"
+                      oninput="updatePreview()"></div>
+                </div>
+                <div class="form-group"><label>Key Achievements (use action verbs)</label><textarea class="form-input"
+                    id="rb-achievements"
+                    placeholder="• Developed REST APIs reducing response time by 40%&#10;• Automated reports saving 8 hours/week"
+                    oninput="updatePreview()"></textarea></div>
+                <div style="display:flex;gap:12px;margin-top:8px">
+                  <button class="btn btn-outline" onclick="goBuilderStep(2)">← Back</button>
+                  <button class="btn btn-primary" onclick="goBuilderStep(4)">Next: Skills →</button>
+                </div>
+              </div>
+              <div id="builder-step-4" class="hidden">
+                <h3 style="font-family:'Playfair Display',serif;font-size:22px;margin-bottom:24px">Skills &
+                  Certifications</h3>
+                <div class="form-group"><label>Technical Skills (comma separated)</label><input class="form-input"
+                    id="rb-skills" placeholder="Python, SQL, React, Machine Learning, Power BI"
+                    oninput="updatePreview()"></div>
+                <div class="form-group"><label>Soft Skills</label><input class="form-input" id="rb-softskills"
+                    placeholder="Leadership, Communication, Problem Solving" oninput="updatePreview()"></div>
+                <div class="form-group"><label>Certifications</label><textarea class="form-input" id="rb-certs"
+                    placeholder="• Google Data Analytics – Coursera&#10;• AWS Cloud Practitioner"
+                    oninput="updatePreview()"></textarea></div>
+                <div class="form-group"><label>Projects</label><textarea class="form-input" id="rb-projects"
+                    placeholder="• E-commerce Website | React, Node.js | 2024" oninput="updatePreview()"></textarea>
+                </div>
+                <div style="display:flex;gap:12px;margin-top:8px">
+                  <button class="btn btn-outline" onclick="goBuilderStep(3)">← Back</button>
+                  <button class="btn btn-primary" onclick="goBuilderStep(5)">Preview Resume →</button>
+                </div>
+              </div>
+              <div id="builder-step-5" class="hidden">
+                <h3 style="font-family:'Playfair Display',serif;font-size:22px;margin-bottom:16px">✅ Your ATS-Ready
+                  Resume</h3>
+                <div
+                  style="background:rgba(0,177,123,0.12);border-radius:var(--radius-sm);padding:16px;margin-bottom:20px;border-left:4px solid var(--green)">
+                  <p style="font-size:14px;color:var(--green);font-weight:600">🎯 ATS Optimization Score:
+                    <strong>89/100</strong> — Excellent!
+                  </p>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:12px">
+                  <button class="btn btn-primary" onclick="showToast('📥 Resume downloaded as PDF!','success')"
+                    style="justify-content:center">📥 Download PDF</button>
+                  <button class="btn btn-outline" onclick="showToast('🔗 Resume link copied!','success')"
+                    style="justify-content:center">🔗 Share Link</button>
+                  <button class="btn btn-outline" onclick="setATSMode('checker')" style="justify-content:center">🔍
+                    Check ATS Score</button>
+                </div>
+                <button class="btn" onclick="goBuilderStep(1)" style="margin-top:12px;color:var(--grey-mid)">← Start
+                  Over</button>
+              </div>
+            </div>
+            <div id="resume-preview-pane">
+              <h4
+                style="font-size:13px;font-weight:700;color:var(--grey-mid);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px">
+                Live Preview</h4>
+              <div class="resume-preview" id="resume-preview">
+                <h2 id="prev-name">Your Name</h2>
+                <p id="prev-contact" style="color:var(--grey-mid);font-size:12px">email@mseed.in | +91 00000 00000 |
+                  linkedin.com/in/yourprofile</p>
+                <h3>Summary</h3>
+                <p id="prev-summary" style="font-size:12px;color:var(--grey-mid)">Your professional summary will appear
+                  here...</p>
+                <h3>Education</h3>
+                <p id="prev-edu" style="font-size:12px"><strong>Your University</strong> – Your Degree</p>
+                <p style="font-size:12px;color:var(--grey-mid)"><span id="prev-cgpa"></span> | <span
+                    id="prev-year"></span></p>
+                <h3>Experience</h3>
+                <p id="prev-exp" style="font-size:12px"><strong>Company</strong> – Role</p>
+                <p style="font-size:12px;color:var(--grey-mid)"><span id="prev-dates"></span></p>
+                <pre id="prev-achievements"
+                  style="font-size:12px;white-space:pre-wrap;font-family:inherit;color:var(--grey-mid)"></pre>
+                <h3>Skills</h3>
+                <p id="prev-skills" style="font-size:12px;color:var(--grey-mid)">Technical & soft skills appear here</p>
+                <h3>Certifications</h3>
+                <pre id="prev-certs"
+                  style="font-size:12px;white-space:pre-wrap;font-family:inherit;color:var(--grey-mid)"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: COURSES (Pre-Recorded) -->
+    <div id="tab-precourses" class="tab-content hidden">
+      <div class="container" style="padding-top:60px;padding-bottom:80px">
+        <div class="section-title" style="text-align:left;margin-bottom:32px">
+          <div class="tag">Pre-Recorded Courses</div>
+          <h2 style="font-family:'Playfair Display',serif;font-size:38px;margin-top:12px">Learn at Your Own Pace</h2>
+          <p style="color:var(--grey-mid);margin-top:8px">Filter by department to find the perfect pre-recorded program
+          </p>
+        </div>
+        <div class="dept-filter" id="precourse-dept-filter">
+          <button class="dept-btn active" onclick="filterPreCourses('all',this)">All Departments</button>
+          <button class="dept-btn" onclick="filterPreCourses('free',this)" data-dept="free">🆓 Free Courses</button>
+          <button class="dept-btn" onclick="filterPreCourses('cse',this)">💻 CSE</button>
+          <button class="dept-btn" onclick="filterPreCourses('it',this)">💻 IT</button>
+          <button class="dept-btn" onclick="filterPreCourses('ece',this)">📡 ECE</button>
+          <button class="dept-btn" onclick="filterPreCourses('eee',this)">⚡ EEE</button>
+          <button class="dept-btn" onclick="filterPreCourses('mech',this)">⚙️ Mechanical</button>
+        </div>
+        <div class="grid-3" id="all-precourses"></div>
+      </div>
+    </div>
+
+    <!-- TAB: PDFS -->
+    <div id="tab-pdfs" class="tab-content hidden">
+      <div class="container" style="padding-top:60px;padding-bottom:80px">
+        <div class="section-title" style="text-align:left;margin-bottom:40px">
+          <div class="tag">Content PDFs</div>
+          <h2 style="font-family:'Playfair Display',serif;font-size:38px;margin-top:12px">Study Materials & Guides</h2>
+          <p style="color:var(--grey-mid);margin-top:8px">Download curated PDFs for interviews, aptitude, technical and
+            HR preparation</p>
+        </div>
+        <div class="grid-2" id="pdf-grid"></div>
+      </div>
+    </div>
+
+  </div><!-- /page-college-student -->
+
+  <!-- ===== INSTITUTION PORTAL ===== -->
+  <div id="page-institution" class="page">
+    <nav class="navbar">
+      <div class="navbar-inner">
+        <div class="navbar-logo">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="MSEED"
+            style="height:38px;object-fit:contain;display:block">
+          <span
+            style="font-size:13px;color:var(--grey-mid);font-family:'DM Sans',sans-serif;font-weight:400;margin-left:8px">Institution</span>
+        </div>
+        <div class="nav-links">
+          <span class="nav-link active" onclick="showInstTab('services')">Services</span>
+          <span class="nav-link" onclick="showInstTab('dashboard')">Dashboard</span>
+          <span class="nav-link" onclick="showInstTab('achievements')">Achievements</span>
+          <span class="nav-link" onclick="showInstTab('industry')">Industry Tie-ups</span>
+          <span class="nav-link" onclick="showInstTab('offers')">Offers</span>
+        </div>
+        <div class="nav-actions">
+          <button class="back-btn" onclick="navigate('mseed')"><svg width="14" height="14" fill="none"
+              stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M19 12H5M12 5l-7 7 7 7" />
+            </svg> Portals</button>
+          <button class="btn btn-primary" style="padding:10px 20px;font-size:13px">Schedule Demo</button>
+        </div>
+      </div>
+    </nav>
+    <div id="inst-tab-services" class="inst-tab">
+      <section class="hero">
+        <div class="container">
+          <div class="hero-content">
+            <div class="hero-badge">🏛️ Institution Solutions</div>
+            <h1>Transform Your<br><span style="color:#b3ffe3">Campus Outcomes</span></h1>
+            <p>End-to-end placement training, skill development infrastructure, and industry connect for colleges and
+              universities.</p>
+            <div class="hero-actions"><button class="btn btn-white"
+                onclick="showToast('Our team will contact you shortly!','success')">Request Campus Visit</button><button
+                class="btn btn-outline" style="border-color:rgba(255,255,255,0.4);color:#fff">Download Brochure</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <div class="container">
+          <div class="section-title">
+            <div class="tag">Our Services</div>
+            <h2>Comprehensive Campus Solutions</h2>
+            <p>Everything your institution needs to deliver outstanding placement outcomes</p>
+          </div>
+          <div class="grid-3">
+            <div class="service-card">
+              <div class="service-icon">🎯</div>
+              <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin-bottom:10px">Placement Training</h3>
+              <p style="font-size:14px;color:var(--grey-mid);line-height:1.7">Full-stack placement preparation:
+                aptitude, technical, GD, HR and communication rounds with live simulations.</p>
+            </div>
+            <div class="service-card">
+              <div class="service-icon">📊</div>
+              <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin-bottom:10px">Skill Assessment</h3>
+              <p style="font-size:14px;color:var(--grey-mid);line-height:1.7">Psychometric and technical assessments to
+                identify skill gaps and create personalized learning paths.</p>
+            </div>
+            <div class="service-card">
+              <div class="service-icon">🏭</div>
+              <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin-bottom:10px">Industry Connect</h3>
+              <p style="font-size:14px;color:var(--grey-mid);line-height:1.7">Direct tie-ups with 200+ companies for
+                internships, live projects, and final placements.</p>
+            </div>
+            <div class="service-card">
+              <div class="service-icon">📱</div>
+              <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin-bottom:10px">Digital LMS</h3>
+              <p style="font-size:14px;color:var(--grey-mid);line-height:1.7">White-labeled learning management system
+                with real-time analytics and progress tracking.</p>
+            </div>
+            <div class="service-card">
+              <div class="service-icon">🤖</div>
+              <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin-bottom:10px">AI Resume Tools</h3>
+              <p style="font-size:14px;color:var(--grey-mid);line-height:1.7">Campus-wide ATS resume checker and builder
+                deployment for all graduating students.</p>
+            </div>
+            <div class="service-card">
+              <div class="service-icon">📋</div>
+              <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin-bottom:10px">NAAC/NBA Support</h3>
+              <p style="font-size:14px;color:var(--grey-mid);line-height:1.7">Documented placement outcomes and skill
+                data to support accreditation processes.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section" style="background:var(--grey-pale)">
+        <div class="container">
+          <div class="section-title">
+            <div class="tag">Testimonials</div>
+            <h2>What Institutions Say</h2>
+          </div>
+          <div class="grid-3">
+            <div class="testimonial-card">
+              <p class="testimonial-quote">MSEED transformed our placement percentage from 42% to 87% in just two
+                academic years. The structured training and industry connections made all the difference.</p>
+              <div class="testimonial-author">
+                <div class="author-avatar">RK</div>
+                <div class="author-info">
+                  <h5>Dr. Rajesh Kumar</h5>
+                  <p>TPO, PSG College of Technology</p>
+                </div>
+              </div>
+            </div>
+            <div class="testimonial-card">
+              <p class="testimonial-quote">The ATS resume tools deployed campus-wide changed how students approach job
+                applications. Our students now get interview calls that were unthinkable before.</p>
+              <div class="testimonial-author">
+                <div class="author-avatar">PS</div>
+                <div class="author-info">
+                  <h5>Prof. Priya Subramanian</h5>
+                  <p>Placement Head, Amrita University</p>
+                </div>
+              </div>
+            </div>
+            <div class="testimonial-card">
+              <p class="testimonial-quote">Best investment our college has made. Industry-aligned curriculum, live
+                projects and dedicated trainers — MSEED delivers on every promise made.</p>
+              <div class="testimonial-author">
+                <div class="author-avatar">AM</div>
+                <div class="author-info">
+                  <h5>Arjun Menon</h5>
+                  <p>Director, SRMIST Chennai</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <footer class="footer">
+        <div class="container">
+          <div class="footer-grid">
+            <div class="footer-brand">
+              <h3>MSEED</h3>
+              <p>Partnering with institutions to deliver exceptional career outcomes for every student.</p>
+              <div class="social-links">
+                <div class="social-btn">𝕏</div>
+                <div class="social-btn">in</div>
+                <div class="social-btn">▶</div>
+              </div>
+            </div>
+            <div class="footer-col">
+              <h4>Services</h4>
+              <div class="footer-links"><span class="footer-link">Placement Training</span><span
+                  class="footer-link">Skill Assessment</span><span class="footer-link">Industry Connect</span><span
+                  class="footer-link">Digital LMS</span></div>
+            </div>
+            <div class="footer-col">
+              <h4>Company</h4>
+              <div class="footer-links"><span class="footer-link">About Us</span><span
+                  class="footer-link">Careers</span><span class="footer-link">Blog</span><span
+                  class="footer-link">Contact</span></div>
+            </div>
+            <div class="footer-col">
+              <h4>Contact</h4>
+              <div class="footer-links"><span class="footer-link">📞 +91 99400 12345</span><span class="footer-link">✉️
+                  email@mseed.in</span><span class="footer-link">📍 Chennai, Tamil Nadu</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div class="container">© 2025 MSEED. All rights reserved.</div>
+        </div>
+      </footer>
+    </div>
+    <div id="inst-tab-dashboard" class="inst-tab hidden">
+      <div class="container" style="padding-top:60px;padding-bottom:80px">
+        <div class="section-title" style="text-align:left;margin-bottom:40px">
+          <div class="tag">Institution Dashboard</div>
+          <h2 style="font-family:'Playfair Display',serif;font-size:38px;margin-top:12px">Campus Analytics Overview</h2>
+          <p style="color:var(--grey-mid);margin-top:8px">Real-time placement and skill training data for your
+            institution</p>
+        </div>
+        <div class="grid-4" style="margin-bottom:32px">
+          <div class="card" style="text-align:center;padding:24px">
+            <div style="font-size:32px;margin-bottom:8px">👥</div>
+            <div style="font-family:'Playfair Display',serif;font-size:36px;color:var(--green);font-weight:900">1,240
+            </div>
+            <div style="font-size:13px;color:var(--grey-mid);margin-top:4px">Students Enrolled</div>
+          </div>
+          <div class="card" style="text-align:center;padding:24px">
+            <div style="font-size:32px;margin-bottom:8px">✅</div>
+            <div style="font-family:'Playfair Display',serif;font-size:36px;color:var(--green);font-weight:900">87%
+            </div>
+            <div style="font-size:13px;color:var(--grey-mid);margin-top:4px">Placement Rate</div>
+          </div>
+          <div class="card" style="text-align:center;padding:24px">
+            <div style="font-size:32px;margin-bottom:8px">🏢</div>
+            <div style="font-family:'Playfair Display',serif;font-size:36px;color:var(--green);font-weight:900">48</div>
+            <div style="font-size:13px;color:var(--grey-mid);margin-top:4px">Companies Visited</div>
+          </div>
+          <div class="card" style="text-align:center;padding:24px">
+            <div style="font-size:32px;margin-bottom:8px">📄</div>
+            <div style="font-family:'Playfair Display',serif;font-size:36px;color:var(--green);font-weight:900">2,100
+            </div>
+            <div style="font-size:13px;color:var(--grey-mid);margin-top:4px">Resumes Optimized</div>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="card">
+            <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin-bottom:20px">Department-wise Placement
+            </h3>
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span>Computer
+                    Science</span><span style="font-weight:700;color:var(--green)">94%</span></div>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width:94%"></div>
+                </div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px">
+                  <span>Mechanical Engineering</span><span style="font-weight:700;color:var(--green)">78%</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width:78%"></div>
+                </div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px">
+                  <span>Electronics & Comm.</span><span style="font-weight:700;color:var(--green)">82%</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width:82%"></div>
+                </div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span>Civil
+                    Engineering</span><span style="font-weight:700;color:#F57F17">65%</span></div>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width:65%;background:linear-gradient(90deg,#F57F17,#FFB74D)"></div>
+                </div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span>MBA /
+                    Management</span><span style="font-weight:700;color:var(--green)">89%</span></div>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width:89%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin-bottom:20px">Upcoming Campus
+              Activities</h3>
+            <div style="display:flex;flex-direction:column;gap:16px">
+              <div style="display:flex;gap:16px;align-items:flex-start">
+                <div
+                  style="background:rgba(0,177,123,0.12);color:var(--green);border-radius:8px;padding:8px 12px;text-align:center;font-size:11px;font-weight:700;min-width:48px">
+                  <div style="font-size:18px;font-weight:900">24</div>Mar
+                </div>
+                <div>
+                  <div style="font-size:14px;font-weight:600">Mock Interview Drive</div>
+                  <div style="font-size:13px;color:var(--grey-mid)">All final year students • 9:00 AM</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:16px;align-items:flex-start">
+                <div
+                  style="background:rgba(0,177,123,0.12);color:var(--green);border-radius:8px;padding:8px 12px;text-align:center;font-size:11px;font-weight:700;min-width:48px">
+                  <div style="font-size:18px;font-weight:900">28</div>Mar
+                </div>
+                <div>
+                  <div style="font-size:14px;font-weight:600">TCS Off-Campus Drive</div>
+                  <div style="font-size:13px;color:var(--grey-mid)">CSE, IT Departments • 10:00 AM</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:16px;align-items:flex-start">
+                <div
+                  style="background:rgba(0,177,123,0.12);color:var(--green);border-radius:8px;padding:8px 12px;text-align:center;font-size:11px;font-weight:700;min-width:48px">
+                  <div style="font-size:18px;font-weight:900">02</div>Apr
+                </div>
+                <div>
+                  <div style="font-size:14px;font-weight:600">Resume Workshop</div>
+                  <div style="font-size:13px;color:var(--grey-mid)">3rd year students • 2:00 PM</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:16px;align-items:flex-start">
+                <div
+                  style="background:rgba(0,177,123,0.12);color:var(--green);border-radius:8px;padding:8px 12px;text-align:center;font-size:11px;font-weight:700;min-width:48px">
+                  <div style="font-size:18px;font-weight:900">10</div>Apr
+                </div>
+                <div>
+                  <div style="font-size:14px;font-weight:600">Industry Connect Day</div>
+                  <div style="font-size:13px;color:var(--grey-mid)">All departments • 9:00 AM – 5:00 PM</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="inst-tab-achievements" class="inst-tab hidden">
+      <div class="container" style="padding-top:60px;padding-bottom:80px">
+        <div class="section-title">
+          <div class="tag">Achievements</div>
+          <h2>Numbers That Speak</h2>
+          <p>Proven outcomes across institutions, students, and industry partners</p>
+        </div>
+        <div class="grid-4" style="margin-bottom:48px">
+          <div class="achievement-card"><span class="achievement-num">500+</span>
+            <p style="color:var(--grey-mid);font-size:14px;margin-top:8px">Institutions Partnered</p>
+          </div>
+          <div class="achievement-card"><span class="achievement-num">50K+</span>
+            <p style="color:var(--grey-mid);font-size:14px;margin-top:8px">Students Trained</p>
+          </div>
+          <div class="achievement-card"><span class="achievement-num">200+</span>
+            <p style="color:var(--grey-mid);font-size:14px;margin-top:8px">Industry Partners</p>
+          </div>
+          <div class="achievement-card"><span class="achievement-num">85%</span>
+            <p style="color:var(--grey-mid);font-size:14px;margin-top:8px">Average Placement Rate</p>
+          </div>
+        </div>
+        <div class="grid-3">
+          <div class="card">
+            <div style="font-size:36px;margin-bottom:12px">🏆</div>
+            <h3 style="font-family:'Playfair Display',serif;font-size:18px;margin-bottom:8px">Best EdTech Partner 2024
+            </h3>
+            <p style="font-size:13px;color:var(--grey-mid)">Awarded by Confederation of Indian Industry (CII) for
+              outstanding contribution to campus placements.</p>
+          </div>
+          <div class="card">
+            <div style="font-size:36px;margin-bottom:12px">🌟</div>
+            <h3 style="font-family:'Playfair Display',serif;font-size:18px;margin-bottom:8px">NASSCOM Certified Partner
+            </h3>
+            <p style="font-size:13px;color:var(--grey-mid)">Recognized for IT skill development excellence and
+              industry-aligned curriculum design.</p>
+          </div>
+          <div class="card">
+            <div style="font-size:36px;margin-bottom:12px">📰</div>
+            <h3 style="font-family:'Playfair Display',serif;font-size:18px;margin-bottom:8px">Featured in Forbes India
+            </h3>
+            <p style="font-size:13px;color:var(--grey-mid)">Listed in Forbes India's Top 20 EdTech Startups Transforming
+              Campus Hiring, 2023.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="inst-tab-industry" class="inst-tab hidden">
+      <div class="container" style="padding-top:60px;padding-bottom:80px">
+        <div class="section-title">
+          <div class="tag">Industry Tie-ups</div>
+          <h2>Powered by 200+ Industry Partners</h2>
+          <p>We connect your campus directly to the companies where your students want to work</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:48px">
+          <div class="industry-logo">TCS</div>
+          <div class="industry-logo">Infosys</div>
+          <div class="industry-logo">Wipro</div>
+          <div class="industry-logo">Cognizant</div>
+          <div class="industry-logo">Accenture</div>
+          <div class="industry-logo">HCL Tech</div>
+          <div class="industry-logo">Tech Mahindra</div>
+          <div class="industry-logo">Capgemini</div>
+          <div class="industry-logo">Zoho Corp</div>
+          <div class="industry-logo">Freshworks</div>
+          <div class="industry-logo">HDFC Bank</div>
+          <div class="industry-logo">ICICI Bank</div>
+          <div class="industry-logo">Amazon India</div>
+          <div class="industry-logo">Flipkart</div>
+          <div class="industry-logo">Swiggy</div>
+          <div class="industry-logo">Zomato</div>
+        </div>
+        <div
+          style="background:linear-gradient(135deg,var(--green),#00c98c);border-radius:24px;padding:48px;text-align:center;color:#fff">
+          <h2 style="font-family:'Playfair Display',serif;font-size:36px;margin-bottom:16px">Want Your Students at These
+            Companies?</h2>
+          <p style="font-size:16px;opacity:0.85;max-width:560px;margin:0 auto 28px">Join 500+ institutions that partner
+            with MSEED to connect their students with top employers</p><button class="btn btn-white"
+            onclick="showToast('Partnership inquiry submitted! Our team will reach out.','success')">Become a Partner
+            Institution</button>
+        </div>
+      </div>
+    </div>
+    <div id="inst-tab-offers" class="inst-tab hidden">
+      <div class="container" style="padding-top:60px;padding-bottom:80px">
+        <div class="section-title">
+          <div class="tag">Current Offers</div>
+          <h2>Limited Time Partnership Deals</h2>
+          <p>Special packages designed to maximize your institution's outcomes and ROI</p>
+        </div>
+        <div class="grid-3">
+          <div class="offer-card">
+            <div class="offer-badge">🔥 Most Popular</div>
+            <h3>Campus Connect Pro</h3>
+            <p>Full placement training suite for up to 500 students including ATS tools, mock interviews and industry
+              drives</p>
+            <div style="font-size:28px;font-weight:900;margin-bottom:4px">₹4.9L / year</div>
+            <div style="font-size:13px;opacity:0.7;margin-bottom:16px;text-decoration:line-through">₹7.5L / year</div>
+            <button class="btn btn-white" onclick="showToast('Campus Connect Pro inquiry sent!','success')">Get This
+              Deal</button>
+          </div>
+          <div class="offer-card" style="background:linear-gradient(135deg,#1a2420,var(--green))">
+            <div class="offer-badge">⚡ New Launch</div>
+            <h3>Digital Campus Suite</h3>
+            <p>LMS + ATS tools + skill assessment platform + industry connect for entire institution</p>
+            <div style="font-size:28px;font-weight:900;margin-bottom:4px">₹9.9L / year</div>
+            <div style="font-size:13px;opacity:0.7;margin-bottom:16px;text-decoration:line-through">₹15L / year</div>
+            <button class="btn btn-white" onclick="showToast('Digital Campus Suite inquiry sent!','success')">Get This
+              Deal</button>
+          </div>
+          <div class="offer-card" style="background:linear-gradient(135deg,var(--grey),#444)">
+            <div class="offer-badge">🎯 Starter</div>
+            <h3>Placement Kickstart</h3>
+            <p>Essential placement training for final year students with ATS resume tools and mock drive</p>
+            <div style="font-size:28px;font-weight:900;margin-bottom:4px">₹1.9L / year</div>
+            <div style="font-size:13px;opacity:0.7;margin-bottom:16px;text-decoration:line-through">₹2.8L / year</div>
+            <button class="btn btn-white" onclick="showToast('Placement Kickstart inquiry sent!','success')">Get This
+              Deal</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /page-institution -->
+
+  <!-- ===== MSEED JUNIOR PORTAL ===== -->
+  <div id="page-junior" class="page">
+    <div id="junior-portal-select">
+      <div class="portal-hero" style="background:linear-gradient(135deg,#1a2420 0%,var(--green) 100%)">
+        <div class="container">
+          <div style="margin-bottom:20px"><button class="back-btn" onclick="navigate('portal')"
+              style="border-color:rgba(255,255,255,0.3);color:#fff;background:rgba(255,255,255,0.1)"><svg width="14"
+                height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M19 12H5M12 5l-7 7 7 7" />
+              </svg> Back</button></div>
+          <div class="tag" style="background:rgba(255,255,255,0.2);color:#fff;margin-bottom:20px">MSEED Junior</div>
+          <h1>🌱 Welcome to MSEED Junior</h1>
+          <p>Future-ready skill programs and digital curriculum for school students aged 8–18</p>
+        </div>
+      </div>
+      <div class="portal-cards">
+        <div class="portal-card" onclick="navigate('junior-student')">
+          <div class="portal-card-icon">🎒</div>
+          <div class="sub">For School Students</div>
+          <h2>Student Portal</h2>
+          <p>Fun skill-building live classes, career exploration, coding basics, and leadership programs for school
+            students</p><button class="btn btn-primary portal-btn">I'm a Student →</button>
+        </div>
+        <div class="portal-card" onclick="navigate('school-inst')">
+          <div class="portal-card-icon">🏫</div>
+          <div class="sub">For Schools</div>
+          <h2>School Portal</h2>
+          <p>Digital curriculum solutions, skill development infrastructure and after-school programs for schools</p>
+          <button class="btn btn-primary portal-btn">I'm a School →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== JUNIOR STUDENT PORTAL ===== -->
+  <div id="page-junior-student" class="page">
+    <nav class="navbar">
+      <div class="navbar-inner">
+        <div class="navbar-logo"><img
+            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="MSEED"
+            style="height:38px;object-fit:contain;display:block"><span
+            style="color:var(--green);font-weight:700;margin-left:8px">Junior</span></div>
+        <div class="nav-links"><span class="nav-link active" onclick="showJrTab('jrhome')">Home</span><span
+            class="nav-link" onclick="showJrTab('jrcourses')">Live Classes</span><span class="nav-link"
+            onclick="showJrTab('jrskills')">Skill Programs</span><span class="nav-link"
+            onclick="showJrTab('jrresources')">Resources</span></div>
+        <div class="nav-actions"><button class="back-btn" onclick="navigate('junior')"><svg width="14" height="14"
+              fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M19 12H5M12 5l-7 7 7 7" />
+            </svg> Portals</button><button class="btn btn-primary" style="padding:10px 20px;font-size:13px">Join
+            Free</button></div>
+      </div>
+    </nav>
+    <div id="jrtab-jrhome" class="jrtab-content">
+      <section class="junior-hero">
+        <div class="container">
+          <div class="hero-content">
+            <div class="hero-badge">🌟 For Students Age 8–18</div>
+            <h1>Discover Your<br><span style="color:#b3ffe3">Superpower Skills</span></h1>
+            <p>Fun, interactive programs in coding, communication, leadership, creativity and more — designed just for
+              school students!</p>
+            <div class="hero-actions"><button class="btn btn-white" onclick="showJrTab('jrcourses')">Explore Live
+                Classes 🚀</button><button class="btn btn-outline" style="border-color:rgba(255,255,255,0.4);color:#fff"
+                onclick="showJrTab('jrskills')">Skill Programs</button></div>
+          </div>
+        </div>
+      </section>
+      <div class="stats-bar">
+        <div class="stats-inner">
+          <div class="stat-item">
+            <div class="stat-num">20K+</div>
+            <div class="stat-label">Young Learners</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">300+</div>
+            <div class="stat-label">Schools Reached</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">45+</div>
+            <div class="stat-label">Programs</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">96%</div>
+            <div class="stat-label">Student Satisfaction</div>
+          </div>
+        </div>
+      </div>
+      <section class="section">
+        <div class="container">
+          <div class="section-title">
+            <div class="tag">For Students</div>
+            <h2>Build Skills That Last a Lifetime</h2>
+            <p>Age-appropriate, fun learning that prepares you for the future</p>
+          </div>
+          <div class="grid-4">
+            <div class="skill-card">
+              <div class="skill-icon">💻</div>
+              <h3>Coding Basics</h3>
+              <p style="font-size:13px;color:var(--grey-mid)">Python, Scratch, Web basics — learn to code the fun way
+              </p>
+            </div>
+            <div class="skill-card">
+              <div class="skill-icon">🗣️</div>
+              <h3>Communication</h3>
+              <p style="font-size:13px;color:var(--grey-mid)">Public speaking, debate, presentation & story-telling
+                skills</p>
+            </div>
+            <div class="skill-card">
+              <div class="skill-icon">🧠</div>
+              <h3>Critical Thinking</h3>
+              <p style="font-size:13px;color:var(--grey-mid)">Puzzles, logic games, and problem-solving challenges</p>
+            </div>
+            <div class="skill-card">
+              <div class="skill-icon">🎨</div>
+              <h3>Creative Design</h3>
+              <p style="font-size:13px;color:var(--grey-mid)">Art, design thinking, and visual storytelling projects</p>
+            </div>
+            <div class="skill-card">
+              <div class="skill-icon">🌍</div>
+              <h3>Career Awareness</h3>
+              <p style="font-size:13px;color:var(--grey-mid)">Explore 50+ career paths through interactive activities
+              </p>
+            </div>
+            <div class="skill-card">
+              <div class="skill-icon">🤝</div>
+              <h3>Leadership</h3>
+              <p style="font-size:13px;color:var(--grey-mid)">Team projects, event planning and community initiatives
+              </p>
+            </div>
+            <div class="skill-card">
+              <div class="skill-icon">💰</div>
+              <h3>Financial Literacy</h3>
+              <p style="font-size:13px;color:var(--grey-mid)">Money management, savings, and entrepreneurship basics</p>
+            </div>
+            <div class="skill-card">
+              <div class="skill-icon">🔬</div>
+              <h3>STEM Explorations</h3>
+              <p style="font-size:13px;color:var(--grey-mid)">Hands-on science, robotics, and innovation projects</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <footer class="footer">
+        <div class="container">
+          <div class="footer-grid">
+            <div class="footer-brand">
+              <h3>MSEED Junior</h3>
+              <p>Nurturing young minds with future-ready skills for a rapidly changing world.</p>
+              <div class="social-links">
+                <div class="social-btn">🎬</div>
+                <div class="social-btn">📷</div>
+                <div class="social-btn">in</div>
+              </div>
+            </div>
+            <div class="footer-col">
+              <h4>Programs</h4>
+              <div class="footer-links"><span class="footer-link">Coding Basics</span><span
+                  class="footer-link">Communication</span><span class="footer-link">Leadership</span><span
+                  class="footer-link">STEM</span></div>
+            </div>
+            <div class="footer-col">
+              <h4>Age Groups</h4>
+              <div class="footer-links"><span class="footer-link">Primary (8–10)</span><span class="footer-link">Middle
+                  (11–13)</span><span class="footer-link">Secondary (14–16)</span><span class="footer-link">Senior
+                  (17–18)</span></div>
+            </div>
+            <div class="footer-col">
+              <h4>Contact</h4>
+              <div class="footer-links"><span class="footer-link">📞 +91 99400 12345</span><span class="footer-link">✉️
+                  email@mseed.in</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div class="container">© 2025 MSEED Junior. All rights reserved.</div>
+        </div>
+      </footer>
+    </div>
+    <div id="jrtab-jrcourses" class="jrtab-content hidden">
+      <div class="container" style="padding-top:60px;padding-bottom:80px">
+        <div class="section-title" style="text-align:left;margin-bottom:40px">
+          <div class="tag">Live Classes</div>
+          <h2 style="font-family:'Playfair Display',serif;font-size:38px;margin-top:12px">Live Classes for School
+            Students</h2>
+          <p style="color:var(--grey-mid);margin-top:8px">Select your grade range to explore the right programs</p>
+        </div>
+        <div class="dept-filter" id="grade-filter"><button class="dept-btn active"
+            onclick="filterGrades('all',this)">All Grades</button><button class="dept-btn"
+            onclick="filterGrades('primary',this)">Primary (1–5)</button><button class="dept-btn"
+            onclick="filterGrades('middle',this)">Middle (6–8)</button><button class="dept-btn"
+            onclick="filterGrades('secondary',this)">Secondary (9–10)</button><button class="dept-btn"
+            onclick="filterGrades('senior',this)">Senior (11–12)</button></div>
+        <div class="grid-3" id="jr-courses-list"></div>
+      </div>
+    </div>
+    <div id="jrtab-jrskills" class="jrtab-content hidden">
+      <div class="container" style="padding-top:60px;padding-bottom:80px">
+        <div class="section-title" style="text-align:left;margin-bottom:40px">
+          <div class="tag">Skill Programs</div>
+          <h2 style="font-family:'Playfair Display',serif;font-size:38px;margin-top:12px">Structured Skill-Building
+            Pathways</h2>
+        </div>
+        <div class="grid-2">
+          <div>
+            <h3 style="font-family:'Playfair Display',serif;font-size:24px;margin-bottom:24px">How Our Programs Work
+            </h3>
+            <div class="program-timeline">
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <h4>Assessment & Goal Setting</h4>
+                <p>Understand your strengths, interests and learning style through a fun quiz</p>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <h4>Foundational Skills Module</h4>
+                <p>Build core competencies with interactive lessons, videos and activities</p>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <h4>Project-Based Learning</h4>
+                <p>Apply skills through real projects, team challenges and creative tasks</p>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <h4>Showcase & Certificate</h4>
+                <p>Present your project, earn your MSEED Junior certificate and portfolio</p>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div class="card" style="padding:24px">
+              <div style="font-size:28px;margin-bottom:12px">🚀</div>
+              <h4 style="font-family:'Playfair Display',serif;font-size:18px;margin-bottom:8px">Future Skills Program
+              </h4>
+              <p style="font-size:13px;color:var(--grey-mid);margin-bottom:12px">12-week intensive covering coding, AI
+                basics, design thinking and communication for grades 8–12</p>
+              <div class="badge">Grades 8–12</div>
+            </div>
+            <div class="card" style="padding:24px">
+              <div style="font-size:28px;margin-bottom:12px">🌱</div>
+              <h4 style="font-family:'Playfair Display',serif;font-size:18px;margin-bottom:8px">Young Leaders Program
+              </h4>
+              <p style="font-size:13px;color:var(--grey-mid);margin-bottom:12px">8-week program developing leadership,
+                communication and social entrepreneurship for grades 6–10</p>
+              <div class="badge">Grades 6–10</div>
+            </div>
+            <div class="card" style="padding:24px">
+              <div style="font-size:28px;margin-bottom:12px">🎨</div>
+              <h4 style="font-family:'Playfair Display',serif;font-size:18px;margin-bottom:8px">Creative Coders Club
+              </h4>
+              <p style="font-size:13px;color:var(--grey-mid);margin-bottom:12px">Fun after-school coding program using
+                Scratch, Python and web design for grades 4–8</p>
+              <div class="badge">Grades 4–8</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="jrtab-jrresources" class="jrtab-content hidden">
+      <div class="container" style="padding-top:60px;padding-bottom:80px">
+        <div class="section-title" style="text-align:left;margin-bottom:40px">
+          <div class="tag">Resources</div>
+          <h2 style="font-family:'Playfair Display',serif;font-size:38px;margin-top:12px">Learning Materials</h2>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div class="resource-card">
+            <div class="resource-icon">📘</div>
+            <div class="resource-info">
+              <h4>Career Exploration Workbook</h4>
+              <p>Interactive PDF to help students discover their interests and explore career paths</p>
+            </div>
+            <div class="resource-meta"><span class="pdf-badge">PDF</span><button class="btn btn-outline"
+                style="padding:8px 16px;font-size:13px"
+                onclick="showToast('Downloading...','success')">Download</button></div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-icon">🧩</div>
+            <div class="resource-info">
+              <h4>Critical Thinking Puzzle Pack</h4>
+              <p>50 age-appropriate logic puzzles and brain teasers for middle school students</p>
+            </div>
+            <div class="resource-meta"><span class="pdf-badge">PDF</span><button class="btn btn-outline"
+                style="padding:8px 16px;font-size:13px"
+                onclick="showToast('Downloading...','success')">Download</button></div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-icon">💻</div>
+            <div class="resource-info">
+              <h4>Intro to Python – Student Guide</h4>
+              <p>Beginner-friendly Python programming guide with fun projects and exercises</p>
+            </div>
+            <div class="resource-meta"><span class="pdf-badge">PDF</span><button class="btn btn-outline"
+                style="padding:8px 16px;font-size:13px"
+                onclick="showToast('Downloading...','success')">Download</button></div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-icon">🗣️</div>
+            <div class="resource-info">
+              <h4>Public Speaking Starter Kit</h4>
+              <p>Step-by-step guide to overcoming stage fear and delivering confident speeches</p>
+            </div>
+            <div class="resource-meta"><span class="pdf-badge">PDF</span><button class="btn btn-outline"
+                style="padding:8px 16px;font-size:13px"
+                onclick="showToast('Downloading...','success')">Download</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /page-junior-student -->
+
+  <!-- ===== SCHOOL INSTITUTION PORTAL ===== -->
+  <div id="page-school-inst" class="page">
+    <nav class="navbar">
+      <div class="navbar-inner">
+        <div class="navbar-logo"><img
+            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="MSEED"
+            style="height:38px;object-fit:contain;display:block"><span
+            style="font-size:13px;color:var(--grey-mid);font-family:'DM Sans',sans-serif;font-weight:400;margin-left:8px">School</span>
+        </div>
+        <div class="nav-links"><span class="nav-link active" onclick="showSchTab('schservices')">Services</span><span
+            class="nav-link" onclick="showSchTab('schcurriculum')">Curriculum</span><span class="nav-link"
+            onclick="showSchTab('schdigital')">Digital Solutions</span></div>
+        <div class="nav-actions"><button class="back-btn" onclick="navigate('junior')"><svg width="14" height="14"
+              fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M19 12H5M12 5l-7 7 7 7" />
+            </svg> Portals</button><button class="btn btn-primary" style="padding:10px 20px;font-size:13px"
+            onclick="showToast('Request submitted!','success')">Partner With Us</button></div>
+      </div>
+    </nav>
+    <div id="schtab-schservices" class="schtab-content">
+      <section class="junior-hero">
+        <div class="container">
+          <div class="hero-content">
+            <div class="hero-badge">🏫 For Schools</div>
+            <h1>Future-Ready<br><span style="color:#b3ffe3">School Programs</span></h1>
+            <p>Comprehensive skill development, digital curriculum integration and extracurricular excellence for K–12
+              institutions.</p>
+            <div class="hero-actions"><button class="btn btn-white"
+                onclick="showToast('Demo scheduled!','success')">Schedule Campus Demo</button><button
+                class="btn btn-outline" style="border-color:rgba(255,255,255,0.4);color:#fff">Download School
+                Pack</button></div>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <div class="container">
+          <div class="section-title">
+            <div class="tag">School Services</div>
+            <h2>Everything Your School Needs</h2>
+            <p>From curriculum design to after-school programs and digital integration</p>
+          </div>
+          <div class="grid-3">
+            <div class="school-service-card">
+              <div style="font-size:36px;margin-bottom:12px">📚</div>
+              <h3 style="font-family:'Playfair Display',serif;font-size:18px;margin-bottom:8px">Skill-Based Curriculum
+              </h3>
+              <p style="font-size:14px;color:var(--grey-mid)">NEP 2020 aligned skill-based curriculum modules for
+                Classes 1–12 covering coding, life skills and career readiness.</p>
+            </div>
+            <div class="school-service-card">
+              <div style="font-size:36px;margin-bottom:12px">🎯</div>
+              <h3 style="font-family:'Playfair Display',serif;font-size:18px;margin-bottom:8px">After-School Programs
+              </h3>
+              <p style="font-size:14px;color:var(--grey-mid)">Structured after-school clubs in coding, robotics,
+                communication, design thinking and entrepreneurship.</p>
+            </div>
+            <div class="school-service-card">
+              <div style="font-size:36px;margin-bottom:12px">📱</div>
+              <h3 style="font-family:'Playfair Display',serif;font-size:18px;margin-bottom:8px">Digital Classrooms</h3>
+              <p style="font-size:14px;color:var(--grey-mid)">Interactive LMS with gamified lessons, student progress
+                tracking, and teacher dashboards.</p>
+            </div>
+            <div class="school-service-card">
+              <div style="font-size:36px;margin-bottom:12px">🏆</div>
+              <h3 style="font-family:'Playfair Display',serif;font-size:18px;margin-bottom:8px">School Olympiads</h3>
+              <p style="font-size:14px;color:var(--grey-mid)">Skill-based competitions and olympiads to challenge
+                students and recognize talent at district and state levels.</p>
+            </div>
+            <div class="school-service-card">
+              <div style="font-size:36px;margin-bottom:12px">👨‍🏫</div>
+              <h3 style="font-family:'Playfair Display',serif;font-size:18px;margin-bottom:8px">Teacher Training</h3>
+              <p style="font-size:14px;color:var(--grey-mid)">Professional development programs for teachers on
+                skill-based pedagogy, technology integration and NEP 2020.</p>
+            </div>
+            <div class="school-service-card">
+              <div style="font-size:36px;margin-bottom:12px">📊</div>
+              <h3 style="font-family:'Playfair Display',serif;font-size:18px;margin-bottom:8px">Student Assessment</h3>
+              <p style="font-size:14px;color:var(--grey-mid)">360° student skill profiling and competency-based
+                assessments aligned with national educational standards.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <footer class="footer">
+        <div class="container">
+          <div class="footer-grid">
+            <div class="footer-brand">
+              <h3>MSEED Junior</h3>
+              <p>Building future-ready learners through skills, creativity, and character.</p>
+            </div>
+            <div class="footer-col">
+              <h4>Programs</h4>
+              <div class="footer-links"><span class="footer-link">After-School</span><span
+                  class="footer-link">Curriculum</span><span class="footer-link">Digital Tools</span><span
+                  class="footer-link">Assessments</span></div>
+            </div>
+            <div class="footer-col">
+              <h4>Company</h4>
+              <div class="footer-links"><span class="footer-link">About</span><span class="footer-link">Blog</span><span
+                  class="footer-link">Contact</span></div>
+            </div>
+            <div class="footer-col">
+              <h4>Contact</h4>
+              <div class="footer-links"><span class="footer-link">📞 +91 99400 12345</span><span class="footer-link">✉️
+                  email@mseed.in</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div class="container">© 2025 MSEED Junior. All rights reserved.</div>
+        </div>
+      </footer>
+    </div>
+    <div id="schtab-schcurriculum" class="schtab-content hidden">
+      <div class="container" style="padding-top:60px;padding-bottom:80px">
+        <div class="section-title">
+          <div class="tag">Curriculum</div>
+          <h2>NEP 2020 Aligned Skill Curriculum</h2>
+          <p>Structured skill-based learning mapped to national educational framework</p>
+        </div>
+        <div class="grid-2" style="gap:40px">
+          <div>
+            <h3 style="font-family:'Playfair Display',serif;font-size:24px;margin-bottom:24px">Curriculum Framework</h3>
+            <div class="program-timeline">
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <h4>Primary (Classes 1–5)</h4>
+                <p>Creativity, basic coding (Scratch), communication, and social-emotional learning</p>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <h4>Middle (Classes 6–8)</h4>
+                <p>Critical thinking, Python basics, entrepreneurship and environmental awareness</p>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <h4>Secondary (Classes 9–10)</h4>
+                <p>Career exploration, web development, financial literacy and leadership</p>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <h4>Senior Secondary (Classes 11–12)</h4>
+                <p>Specialization tracks: Tech, Business, Creative Arts and Social Impact</p>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div class="card" style="padding:24px">
+              <h4 style="font-family:'Playfair Display',serif;font-size:17px;margin-bottom:8px">🎯 Competency-Based
+                Design</h4>
+              <p style="font-size:13px;color:var(--grey-mid)">Every module is mapped to specific competencies aligned
+                with National Curriculum Framework and NEP 2020 goals.</p>
+            </div>
+            <div class="card" style="padding:24px">
+              <h4 style="font-family:'Playfair Display',serif;font-size:17px;margin-bottom:8px">📊 Continuous Assessment
+              </h4>
+              <p style="font-size:13px;color:var(--grey-mid)">Project-based portfolios and skill rubrics replace rote
+                testing with authentic, meaningful evaluation.</p>
+            </div>
+            <div class="card" style="padding:24px">
+              <h4 style="font-family:'Playfair Display',serif;font-size:17px;margin-bottom:8px">🔄 Regular Updates</h4>
+              <p style="font-size:13px;color:var(--grey-mid)">Curriculum is refreshed annually by our expert board of
+                educators and industry advisors to stay current.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="schtab-schdigital" class="schtab-content hidden">
+      <div class="container" style="padding-top:60px;padding-bottom:80px">
+        <div class="section-title">
+          <div class="tag">Digital Solutions</div>
+          <h2>Technology for Modern Schools</h2>
+          <p>Integrated digital infrastructure designed for the 21st century classroom</p>
+        </div>
+        <div class="grid-3">
+          <div class="card">
+            <div style="font-size:40px;margin-bottom:16px">🖥️</div>
+            <h3 style="font-family:'Playfair Display',serif;font-size:18px;margin-bottom:8px">Smart Classroom LMS</h3>
+            <p style="font-size:14px;color:var(--grey-mid)">Interactive digital lessons, gamified quizzes and real-time
+              student progress dashboards for teachers.</p>
+          </div>
+          <div class="card">
+            <div style="font-size:40px;margin-bottom:16px">📱</div>
+            <h3 style="font-family:'Playfair Display',serif;font-size:18px;margin-bottom:8px">Student Mobile App</h3>
+            <p style="font-size:14px;color:var(--grey-mid)">Offline-capable app so students can learn anywhere, anytime
+              — no internet required after download.</p>
+          </div>
+          <div class="card">
+            <div style="font-size:40px;margin-bottom:16px">👨‍👩‍👧</div>
+            <h3 style="font-family:'Playfair Display',serif;font-size:18px;margin-bottom:8px">Parent Connect Portal</h3>
+            <p style="font-size:14px;color:var(--grey-mid)">Parents track skill progress, achievements and upcoming
+              activities through a dedicated portal.</p>
+          </div>
+          <div class="card">
+            <div style="font-size:40px;margin-bottom:16px">📈</div>
+            <h3 style="font-family:'Playfair Display',serif;font-size:18px;margin-bottom:8px">School Analytics</h3>
+            <p style="font-size:14px;color:var(--grey-mid)">School-wide skill data, cohort comparisons and learning
+              outcome reports for administration.</p>
+          </div>
+          <div class="card">
+            <div style="font-size:40px;margin-bottom:16px">🤖</div>
+            <h3 style="font-family:'Playfair Display',serif;font-size:18px;margin-bottom:8px">AI Tutor Assistant</h3>
+            <p style="font-size:14px;color:var(--grey-mid)">Personalized learning paths and instant doubt resolution
+              powered by AI for every student.</p>
+          </div>
+          <div class="card">
+            <div style="font-size:40px;margin-bottom:16px">🔐</div>
+            <h3 style="font-family:'Playfair Display',serif;font-size:18px;margin-bottom:8px">Safe & Secure Platform
+            </h3>
+            <p style="font-size:14px;color:var(--grey-mid)">Child-safe, COPPA-compliant platform with privacy controls
+              and safe browsing for all ages.</p>
+          </div>
+        </div>
+        <div style="text-align:center;margin-top:48px"><button class="btn btn-primary"
+            style="font-size:16px;padding:16px 36px" onclick="showToast('Demo request sent!','success')">🚀 Start a Free
+            School Pilot</button></div>
+      </div>
+    </div>
+  </div><!-- /page-school-inst -->
+
+  <!-- GAME MODALS -->
+  <!-- Career Quiz Blitz Modal -->
+  <div id="modal-quiz" class="hidden">
+    <div class="modal-overlay" onclick="closeModal('modal-quiz')">
+      <div class="modal game-modal" onclick="event.stopPropagation()"
+        style="max-width:600px; padding:0; overflow:hidden;">
+        <div class="modal-close" onclick="closeModal('modal-quiz')" style="z-index: 10;">✕</div>
+
+        <!-- Step 1: Department Selection -->
+        <div id="quiz-step-dept" style="padding:40px 32px; text-align:center;">
+          <div class="badge"
+            style="margin-bottom:16px; background:var(--milk-dark); color:var(--dark); border-color:var(--grey-pale);">
+            🎯 Career Quiz Blitz</div>
+          <h2 style="font-family:'Playfair Display',serif; font-size:28px; margin-bottom:12px;">Choose Your Department
+          </h2>
+          <p style="color:var(--grey-mid); font-size:14px; margin-bottom:24px;">Select your field to get targeted
+            questions.</p>
+          <div class="dept-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:24px;">
+            <button class="btn btn-outline dept-select-btn" onclick="startQuizForDept('cse')">💻 CSE</button>
+            <button class="btn btn-outline dept-select-btn" onclick="startQuizForDept('it')">💻 IT</button>
+            <button class="btn btn-outline dept-select-btn" onclick="startQuizForDept('ece')">📡 ECE</button>
+            <button class="btn btn-outline dept-select-btn" onclick="startQuizForDept('eee')">⚡ EEE</button>
+            <button class="btn btn-outline dept-select-btn" onclick="startQuizForDept('mech')">⚙️ Mechanical</button>
+          </div>
+        </div>
+
+        <!-- Step 2: Quiz Questions -->
+        <div id="quiz-step-questions" class="hidden" style="padding:40px 32px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
+            <div class="badge" style="background:rgba(0,177,123,0.1); color:var(--green);">⏱️ Time: <span
+                id="quiz-timer">10</span>s</div>
+            <div style="font-size:13px; color:var(--grey-mid); font-weight:600;">Q <span id="q-current">1</span>/<span
+                id="q-total">25</span></div>
+          </div>
+          <div class="progress-bar" style="margin-bottom:24px; height:6px;">
+            <div class="progress-fill" id="quiz-progress-bar" style="width:0%;"></div>
+          </div>
+          <p class="quiz-q" id="quiz-question"
+            style="font-size:18px; font-weight:600; line-height:1.5; margin-bottom:24px; min-height:80px;"></p>
+          <div class="quiz-options" id="quiz-options" style="display:flex; flex-direction:column; gap:12px;"></div>
+        </div>
+
+        <!-- Step 3: Result -->
+        <div id="quiz-step-result" class="hidden"
+          style="padding:48px 32px; text-align:center; background:linear-gradient(180deg, rgba(0,177,123,0.05) 0%, #fff 100%);">
+          <div style="font-size:64px; margin-bottom:16px; animation:splashPop 0.8s ease;">🎉</div>
+          <h3 style="font-family:'Playfair Display',serif; font-size:32px; margin-bottom:12px;">Quiz Complete!</h3>
+          <p style="color:var(--grey-mid); font-size:15px; margin-bottom:24px;">You scored <strong
+              style="color:var(--dark); font-size:24px;" id="quiz-final-score">0</strong> out of 25.</p>
+
+          <div
+            style="background:#fff; border:1px solid var(--grey-pale); border-radius:12px; padding:24px; margin-bottom:32px; box-shadow:0 4px 12px rgba(0,0,0,0.05);">
+            <h4 style="font-size:16px; margin-bottom:8px;">Ready to master these skills?</h4>
+            <p style="font-size:13px; color:var(--grey-mid); margin-bottom:16px;">Get personalized training tailored to
+              your department's specific technical requirements.</p>
+            <button class="btn btn-primary"
+              style="width:100%; justify-content:center; box-shadow:0 8px 20px rgba(0,177,123,0.25);"
+              onclick="redirectQuizToCourses()">Grow More 🚀</button>
+          </div>
+          <button class="btn btn-outline" style="border:none; background:transparent; font-size:13px;"
+            onclick="closeModal('modal-quiz')">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mock Interview Modal -->
+  <div id="modal-interview" class="hidden">
+    <div class="modal-overlay" onclick="closeModal('modal-interview')">
+      <div class="modal game-modal" onclick="event.stopPropagation()"
+        style="max-width:600px; padding:0; overflow:hidden; display:flex; flex-direction:column; height:80vh; max-height:700px;">
+        <div class="modal-close" onclick="closeModal('modal-interview')" style="z-index: 10;">✕</div>
+
+        <!-- Step 1: Department Selection -->
+        <div id="interview-step-dept"
+          style="padding:40px 32px; text-align:center; flex-grow:1; display:flex; flex-direction:column; justify-content:center;">
+          <div class="badge"
+            style="margin-bottom:16px; background:var(--milk-dark); color:var(--dark); border-color:var(--grey-pale); align-self:center;">
+            🏆 Mock Interview</div>
+          <h2 style="font-family:'Playfair Display',serif; font-size:32px; margin-bottom:8px;">Kick Out the Fear.</h2>
+          <p style="color:var(--grey-mid); font-size:15px; margin-bottom:32px;">Select your department and practice
+            answering tough interview questions with our chat simulator.</p>
+          <div class="dept-grid"
+            style="display:grid; grid-template-columns:1fr 1fr; gap:12px; max-width:400px; margin:0 auto;">
+            <button class="btn btn-outline dept-select-btn" onclick="startInterviewForDept('cse')">💻 CSE</button>
+            <button class="btn btn-outline dept-select-btn" onclick="startInterviewForDept('it')">💻 IT</button>
+            <button class="btn btn-outline dept-select-btn" onclick="startInterviewForDept('ece')">📡 ECE</button>
+            <button class="btn btn-outline dept-select-btn" onclick="startInterviewForDept('eee')">⚡ EEE</button>
+            <button class="btn btn-outline dept-select-btn" onclick="startInterviewForDept('mech')">⚙️
+              Mechanical</button>
+          </div>
+        </div>
+
+        <!-- Step 2: Chat Interface -->
+        <div id="interview-step-chat" class="hidden" style="display:flex; flex-direction:column; height:100%;">
+          <!-- Header -->
+          <div
+            style="padding:16px 24px; border-bottom:1px solid var(--grey-pale); display:flex; align-items:center; justify-content:space-between; background:#fff; flex-shrink:0;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <div
+                style="width:40px; height:40px; border-radius:50%; background:var(--milk-dark); display:flex; align-items:center; justify-content:center; font-size:20px;">
+                🤖</div>
+              <div>
+                <div style="font-weight:700; font-size:15px;">Interviewer Bot</div>
+                <div style="font-size:11px; color:var(--green); font-weight:600;">● Online</div>
+              </div>
+            </div>
+            <div class="badge" style="background:rgba(255,59,48,0.1); color:#FF3B30;">⏱️ <span
+                id="interview-timer">05:00</span></div>
+          </div>
+
+          <!-- Chat Area -->
+          <div id="interview-chat-area"
+            style="flex-grow:1; padding:24px; overflow-y:auto; background:var(--milk); display:flex; flex-direction:column; gap:16px;">
+            <!-- Messages injected here -->
+          </div>
+
+          <!-- Input Area -->
+          <div style="padding:16px 24px; background:#fff; border-top:1px solid var(--grey-pale); flex-shrink:0;">
+            <div style="display:flex; gap:12px;">
+              <input type="text" id="interview-input" class="form-input" style="flex-grow:1; margin-bottom:0;"
+                placeholder="Type your answer here..." onkeypress="handleInterviewKeyPress(event)">
+              <button class="btn btn-primary" style="padding:0 24px;" onclick="sendInterviewMessage()">Send</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Result -->
+        <div id="interview-step-result" class="hidden"
+          style="padding:48px 32px; text-align:center; flex-grow:1; display:flex; flex-direction:column; justify-content:center; background:linear-gradient(180deg, rgba(0,177,123,0.05) 0%, #fff 100%);">
+          <div style="font-size:64px; margin-bottom:16px; animation:splashPop 0.8s ease;">👏</div>
+          <h3 style="font-family:'Playfair Display',serif; font-size:32px; margin-bottom:12px;">Interview Finished</h3>
+          <p style="color:var(--grey-mid); font-size:15px; margin-bottom:24px;">Great job taking the initiative to
+            practice! Your confidence is key.</p>
+
+          <div
+            style="background:#fff; border:1px solid var(--grey-pale); border-radius:12px; padding:24px; margin-bottom:32px; text-align:left; box-shadow:0 4px 12px rgba(0,0,0,0.05);">
+            <h4
+              style="font-size:15px; margin-bottom:12px; border-bottom:1px solid var(--grey-pale); padding-bottom:8px;">
+              Feedback Snapshot</h4>
+            <ul style="font-size:13px; color:var(--grey-mid); line-height:1.6; padding-left:16px; margin-bottom:0;">
+              <li>Covered essential points well.</li>
+              <li>Consider providing more specific examples in technical scenarios.</li>
+              <li>Maintain this structured approach to answering.</li>
+            </ul>
+          </div>
+
+          <button class="btn btn-primary"
+            style="width:100%; justify-content:center; box-shadow:0 8px 20px rgba(0,177,123,0.25); margin-bottom:12px;"
+            onclick="redirectInterviewToCourses()">Access Full Interview Guides 📚</button>
+          <p style="font-size:11px; color:var(--grey-mid);">Redirecting to Tutorial Courses automatically...</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Aptitude Speed Challenge Modal -->
+  <div id="modal-aptitude" class="hidden">
+    <div class="modal-overlay" onclick="closeModal('modal-aptitude')">
+      <div class="modal game-modal" onclick="event.stopPropagation()"
+        style="max-width:600px; padding:0; overflow:hidden; display:flex; flex-direction:column; height:85vh; max-height:800px;">
+        <div class="modal-close" onclick="closeModal('modal-aptitude')" style="z-index: 10;">✕</div>
+
+        <!-- Step 1: Intro -->
+        <div id="aptitude-step-intro"
+          style="padding:56px 32px; text-align:center; flex-grow:1; display:flex; flex-direction:column; justify-content:center;">
+          <div class="badge"
+            style="margin-bottom:16px; background:var(--milk-dark); color:var(--dark); border-color:var(--grey-pale); align-self:center;">
+            ⚡ Aptitude Speed Challenge</div>
+          <h2 style="font-family:'Playfair Display',serif; font-size:36px; margin-bottom:16px; line-height:1.2;">Think
+            Fast.<br>Solve Faster.</h2>
+          <p
+            style="color:var(--grey-mid); font-size:15px; margin-bottom:32px; max-width:400px; margin-left:auto; margin-right:auto;">
+            Test your quantitative and logical reasoning in a fast-paced environment. Scroll through questions and
+            challenge yourself.</p>
+          <button class="btn btn-primary"
+            style="align-self:center; padding:16px 40px; font-size:16px; box-shadow:0 8px 24px rgba(0,177,123,0.3);"
+            onclick="startAptitudeChallenge()">Start Challenge ⏳</button>
+        </div>
+
+        <!-- Step 2: Challenge Area -->
+        <div id="aptitude-step-challenge" class="hidden" style="display:flex; flex-direction:column; height:100%;">
+          <!-- Header -->
+          <div
+            style="padding:20px 24px; border-bottom:1px solid var(--grey-pale); display:flex; align-items:center; justify-content:space-between; background:#fff; flex-shrink:0;">
+            <div>
+              <h3 style="font-size:18px; margin:0;">Aptitude Challenge</h3>
+              <div style="font-size:12px; color:var(--grey-mid);">Scroll to solve</div>
+            </div>
+            <div class="badge"
+              style="background:var(--dark); color:#fff; font-family:'DM Mono', monospace; font-size:16px; padding:6px 12px;">
+              ⏳ <span id="aptitude-timer">10:00</span></div>
+          </div>
+
+          <!-- Scrollable Q&A Area -->
+          <div id="aptitude-q-area"
+            style="flex-grow:1; padding:24px; overflow-y:auto; background:var(--milk); display:flex; flex-direction:column; gap:24px;">
+            <!-- Questions injected here -->
+          </div>
+
+          <!-- Bottom Summary / CTA -->
+          <div id="aptitude-footer" class="hidden"
+            style="padding:24px; background:#fff; border-top:1px solid var(--grey-pale); flex-shrink:0; text-align:center;">
+            <h4 style="font-size:18px; margin-bottom:8px;">Challenge Completed</h4>
+            <p style="font-size:13px; color:var(--grey-mid); margin-bottom:16px;">See detailed explanations above. Keep
+              practicing to improve your speed!</p>
+            <button class="btn btn-primary" style="width:100%; justify-content:center;"
+              onclick="closeModal('modal-aptitude');showTab('resources')">Unlock 50+ Aptitude Resources 📘</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="script.js" defer></script>
+  <div id="yt-modal" class="yt-modal-overlay hidden" onclick="closeYTModal(event)">
+    <div class="yt-modal-box">
+      <button class="yt-modal-close" onclick="closeYTModal(null, true)">✕</button>
+      <div class="yt-modal-title-bar">
+        <span id="yt-modal-tag" class="yt-tag"></span>
+        <span id="yt-modal-title" class="yt-modal-title-text"></span>
+      </div>
+      <div class="yt-iframe-wrap">
+        <iframe id="yt-iframe" src="" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <div class="yt-modal-footer">
+        <span style="font-size:13px; color:var(--grey-mid);">▶ Playing on MSEED — powered by YouTube</span>
+        <button class="btn btn-outline" style="font-size:12px; padding:6px 16px;" onclick="openYTDirect()">Open in
+          YouTube ↗</button>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
