@@ -10,6 +10,9 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
     rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap-grid.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 </head>
 
 <body>
@@ -1104,420 +1107,2625 @@
   </div><!-- /page-college-student -->
 
   <!-- ===== INSTITUTION PORTAL ===== -->
+  <!-- ============================================================
+  INSTITUTION PORTAL — PHASE 1: NAVBAR + HERO
+  
+  HOW TO ADD TO YOUR index.html:
+  1. Find:  <div id="page-institution" class="page">
+  2. Replace everything INSIDE that div with this code
+  3. Student portal — untouched ✅
+============================================================ -->
+
   <div id="page-institution" class="page">
-    <nav class="navbar">
-      <div class="navbar-inner">
-        <div class="navbar-logo">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="MSEED"
-            style="height:38px;object-fit:contain;display:block">
-          <span
-            style="font-size:13px;color:var(--grey-mid);font-family:'DM Sans',sans-serif;font-weight:400;margin-left:8px">Institution</span>
+
+    <!-- ── GSAP + Bootstrap CDN (add to <head> if not already there) ──
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  -->
+
+    <!-- ══════════════════════════════════════
+       INSTITUTION NAVBAR
+  ══════════════════════════════════════ -->
+    <nav class="inst-navbar" id="inst-navbar">
+      <div class="inst-nav-inner">
+
+        <!-- Logo -->
+        <div class="inst-nav-logo" onclick="navigate('portal')">
+          <img src="https://res.cloudinary.com/drlg1t6pk/image/upload/v1771854440/1_1_p0yx8f.png" alt="MSEED"
+            class="inst-logo-img">
+          <span class="inst-logo-tag">Institutions</span>
         </div>
-        <div class="nav-links">
-          <span class="nav-link active" onclick="showInstTab('services')">Services</span>
-          <span class="nav-link" onclick="showInstTab('dashboard')">Dashboard</span>
-          <span class="nav-link" onclick="showInstTab('achievements')">Achievements</span>
-          <span class="nav-link" onclick="showInstTab('industry')">Industry Tie-ups</span>
-          <span class="nav-link" onclick="showInstTab('offers')">Offers</span>
+
+        <!-- Desktop Links -->
+        <ul class="inst-nav-links" id="inst-nav-links">
+          <li><a href="#inst-hero" class="inst-nav-link active" onclick="instNavScroll(event,'inst-hero')">Home</a></li>
+          <li><a href="#inst-about" class="inst-nav-link" onclick="instNavScroll(event,'inst-about')">About</a></li>
+          <li><a href="#inst-services" class="inst-nav-link" onclick="instNavScroll(event,'inst-services')">Services</a>
+          </li>
+          <li><a href="#inst-ev" class="inst-nav-link"
+              onclick="if(event)event.preventDefault();navigate('inst-ev');window.scrollTo(0,0);">EV Projects</a></li>
+          <li><a href="#inst-articles" class="inst-nav-link" onclick="instNavScroll(event,'inst-articles')">Articles</a>
+          </li>
+          <li><a href="#inst-partners" class="inst-nav-link"
+              onclick="instNavScroll(event,'inst-partners')">Partnerships</a></li>
+          <li><a href="#inst-contact" class="inst-nav-link" onclick="instNavScroll(event,'inst-contact')">Contact</a>
+          </li>
+        </ul>
+
+        <!-- CTA + Hamburger -->
+        <div class="inst-nav-actions">
+          <button class="inst-nav-cta" onclick="instNavScroll(event,'inst-contact')">
+            Partner With Us →
+          </button>
+          <button class="inst-hamburger" id="inst-hamburger" onclick="toggleInstMobileMenu()" aria-label="Menu">
+            <span></span><span></span><span></span>
+          </button>
         </div>
-        <div class="nav-actions">
-          <button class="back-btn" onclick="navigate('mseed')"><svg width="14" height="14" fill="none"
-              stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path d="M19 12H5M12 5l-7 7 7 7" />
-            </svg> Portals</button>
-          <button class="btn btn-primary" style="padding:10px 20px;font-size:13px">Schedule Demo</button>
-        </div>
+
+      </div>
+
+      <!-- Mobile Menu -->
+      <div class="inst-mobile-menu hidden" id="inst-mobile-menu">
+        <a class="inst-mob-link" onclick="instNavScroll(event,'inst-hero');closeInstMobileMenu()">Home</a>
+        <a class="inst-mob-link" onclick="instNavScroll(event,'inst-about');closeInstMobileMenu()">About</a>
+        <a class="inst-mob-link" onclick="instNavScroll(event,'inst-services');closeInstMobileMenu()">Services</a>
+        <a class="inst-mob-link" onclick="navigate('inst-ev');closeInstMobileMenu();window.scrollTo(0,0);">EV
+          Projects</a>
+        <a class="inst-mob-link" onclick="instNavScroll(event,'inst-articles');closeInstMobileMenu()">Articles</a>
+        <a class="inst-mob-link" onclick="instNavScroll(event,'inst-partners');closeInstMobileMenu()">Partnerships</a>
+        <a class="inst-mob-link" onclick="instNavScroll(event,'inst-contact');closeInstMobileMenu()">Contact</a>
+        <a class="inst-mob-link inst-mob-cta"
+          onclick="instNavScroll(event,'inst-contact');closeInstMobileMenu()">Partner With Us →</a>
       </div>
     </nav>
-    <div id="inst-tab-services" class="inst-tab">
-      <section class="hero">
-        <div class="container">
-          <div class="hero-content">
-            <div class="hero-badge">🏛️ Institution Solutions</div>
-            <h1>Transform Your<br><span style="color:#b3ffe3">Campus Outcomes</span></h1>
-            <p>End-to-end placement training, skill development infrastructure, and industry connect for colleges and
-              universities.</p>
-            <div class="hero-actions"><button class="btn btn-white"
-                onclick="showToast('Our team will contact you shortly!','success')">Request Campus Visit</button><button
-                class="btn btn-outline" style="border-color:rgba(255,255,255,0.4);color:#fff">Download Brochure</button>
+
+    <!-- ══════════════════════════════════════
+       HERO SECTION
+  ══════════════════════════════════════ -->
+    <section class="inst-hero" id="inst-hero">
+
+      <!-- Background -->
+      <div class="inst-hero-bg">
+        <img
+          src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+          alt="Institution Hero Background" class="inst-hero-bg-img" onerror="this.style.display='none'">
+        <div class="inst-hero-overlay"></div>
+        <!-- Animated grid lines -->
+        <div class="inst-hero-grid"></div>
+        <!-- Floating orbs -->
+        <div class="inst-orb inst-orb-1"></div>
+        <div class="inst-orb inst-orb-2"></div>
+        <div class="inst-orb inst-orb-3"></div>
+      </div>
+
+      <!-- Content -->
+      <div class="inst-hero-content container">
+        <div class="row align-items-center min-vh-wrap">
+
+          <!-- Left: Text -->
+          <div class="col-lg-7 inst-hero-left">
+
+            <div class="inst-hero-eyebrow" id="ih-eyebrow">
+              <span class="inst-live-dot"></span>
+              Industry-Integrated Education Partner
+            </div>
+
+            <h1 class="inst-hero-headline" id="ih-headline">
+              Empowering <span class="inst-headline-accent">Institutions</span><br>
+              Through Industry-Integrated Learning
+            </h1>
+
+            <p class="inst-hero-sub" id="ih-sub">
+              Elevate your campus with premium placement training, exclusive industry tie-ups,
+              certified curriculum, and world-class career tools designed for modern institutions
+              and ambitious students.
+            </p>
+
+            <!-- Trust chips -->
+            <div class="inst-hero-chips" id="ih-chips">
+              <span class="inst-chip">🏛️ NAAC / NBA Ready</span>
+              <span class="inst-chip">⚡ EV Research Lab</span>
+              <span class="inst-chip">🤝 200+ Industry Partners</span>
+              <span class="inst-chip">🎓 50K+ Students Trained</span>
+            </div>
+
+            <!-- CTA buttons -->
+            <div class="inst-hero-actions" id="ih-actions">
+              <button class="inst-btn-primary" onclick="instNavScroll(event,'inst-contact')">
+                <span>Partner With Us</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </button>
+              <button class="inst-btn-ghost" onclick="instNavScroll(event,'inst-services')">
+                Explore Services
+              </button>
+            </div>
+
+          </div>
+
+          <!-- Right: Stats cards -->
+          <div class="col-lg-5 inst-hero-right" id="ih-right">
+            <div class="inst-stats-cluster">
+
+              <div class="inst-stat-card inst-stat-main">
+                <div class="inst-stat-icon">🎓</div>
+                <div class="inst-stat-num" data-target="50000" data-suffix="K+">0</div>
+                <div class="inst-stat-label">Students Trained</div>
+                <div class="inst-stat-bar">
+                  <div class="inst-stat-bar-fill" style="width:85%"></div>
+                </div>
+              </div>
+
+              <div class="inst-stat-row">
+                <div class="inst-stat-card inst-stat-sm">
+                  <div class="inst-stat-icon">🏛️</div>
+                  <div class="inst-stat-num" data-target="120" data-suffix="+">0</div>
+                  <div class="inst-stat-label">Colleges Partnered</div>
+                </div>
+                <div class="inst-stat-card inst-stat-sm">
+                  <div class="inst-stat-icon">💼</div>
+                  <div class="inst-stat-num" data-target="85" data-suffix="%">0</div>
+                  <div class="inst-stat-label">Placement Rate</div>
+                </div>
+              </div>
+
+              <div class="inst-stat-card inst-stat-wide">
+                <div class="inst-stat-icon">⚡</div>
+                <div class="inst-stat-wide-content">
+                  <div>
+                    <div class="inst-stat-num" data-target="200" data-suffix="+">0</div>
+                    <div class="inst-stat-label">Industry Partners</div>
+                  </div>
+                  <div class="inst-stat-wide-tag">
+                    TCS · Infosys · Zoho · Freshworks
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="inst-scroll-hint">
+        <span>Scroll to explore</span>
+        <div class="inst-scroll-line"></div>
+      </div>
+
+    </section>
+
+    <!-- ══════════════════════════════════════
+       STRATEGIC TIE-UPS
+  ══════════════════════════════════════ -->
+    <section class="inst-tieups" id="inst-tieups">
+      <div class="container" style="text-align: center;">
+        <div class="inst-tieups-tag" id="it-tag">Partners in Success</div>
+        <h2 class="inst-tieups-title" id="it-title">Strategic Institutional Tie-Ups</h2>
+        <p class="inst-tieups-desc" id="it-desc">Integrating world-class enterprise standards into your campus. We bring
+          top-tier tech companies directly to you for a seamless industry-academic collaboration.</p>
+      </div>
+
+      <div class="inst-marquee-wrap" id="it-marquee">
+        <div class="inst-marquee-track">
+          <!-- Logo set 1 -->
+          <div class="inst-logo-item"><img
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3ETCS%3C/text%3E%3C/svg%3E"
+              alt="TCS"></div>
+          <div class="inst-logo-item"><img
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EInfosys%3C/text%3E%3C/svg%3E"
+              alt="Infosys"></div>
+          <div class="inst-logo-item"><img
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EWipro%3C/text%3E%3C/svg%3E"
+              alt="Wipro"></div>
+          <div class="inst-logo-item"><img
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3ECognizant%3C/text%3E%3C/svg%3E"
+              alt="Cognizant"></div>
+          <div class="inst-logo-item"><img
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EAccenture%3C/text%3E%3C/svg%3E"
+              alt="Accenture"></div>
+          <div class="inst-logo-item"><img
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EZoho%3C/text%3E%3C/svg%3E"
+              alt="Zoho"></div>
+          <div class="inst-logo-item"><img
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EGoogle%3C/text%3E%3C/svg%3E"
+              alt="Google"></div>
+          <div class="inst-logo-item"><img
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EMicrosoft%3C/text%3E%3C/svg%3E"
+              alt="Microsoft"></div>
+          <div class="inst-logo-item"><img
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EAmazon%3C/text%3E%3C/svg%3E"
+              alt="Amazon"></div>
+
+          <!-- Logo set 2 (for infinite effect) -->
+          <div class="inst-logo-item"><img
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3ETCS%3C/text%3E%3C/svg%3E"
+              alt="TCS"></div>
+          <div class="inst-logo-item"><img
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EInfosys%3C/text%3E%3C/svg%3E"
+              alt="Infosys"></div>
+          <div class="inst-logo-item"><img
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EWipro%3C/text%3E%3C/svg%3E"
+              alt="Wipro"></div>
+          <div class="inst-logo-item"><img
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3ECognizant%3C/text%3E%3C/svg%3E"
+              alt="Cognizant"></div>
+          <div class="inst-logo-item"><img
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EAccenture%3C/text%3E%3C/svg%3E"
+              alt="Accenture"></div>
+          <div class="inst-logo-item"><img
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EZoho%3C/text%3E%3C/svg%3E"
+              alt="Zoho"></div>
+          <div class="inst-logo-item"><img
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EGoogle%3C/text%3E%3C/svg%3E"
+              alt="Google"></div>
+          <div class="inst-logo-item"><img
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EMicrosoft%3C/text%3E%3C/svg%3E"
+              alt="Microsoft"></div>
+          <div class="inst-logo-item"><img
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='36'%3E%3Crect width='110' height='36' rx='6' fill='%23f0f0f0'/%3E%3Ctext x='55' y='24' text-anchor='middle' font-family='sans-serif' font-size='13' font-weight='700' fill='%23444'%3EAmazon%3C/text%3E%3C/svg%3E"
+              alt="Amazon"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+       PART 6: INSTITUTIONAL SERVICES
+  ══════════════════════════════════════ -->
+    <section id="inst-services" class="inst-section" style="padding: 100px 0; background: var(--inst-dark-3);">
+      <div class="container">
+        <div class="inst-section-header" style="text-align: center; margin-bottom: 60px;">
+          <div class="inst-tieups-tag">Our Expertise</div>
+          <h2 class="inst-tieups-title" style="font-size: clamp(32px, 4vw, 42px);">Comprehensive Institutional Services
+          </h2>
+          <p class="inst-tieups-desc" style="max-width: 700px; margin: 0 auto;">Equipping management and faculty with
+            cutting-edge tools to drive student success, improve placement rates, and build industry-standard
+            infrastructure.</p>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+          <!-- Card 1 -->
+          <div class="col-md-6 col-lg-4">
+            <div class="inst-service-card">
+              <div class="inst-svc-icon">🎥</div>
+              <h3 class="inst-svc-title">Live Classes Integration</h3>
+              <p class="inst-svc-desc">Seamlessly embed interactive live expert sessions directly into your academic
+                schedule.</p>
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div class="col-md-6 col-lg-4">
+            <div class="inst-service-card">
+              <div class="inst-svc-icon">📺</div>
+              <h3 class="inst-svc-title">Pre-Recorded Programs</h3>
+              <p class="inst-svc-desc">A vast library of high-quality, on-demand technical courses for flexible student
+                learning.</p>
+            </div>
+          </div>
+          <!-- Card 3 -->
+          <div class="col-md-6 col-lg-4">
+            <div class="inst-service-card">
+              <div class="inst-svc-icon">🎤</div>
+              <h3 class="inst-svc-title">Mock Interview Systems</h3>
+              <p class="inst-svc-desc">AI-driven and expert-led mock interviews to drastically improve student
+                confidence and selection rates.</p>
+            </div>
+          </div>
+          <!-- Card 4 -->
+          <div class="col-md-6 col-lg-4">
+            <div class="inst-service-card">
+              <div class="inst-svc-icon">📊</div>
+              <h3 class="inst-svc-title">Career Assessment Tools</h3>
+              <p class="inst-svc-desc">Data-backed profiling to align students with the right technical domains and
+                career paths.</p>
+            </div>
+          </div>
+          <!-- Card 5 -->
+          <div class="col-md-6 col-lg-4">
+            <div class="inst-service-card">
+              <div class="inst-svc-icon">⚙️</div>
+              <h3 class="inst-svc-title">Industry Projects</h3>
+              <p class="inst-svc-desc">Real-world corporate problem statements to build robust, verifiable student
+                portfolios.</p>
+            </div>
+          </div>
+          <!-- Card 6 -->
+          <div class="col-md-6 col-lg-4">
+            <div class="inst-service-card">
+              <div class="inst-svc-icon">🤝</div>
+              <h3 class="inst-svc-title">Internship Programs</h3>
+              <p class="inst-svc-desc">Facilitated corporate internships bridging the gap between campus academics and
+                corporate expectations.</p>
+            </div>
+          </div>
+          <!-- Card 7 -->
+          <div class="col-md-6 col-lg-4">
+            <div class="inst-service-card">
+              <div class="inst-svc-icon">🚀</div>
+              <h3 class="inst-svc-title">Placement Training</h3>
+              <p class="inst-svc-desc">End-to-end aptitude, technical, and soft-skills finishing school optimizing
+                campus ROI.</p>
+            </div>
+          </div>
+          <!-- Card 8 -->
+          <div class="col-md-6 col-lg-4">
+            <div class="inst-service-card">
+              <div class="inst-svc-icon">⚡</div>
+              <h3 class="inst-svc-title">EV Research Lab Support</h3>
+              <p class="inst-svc-desc">Setup and continuous support for advanced Electric Vehicle laboratories on your
+                campus.</p>
+            </div>
+          </div>
+          <!-- Card 10 -->
+          <div class="col-md-6 col-lg-4">
+            <div class="inst-service-card">
+              <div class="inst-svc-icon">📚</div>
+              <h3 class="inst-svc-title">Curriculum Support</h3>
+              <p class="inst-svc-desc">Board-of-Studies consulting to modernize academic syllabus to current market
+                demands.</p>
             </div>
           </div>
         </div>
-      </section>
-      <section class="section">
-        <div class="container">
-          <div class="section-title">
-            <div class="tag">Our Services</div>
-            <h2>Comprehensive Campus Solutions</h2>
-            <p>Everything your institution needs to deliver outstanding placement outcomes</p>
-          </div>
-          <div class="grid-3">
-            <div class="service-card">
-              <div class="service-icon">🎯</div>
-              <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin-bottom:10px">Placement Training</h3>
-              <p style="font-size:14px;color:var(--grey-mid);line-height:1.7">Full-stack placement preparation:
-                aptitude, technical, GD, HR and communication rounds with live simulations.</p>
-            </div>
-            <div class="service-card">
-              <div class="service-icon">📊</div>
-              <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin-bottom:10px">Skill Assessment</h3>
-              <p style="font-size:14px;color:var(--grey-mid);line-height:1.7">Psychometric and technical assessments to
-                identify skill gaps and create personalized learning paths.</p>
-            </div>
-            <div class="service-card">
-              <div class="service-icon">🏭</div>
-              <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin-bottom:10px">Industry Connect</h3>
-              <p style="font-size:14px;color:var(--grey-mid);line-height:1.7">Direct tie-ups with 200+ companies for
-                internships, live projects, and final placements.</p>
-            </div>
-            <div class="service-card">
-              <div class="service-icon">📱</div>
-              <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin-bottom:10px">Digital LMS</h3>
-              <p style="font-size:14px;color:var(--grey-mid);line-height:1.7">White-labeled learning management system
-                with real-time analytics and progress tracking.</p>
-            </div>
-            <div class="service-card">
-              <div class="service-icon">🤖</div>
-              <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin-bottom:10px">AI Resume Tools</h3>
-              <p style="font-size:14px;color:var(--grey-mid);line-height:1.7">Campus-wide ATS resume checker and builder
-                deployment for all graduating students.</p>
-            </div>
-            <div class="service-card">
-              <div class="service-icon">📋</div>
-              <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin-bottom:10px">NAAC/NBA Support</h3>
-              <p style="font-size:14px;color:var(--grey-mid);line-height:1.7">Documented placement outcomes and skill
-                data to support accreditation processes.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="section" style="background:var(--grey-pale)">
-        <div class="container">
-          <div class="section-title">
-            <div class="tag">Testimonials</div>
-            <h2>What Institutions Say</h2>
-          </div>
-          <div class="grid-3">
-            <div class="testimonial-card">
-              <p class="testimonial-quote">MSEED transformed our placement percentage from 42% to 87% in just two
-                academic years. The structured training and industry connections made all the difference.</p>
-              <div class="testimonial-author">
-                <div class="author-avatar">RK</div>
-                <div class="author-info">
-                  <h5>Dr. Rajesh Kumar</h5>
-                  <p>TPO, PSG College of Technology</p>
-                </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+       PART 4: E-VEHICLE PROJECT SHOWCASE
+  ══════════════════════════════════════ -->
+    <section id="inst-ev" class="inst-section"
+      style="padding: 100px 0; background: var(--inst-dark); border-top: 1px solid var(--inst-border);">
+      <div class="container">
+        <div class="row align-items-center mb-5">
+          <div class="col-lg-6 ev-left-col">
+            <div class="inst-tieups-tag"
+              style="color: var(--inst-gold); background: rgba(240, 180, 41, 0.1); border-color: rgba(240, 180, 41, 0.3);">
+              Innovation Hub</div>
+            <h2 class="inst-tieups-title" style="margin-top: 15px;">E-Vehicle Research & Development</h2>
+            <p class="inst-tieups-desc" style="margin-left: 0; text-align: left; margin-bottom: 30px;">
+              Pioneering the future of mobility. Our flagship campus-integrated EV project allows students to work
+              hands-on with enterprise-grade automotive systems, directly bridging mechanical engineering with deep-tech
+              IoT.
+            </p>
+
+            <div class="ev-specs-grid">
+              <div class="ev-spec-item">
+                <div class="ev-spec-label">Battery System</div>
+                <div class="ev-spec-val">72V 40Ah Li-Ion</div>
+              </div>
+              <div class="ev-spec-item">
+                <div class="ev-spec-label">BMS</div>
+                <div class="ev-spec-val">Smart Active Balancer</div>
+              </div>
+              <div class="ev-spec-item">
+                <div class="ev-spec-label">IoT Monitoring</div>
+                <div class="ev-spec-val">Real-time CAN Bus Sync</div>
+              </div>
+              <div class="ev-spec-item">
+                <div class="ev-spec-label">Motor Specs</div>
+                <div class="ev-spec-val">3kW BLDC Hub Motor</div>
               </div>
             </div>
-            <div class="testimonial-card">
-              <p class="testimonial-quote">The ATS resume tools deployed campus-wide changed how students approach job
-                applications. Our students now get interview calls that were unthinkable before.</p>
-              <div class="testimonial-author">
-                <div class="author-avatar">PS</div>
-                <div class="author-info">
-                  <h5>Prof. Priya Subramanian</h5>
-                  <p>Placement Head, Amrita University</p>
-                </div>
+
+            <!-- News/Timeline Layout -->
+            <div class="ev-timeline mt-5">
+              <h4 style="color: #fff; font-size: 18px; margin-bottom: 20px; font-family: 'Playfair Display', serif;">
+                Project Timeline</h4>
+              <div class="ev-time-item">
+                <div class="ev-time-dot"></div>
+                <div class="ev-time-date">Phase 3 (Current)</div>
+                <div class="ev-time-info">IoT telematics integration & autonomous braking logic testing.</div>
+              </div>
+              <div class="ev-time-item">
+                <div class="ev-time-dot"></div>
+                <div class="ev-time-date">Phase 2</div>
+                <div class="ev-time-info">Custom Battery Management System deployment and thermal stress runs.</div>
               </div>
             </div>
-            <div class="testimonial-card">
-              <p class="testimonial-quote">Best investment our college has made. Industry-aligned curriculum, live
-                projects and dedicated trainers — MSEED delivers on every promise made.</p>
-              <div class="testimonial-author">
-                <div class="author-avatar">AM</div>
-                <div class="author-info">
-                  <h5>Arjun Menon</h5>
-                  <p>Director, SRMIST Chennai</p>
+          </div>
+
+          <div class="col-lg-6 mt-5 mt-lg-0 ev-right-col">
+            <!-- 360 Viewer / Video -->
+            <div class="ev-visual-container">
+              <div class="ev-viewer-placeholder">
+                <span class="ev-360-badge">360° Viewer (Drag to Rotate)</span>
+                <!-- Placeholder image for 360 sequence -->
+                <img src="chassis.png" alt="EV Concept 360" class="ev-placeholder-img">
+
+                <div class="ev-video-wrapper mt-4">
+                  <video controls class="ev-video-player" poster="chasis.png">
+                    <source src="YOUR_VIDEO_LINK_HERE" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                  <div class="ev-video-overlay"></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
-      <footer class="footer">
-        <div class="container">
-          <div class="footer-grid">
-            <div class="footer-brand">
-              <h3>MSEED</h3>
-              <p>Partnering with institutions to deliver exceptional career outcomes for every student.</p>
-              <div class="social-links">
-                <div class="social-btn">𝕏</div>
-                <div class="social-btn">in</div>
-                <div class="social-btn">▶</div>
-              </div>
-            </div>
-            <div class="footer-col">
-              <h4>Services</h4>
-              <div class="footer-links"><span class="footer-link">Placement Training</span><span
-                  class="footer-link">Skill Assessment</span><span class="footer-link">Industry Connect</span><span
-                  class="footer-link">Digital LMS</span></div>
-            </div>
-            <div class="footer-col">
-              <h4>Company</h4>
-              <div class="footer-links"><span class="footer-link">About Us</span><span
-                  class="footer-link">Careers</span><span class="footer-link">Blog</span><span
-                  class="footer-link">Contact</span></div>
-            </div>
-            <div class="footer-col">
-              <h4>Contact</h4>
-              <div class="footer-links"><span class="footer-link">📞 +91 99400 12345</span><span class="footer-link">✉️
-                  email@mseed.in</span><span class="footer-link">📍 Chennai, Tamil Nadu</span></div>
-            </div>
-          </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+       PART 5: STUDENT ARTICLES & RESEARCH
+  ══════════════════════════════════════ -->
+    <section id="inst-articles" class="inst-section" style="padding: 100px 0; background: var(--inst-dark-2);">
+      <div class="container">
+        <div class="inst-section-header" style="text-align: center; margin-bottom: 60px;">
+          <div class="inst-tieups-tag">Campus Insights</div>
+          <h2 class="inst-tieups-title">Student Articles & Research</h2>
+          <p class="inst-tieups-desc" style="max-width: 600px; margin: 0 auto;">Showcasing top academic achievements,
+            whitepapers, and thought leadership from our partner institutions.</p>
         </div>
-        <div class="footer-bottom">
-          <div class="container">© 2025 MSEED. All rights reserved.</div>
-        </div>
-      </footer>
-    </div>
-    <div id="inst-tab-dashboard" class="inst-tab hidden">
-      <div class="container" style="padding-top:60px;padding-bottom:80px">
-        <div class="section-title" style="text-align:left;margin-bottom:40px">
-          <div class="tag">Institution Dashboard</div>
-          <h2 style="font-family:'Playfair Display',serif;font-size:38px;margin-top:12px">Campus Analytics Overview</h2>
-          <p style="color:var(--grey-mid);margin-top:8px">Real-time placement and skill training data for your
-            institution</p>
-        </div>
-        <div class="grid-4" style="margin-bottom:32px">
-          <div class="card" style="text-align:center;padding:24px">
-            <div style="font-size:32px;margin-bottom:8px">👥</div>
-            <div style="font-family:'Playfair Display',serif;font-size:36px;color:var(--green);font-weight:900">1,240
-            </div>
-            <div style="font-size:13px;color:var(--grey-mid);margin-top:4px">Students Enrolled</div>
-          </div>
-          <div class="card" style="text-align:center;padding:24px">
-            <div style="font-size:32px;margin-bottom:8px">✅</div>
-            <div style="font-family:'Playfair Display',serif;font-size:36px;color:var(--green);font-weight:900">87%
-            </div>
-            <div style="font-size:13px;color:var(--grey-mid);margin-top:4px">Placement Rate</div>
-          </div>
-          <div class="card" style="text-align:center;padding:24px">
-            <div style="font-size:32px;margin-bottom:8px">🏢</div>
-            <div style="font-family:'Playfair Display',serif;font-size:36px;color:var(--green);font-weight:900">48</div>
-            <div style="font-size:13px;color:var(--grey-mid);margin-top:4px">Companies Visited</div>
-          </div>
-          <div class="card" style="text-align:center;padding:24px">
-            <div style="font-size:32px;margin-bottom:8px">📄</div>
-            <div style="font-family:'Playfair Display',serif;font-size:36px;color:var(--green);font-weight:900">2,100
-            </div>
-            <div style="font-size:13px;color:var(--grey-mid);margin-top:4px">Resumes Optimized</div>
-          </div>
-        </div>
-        <div class="grid-2">
-          <div class="card">
-            <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin-bottom:20px">Department-wise Placement
-            </h3>
-            <div style="display:flex;flex-direction:column;gap:14px">
-              <div>
-                <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span>Computer
-                    Science</span><span style="font-weight:700;color:var(--green)">94%</span></div>
-                <div class="progress-bar">
-                  <div class="progress-fill" style="width:94%"></div>
-                </div>
+
+        <div class="row g-4" id="inst-articles-grid">
+          <!-- Article 1 -->
+          <div class="col-md-4">
+            <div class="inst-article-card">
+              <div class="inst-article-img-wrap">
+                <img src="YOUR_IMAGE_LINK_HERE" alt="Article 1" class="inst-article-img">
               </div>
-              <div>
-                <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px">
-                  <span>Mechanical Engineering</span><span style="font-weight:700;color:var(--green)">78%</span>
-                </div>
-                <div class="progress-bar">
-                  <div class="progress-fill" style="width:78%"></div>
-                </div>
-              </div>
-              <div>
-                <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px">
-                  <span>Electronics & Comm.</span><span style="font-weight:700;color:var(--green)">82%</span>
-                </div>
-                <div class="progress-bar">
-                  <div class="progress-fill" style="width:82%"></div>
-                </div>
-              </div>
-              <div>
-                <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span>Civil
-                    Engineering</span><span style="font-weight:700;color:#F57F17">65%</span></div>
-                <div class="progress-bar">
-                  <div class="progress-fill" style="width:65%;background:linear-gradient(90deg,#F57F17,#FFB74D)"></div>
-                </div>
-              </div>
-              <div>
-                <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span>MBA /
-                    Management</span><span style="font-weight:700;color:var(--green)">89%</span></div>
-                <div class="progress-bar">
-                  <div class="progress-fill" style="width:89%"></div>
-                </div>
+              <div class="inst-article-content">
+                <div class="inst-article-meta">Research • Dec 12, 2025</div>
+                <h3 class="inst-article-title">The Future of Edge Computing in Campus Architectures</h3>
+                <p class="inst-article-excerpt">An analysis of how deploying edge compute nodes across university
+                  campuses can drastically reduce latency for ML research models.</p>
+                <button class="inst-article-btn" onclick="openInstArticleModal('article1')">Read More <svg width="14"
+                    height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg></button>
               </div>
             </div>
           </div>
-          <div class="card">
-            <h3 style="font-family:'Playfair Display',serif;font-size:20px;margin-bottom:20px">Upcoming Campus
-              Activities</h3>
-            <div style="display:flex;flex-direction:column;gap:16px">
-              <div style="display:flex;gap:16px;align-items:flex-start">
-                <div
-                  style="background:rgba(0,177,123,0.12);color:var(--green);border-radius:8px;padding:8px 12px;text-align:center;font-size:11px;font-weight:700;min-width:48px">
-                  <div style="font-size:18px;font-weight:900">24</div>Mar
-                </div>
-                <div>
-                  <div style="font-size:14px;font-weight:600">Mock Interview Drive</div>
-                  <div style="font-size:13px;color:var(--grey-mid)">All final year students • 9:00 AM</div>
-                </div>
+          <!-- Article 2 -->
+          <div class="col-md-4">
+            <div class="inst-article-card">
+              <div class="inst-article-img-wrap">
+                <img src="YOUR_IMAGE_LINK_HERE" alt="Article 2" class="inst-article-img">
               </div>
-              <div style="display:flex;gap:16px;align-items:flex-start">
-                <div
-                  style="background:rgba(0,177,123,0.12);color:var(--green);border-radius:8px;padding:8px 12px;text-align:center;font-size:11px;font-weight:700;min-width:48px">
-                  <div style="font-size:18px;font-weight:900">28</div>Mar
-                </div>
-                <div>
-                  <div style="font-size:14px;font-weight:600">TCS Off-Campus Drive</div>
-                  <div style="font-size:13px;color:var(--grey-mid)">CSE, IT Departments • 10:00 AM</div>
-                </div>
+              <div class="inst-article-content">
+                <div class="inst-article-meta">Robotics • Nov 28, 2025</div>
+                <h3 class="inst-article-title">Autonomous Navigation Systems Using Lightweight LiDar</h3>
+                <p class="inst-article-excerpt">A breakthrough student-led project demonstrating high-accuracy SLAM
+                  rendering using cost-effective campus rovers.</p>
+                <button class="inst-article-btn" onclick="openInstArticleModal('article2')">Read More <svg width="14"
+                    height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg></button>
               </div>
-              <div style="display:flex;gap:16px;align-items:flex-start">
-                <div
-                  style="background:rgba(0,177,123,0.12);color:var(--green);border-radius:8px;padding:8px 12px;text-align:center;font-size:11px;font-weight:700;min-width:48px">
-                  <div style="font-size:18px;font-weight:900">02</div>Apr
-                </div>
-                <div>
-                  <div style="font-size:14px;font-weight:600">Resume Workshop</div>
-                  <div style="font-size:13px;color:var(--grey-mid)">3rd year students • 2:00 PM</div>
-                </div>
+            </div>
+          </div>
+          <!-- Article 3 -->
+          <div class="col-md-4">
+            <div class="inst-article-card">
+              <div class="inst-article-img-wrap">
+                <img src="YOUR_IMAGE_LINK_HERE" alt="Article 3" class="inst-article-img">
               </div>
-              <div style="display:flex;gap:16px;align-items:flex-start">
-                <div
-                  style="background:rgba(0,177,123,0.12);color:var(--green);border-radius:8px;padding:8px 12px;text-align:center;font-size:11px;font-weight:700;min-width:48px">
-                  <div style="font-size:18px;font-weight:900">10</div>Apr
-                </div>
-                <div>
-                  <div style="font-size:14px;font-weight:600">Industry Connect Day</div>
-                  <div style="font-size:13px;color:var(--grey-mid)">All departments • 9:00 AM – 5:00 PM</div>
-                </div>
+              <div class="inst-article-content">
+                <div class="inst-article-meta">Methodology • Oct 05, 2025</div>
+                <h3 class="inst-article-title">Integrating Agile Workflows into Semester Projects</h3>
+                <p class="inst-article-excerpt">How adopting industry-standard Scrum methodologies improved overall
+                  student project completion rates by 40%.</p>
+                <button class="inst-article-btn" onclick="openInstArticleModal('article3')">Read More <svg width="14"
+                    height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg></button>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div id="inst-tab-achievements" class="inst-tab hidden">
-      <div class="container" style="padding-top:60px;padding-bottom:80px">
-        <div class="section-title">
-          <div class="tag">Achievements</div>
-          <h2>Numbers That Speak</h2>
-          <p>Proven outcomes across institutions, students, and industry partners</p>
-        </div>
-        <div class="grid-4" style="margin-bottom:48px">
-          <div class="achievement-card"><span class="achievement-num">500+</span>
-            <p style="color:var(--grey-mid);font-size:14px;margin-top:8px">Institutions Partnered</p>
-          </div>
-          <div class="achievement-card"><span class="achievement-num">50K+</span>
-            <p style="color:var(--grey-mid);font-size:14px;margin-top:8px">Students Trained</p>
-          </div>
-          <div class="achievement-card"><span class="achievement-num">200+</span>
-            <p style="color:var(--grey-mid);font-size:14px;margin-top:8px">Industry Partners</p>
-          </div>
-          <div class="achievement-card"><span class="achievement-num">85%</span>
-            <p style="color:var(--grey-mid);font-size:14px;margin-top:8px">Average Placement Rate</p>
-          </div>
-        </div>
-        <div class="grid-3">
-          <div class="card">
-            <div style="font-size:36px;margin-bottom:12px">🏆</div>
-            <h3 style="font-family:'Playfair Display',serif;font-size:18px;margin-bottom:8px">Best EdTech Partner 2024
-            </h3>
-            <p style="font-size:13px;color:var(--grey-mid)">Awarded by Confederation of Indian Industry (CII) for
-              outstanding contribution to campus placements.</p>
-          </div>
-          <div class="card">
-            <div style="font-size:36px;margin-bottom:12px">🌟</div>
-            <h3 style="font-family:'Playfair Display',serif;font-size:18px;margin-bottom:8px">NASSCOM Certified Partner
-            </h3>
-            <p style="font-size:13px;color:var(--grey-mid)">Recognized for IT skill development excellence and
-              industry-aligned curriculum design.</p>
-          </div>
-          <div class="card">
-            <div style="font-size:36px;margin-bottom:12px">📰</div>
-            <h3 style="font-family:'Playfair Display',serif;font-size:18px;margin-bottom:8px">Featured in Forbes India
-            </h3>
-            <p style="font-size:13px;color:var(--grey-mid)">Listed in Forbes India's Top 20 EdTech Startups Transforming
-              Campus Hiring, 2023.</p>
+    </section>
+
+    <!-- ARTICLE READ MORE MODAL -->
+    <div id="inst-article-modal" class="inst-modal-overlay hidden">
+      <div class="inst-modal-box">
+        <button class="inst-modal-close" onclick="closeInstArticleModal()">✕</button>
+        <div class="inst-modal-body">
+          <img id="ia-modal-img" src="" alt="Article Header" class="ia-modal-img">
+          <div class="ia-modal-meta" id="ia-modal-meta">Category • Date</div>
+          <h2 class="ia-modal-title" id="ia-modal-title">Article Title</h2>
+          <div class="ia-modal-text" id="ia-modal-text">
+            Full article content will load here...
           </div>
         </div>
       </div>
     </div>
-    <div id="inst-tab-industry" class="inst-tab hidden">
-      <div class="container" style="padding-top:60px;padding-bottom:80px">
-        <div class="section-title">
-          <div class="tag">Industry Tie-ups</div>
-          <h2>Powered by 200+ Industry Partners</h2>
-          <p>We connect your campus directly to the companies where your students want to work</p>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:48px">
-          <div class="industry-logo">TCS</div>
-          <div class="industry-logo">Infosys</div>
-          <div class="industry-logo">Wipro</div>
-          <div class="industry-logo">Cognizant</div>
-          <div class="industry-logo">Accenture</div>
-          <div class="industry-logo">HCL Tech</div>
-          <div class="industry-logo">Tech Mahindra</div>
-          <div class="industry-logo">Capgemini</div>
-          <div class="industry-logo">Zoho Corp</div>
-          <div class="industry-logo">Freshworks</div>
-          <div class="industry-logo">HDFC Bank</div>
-          <div class="industry-logo">ICICI Bank</div>
-          <div class="industry-logo">Amazon India</div>
-          <div class="industry-logo">Flipkart</div>
-          <div class="industry-logo">Swiggy</div>
-          <div class="industry-logo">Zomato</div>
-        </div>
-        <div
-          style="background:linear-gradient(135deg,var(--green),#00c98c);border-radius:24px;padding:48px;text-align:center;color:#fff">
-          <h2 style="font-family:'Playfair Display',serif;font-size:36px;margin-bottom:16px">Want Your Students at These
-            Companies?</h2>
-          <p style="font-size:16px;opacity:0.85;max-width:560px;margin:0 auto 28px">Join 500+ institutions that partner
-            with MSEED to connect their students with top employers</p><button class="btn btn-white"
-            onclick="showToast('Partnership inquiry submitted! Our team will reach out.','success')">Become a Partner
-            Institution</button>
-        </div>
-      </div>
-    </div>
-    <div id="inst-tab-offers" class="inst-tab hidden">
-      <div class="container" style="padding-top:60px;padding-bottom:80px">
-        <div class="section-title">
-          <div class="tag">Current Offers</div>
-          <h2>Limited Time Partnership Deals</h2>
-          <p>Special packages designed to maximize your institution's outcomes and ROI</p>
-        </div>
-        <div class="grid-3">
-          <div class="offer-card">
-            <div class="offer-badge">🔥 Most Popular</div>
-            <h3>Campus Connect Pro</h3>
-            <p>Full placement training suite for up to 500 students including ATS tools, mock interviews and industry
-              drives</p>
-            <div style="font-size:28px;font-weight:900;margin-bottom:4px">₹4.9L / year</div>
-            <div style="font-size:13px;opacity:0.7;margin-bottom:16px;text-decoration:line-through">₹7.5L / year</div>
-            <button class="btn btn-white" onclick="showToast('Campus Connect Pro inquiry sent!','success')">Get This
-              Deal</button>
-          </div>
-          <div class="offer-card" style="background:linear-gradient(135deg,#1a2420,var(--green))">
-            <div class="offer-badge">⚡ New Launch</div>
-            <h3>Digital Campus Suite</h3>
-            <p>LMS + ATS tools + skill assessment platform + industry connect for entire institution</p>
-            <div style="font-size:28px;font-weight:900;margin-bottom:4px">₹9.9L / year</div>
-            <div style="font-size:13px;opacity:0.7;margin-bottom:16px;text-decoration:line-through">₹15L / year</div>
-            <button class="btn btn-white" onclick="showToast('Digital Campus Suite inquiry sent!','success')">Get This
-              Deal</button>
-          </div>
-          <div class="offer-card" style="background:linear-gradient(135deg,var(--grey),#444)">
-            <div class="offer-badge">🎯 Starter</div>
-            <h3>Placement Kickstart</h3>
-            <p>Essential placement training for final year students with ATS resume tools and mock drive</p>
-            <div style="font-size:28px;font-weight:900;margin-bottom:4px">₹1.9L / year</div>
-            <div style="font-size:13px;opacity:0.7;margin-bottom:16px;text-decoration:line-through">₹2.8L / year</div>
-            <button class="btn btn-white" onclick="showToast('Placement Kickstart inquiry sent!','success')">Get This
-              Deal</button>
+    <!-- ══════════════════════════════════════
+       PART 7: INSTITUTION FOOTER
+  ══════════════════════════════════════ -->
+    <footer id="inst-contact" class="inst-footer">
+      <!-- Top CTA Strip -->
+      <div class="inst-footer-cta">
+        <div class="container">
+          <div class="row align-items-center justify-content-between text-center text-md-start">
+            <div class="col-md-8 mb-3 mb-md-0">
+              <h3 class="inst-f-cta-title">Ready to Transform Your Campus?</h3>
+              <p class="inst-f-cta-desc">Partner with MSEED to integrate industry-standard pedagogy and infrastructure
+                today.</p>
+            </div>
+            <div class="col-md-4 text-md-end">
+              <button class="inst-btn-primary" onclick="instNavScroll(event,'inst-contact')">Start Partnership</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div><!-- /page-institution -->
+
+      <!-- Main Footer Content -->
+      <div class="inst-footer-main">
+        <div class="container">
+          <div class="row g-5">
+            <!-- Col 1: Brand -->
+            <div class="col-lg-4 col-md-6">
+              <div class="inst-footer-logo mb-4">
+                <img src="https://mseed.in/img/logo.jpg" alt="MSEED Logo"
+                  style="height: 48px; filter: brightness(0) invert(1);">
+                <span class="inst-logo-tag" style="margin-left: 12px;">Institution</span>
+              </div>
+              <p class="inst-footer-text">
+                MSEED bridges the gap between traditional academics and the rapidly evolving tech industry through live
+                classes, EV labs, and expert placement training.
+              </p>
+            </div>
+
+            <!-- Col 2: Quick Links -->
+            <div class="col-lg-3 col-md-6">
+              <h4 class="inst-footer-title">Quick Links</h4>
+              <ul class="inst-footer-links">
+                <li><a href="#inst-hero" onclick="instNavScroll(event,'inst-hero')">Home</a></li>
+                <li><a href="#inst-services" onclick="instNavScroll(event,'inst-services')">Our Services</a></li>
+                <li><a href="#inst-ev"
+                    onclick="if(event)event.preventDefault();navigate('inst-ev');window.scrollTo(0,0);">EV Innovation
+                    Hub</a></li>
+                <li><a href="#inst-articles" onclick="instNavScroll(event,'inst-articles')">Student Research</a></li>
+                <li><a href="#inst-tieups" onclick="instNavScroll(event,'inst-tieups')">Partnerships</a></li>
+              </ul>
+            </div>
+
+            <!-- Col 3: Contact -->
+            <div class="col-lg-3 col-md-6">
+              <h4 class="inst-footer-title">Contact Us</h4>
+              <ul class="inst-footer-links">
+                <li><span style="color: var(--inst-green);">Email:</span> info@mseed.in</li>
+                <li><span style="color: var(--inst-green);">Phone:</span> +91 90000 00000</li>
+                <li><span style="color: var(--inst-green);">HQ:</span> Tech Park, Innovation Valley, India 600001</li>
+              </ul>
+            </div>
+
+            <!-- Col 4: Socials -->
+            <div class="col-lg-2 col-md-6">
+              <h4 class="inst-footer-title">Connect</h4>
+              <div class="inst-footer-socials">
+                <a href="#" class="inst-social-icon">IN</a>
+                <a href="#" class="inst-social-icon">TW</a>
+                <a href="#" class="inst-social-icon">IG</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="inst-footer-bottom">
+        <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+          <p class="mb-2 mb-md-0">© 2025 MSEED Technologies. All Rights Reserved.</p>
+          <div class="inst-footer-legal">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div><!-- /#page-institution -->
+
+  <!-- ══════════════════════════════════════════════════════
+     INSTITUTION PORTAL — DEDICATED EV PARALLAX PAGE
+  ══════════════════════════════════════════════════════ -->
+  <div id="page-inst-ev" class="page ev-dark-theme">
+    <!-- Back Button -->
+    <button class="ev-page-back" onclick="navigate('institution'); window.scrollTo(0,0);">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5M12 19l-7-7 7-7" />
+      </svg>
+      Back to Portal
+    </button>
+
+    <!-- Parallax Scroll Container -->
+    <div class="ev-story-wrapper" id="ev-story-wrapper">
+
+      <!-- Pinned Background Visuals (The EV Build) -->
+      <div class="ev-pinned-visuals" id="ev-pinned-visuals">
+        <div class="ev-spark-particles" id="ev-sparks" style="opacity: 0;"></div>
+        <img src="https://res.cloudinary.com/drlg1t6pk/image/upload/v1771927478/final_amid0s.png" class="ev-seq-layer"
+          id="ev-layer-full" alt="Full Assembly">
+        <img src="https://res.cloudinary.com/drlg1t6pk/image/upload/v1771927478/final_amid0s.png" class="ev-seq-layer"
+          id="ev-layer-motor" alt="Motor">
+        <img src="https://res.cloudinary.com/drlg1t6pk/image/upload/v1771927477/step_3_jtwxxt.png" class="ev-seq-layer"
+          id="ev-layer-battery" alt="Battery">
+        <img src="https://res.cloudinary.com/drlg1t6pk/image/upload/v1771927491/step3_naeg0i.png_" class="ev-seq-layer"
+          id="ev-layer-welding" alt="Frame Welding">
+        <img src="https://res.cloudinary.com/drlg1t6pk/image/upload/v1771926971/chasis_h7ctm1.png" class="ev-seq-layer"
+          id="ev-layer-chassis" alt="Chassis">
+        <img src="https://res.cloudinary.com/drlg1t6pk/image/upload/v1771927478/final_amid0s.png" class="ev-seq-layer"
+          id="ev-layer-design" alt="Design Blueprint">
+      </div>
+
+      <!-- Scrolling Narrative Text -->
+      <div class="ev-narrative-content">
+
+        <!-- 1. Intro -->
+        <section class="ev-scroll-step ev-step-intro" id="ev-step-1">
+          <div class="container ev-content-center">
+            <h1 class="ev-main-title">Engineering the Future of Mobility</h1>
+            <p class="ev-sub-text">A cinematic journey through modern EV innovation, built step-by-step.</p>
+            <div class="ev-scroll-down-hint">Scroll down <br><span>↓</span></div>
+          </div>
+        </section>
+
+        <!-- 2. Design -->
+        <section class="ev-scroll-step" id="ev-step-2">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-5 ev-text-panel">
+                <span class="ev-phase-label">Phase 01</span>
+                <h2 class="ev-phase-title">Concept Design & Engineering Planning</h2>
+                <p class="ev-phase-desc">Precision wireframing of aerodynamic efficiency and internal volume constraints
+                  before structural implementation.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. Chassis -->
+        <section class="ev-scroll-step" id="ev-step-3">
+          <div class="container">
+            <div class="row justify-content-end">
+              <div class="col-lg-5 ev-text-panel">
+                <span class="ev-phase-label">Phase 02</span>
+                <h2 class="ev-phase-title">Chassis Development</h2>
+                <p class="ev-phase-desc">Focusing on critical frame alignment, structural load testing, and precise
+                  center-of-gravity distribution.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. Welding -->
+        <section class="ev-scroll-step" id="ev-step-4">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-5 ev-text-panel">
+                <span class="ev-phase-label">Phase 03</span>
+                <h2 class="ev-phase-title">Frame & Welding</h2>
+                <p class="ev-phase-desc">Industrial-grade precision welding ensures the torsional rigidity necessary for
+                  high-performance EV platforms under load.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5. Battery/BMS -->
+        <section class="ev-scroll-step" id="ev-step-5">
+          <div class="container">
+            <div class="row justify-content-end">
+              <div class="col-lg-5 ev-text-panel">
+                <span class="ev-phase-label">Phase 04</span>
+                <h2 class="ev-phase-title">Battery & BMS Integration</h2>
+                <ul class="ev-spec-list">
+                  <li><strong>Battery System:</strong> 72V 100Ah High-Density</li>
+                  <li><strong>BMS Module:</strong> Active Cell Balancing</li>
+                  <li><strong>IoT Gateway:</strong> Real-time CAN Sync</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6. Motor -->
+        <section class="ev-scroll-step" id="ev-step-6">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-5 ev-text-panel">
+                <span class="ev-phase-label">Phase 05</span>
+                <h2 class="ev-phase-title">Motor & Control System</h2>
+                <p class="ev-phase-desc">High-torque rotational sync via intelligent motor controllers ensuring peak
+                  power delivery unconditionally.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7. Reveal -->
+        <section class="ev-scroll-step" id="ev-step-7">
+          <div class="container ev-content-center text-center">
+            <h2 class="ev-reveal-title">The Complete System.</h2>
+          </div>
+        </section>
+
+      </div> <!-- /.ev-narrative-content -->
+    </div> <!-- /.ev-story-wrapper -->
+
+    <!-- 8. Final Impact -->
+    <section class="ev-final-impact" id="ev-step-8">
+      <div class="container text-center">
+        <h2 class="inst-hero-headline mb-4">From Concept to Road-Ready Innovation</h2>
+        <p class="inst-hero-sub mx-auto" style="max-width: 600px; margin-bottom: 40px; color: rgba(255,255,255,0.7);">
+          Empowering students through hands-on industry collaboration. Our institution-grade EV labs build real
+          engineers.
+        </p>
+        <button class="inst-btn-primary" onclick="navigate('institution'); window.scrollTo(0,0);">
+          Partner With Our EV Innovation Lab
+        </button>
+      </div>
+    </section>
+
+  </div><!-- /#page-inst-ev -->
+
+
+  <!-- ══════════════════════════════════════════════════════
+     INSTITUTION PORTAL CSS
+     Add this inside <style> tag OR institution_portal.css
+══════════════════════════════════════════════════════ -->
+  <style>
+    /* ── CSS Variables (Institution theme: dark premium) ── */
+    .page#page-institution {
+      --inst-dark: #050d09;
+      --inst-dark-2: #0a1610;
+      --inst-dark-3: #0f1f14;
+      --inst-green: #00b17b;
+      --inst-green-2: #00e5a0;
+      --inst-gold: #f0b429;
+      --inst-white: #ffffff;
+      --inst-grey: rgba(255, 255, 255, 0.55);
+      --inst-grey-dim: rgba(255, 255, 255, 0.15);
+      --inst-border: rgba(255, 255, 255, 0.08);
+      --inst-radius: 16px;
+      --inst-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+      --inst-glow: 0 0 40px rgba(0, 177, 123, 0.2);
+
+      background: var(--inst-dark);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ══ NAVBAR ══ */
+    .inst-navbar {
+      position: sticky;
+      top: 0;
+      z-index: 500;
+      background: rgba(5, 13, 9, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--inst-border);
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .inst-navbar.scrolled {
+      background: rgba(5, 13, 9, 0.97);
+      box-shadow: 0 4px 32px rgba(0, 0, 0, 0.5);
+    }
+
+    .inst-nav-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 28px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    /* Logo */
+    .inst-nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .inst-logo-img {
+      height: 36px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .inst-logo-tag {
+      background: rgba(0, 177, 123, 0.15);
+      border: 1px solid rgba(0, 177, 123, 0.3);
+      color: var(--inst-green-2);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 100px;
+    }
+
+    /* Nav links */
+    .inst-nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      flex: 1;
+      justify-content: center;
+    }
+
+    .inst-nav-link {
+      display: block;
+      padding: 7px 14px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--inst-grey);
+      text-decoration: none;
+      transition: all 0.25s ease;
+      white-space: nowrap;
+    }
+
+    .inst-nav-link:hover,
+    .inst-nav-link.active {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    /* CTA */
+    .inst-nav-cta {
+      background: var(--inst-green);
+      color: #fff;
+      border: none;
+      border-radius: 100px;
+      padding: 9px 20px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .inst-nav-cta:hover {
+      background: var(--inst-green-2);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(0, 177, 123, 0.4);
+    }
+
+    /* Hamburger */
+    .inst-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      flex-shrink: 0;
+    }
+
+    .inst-hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--inst-grey);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    /* Mobile menu */
+    .inst-mobile-menu {
+      background: rgba(5, 13, 9, 0.98);
+      border-top: 1px solid var(--inst-border);
+      padding: 16px 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .inst-mobile-menu.hidden {
+      display: none !important;
+    }
+
+    .inst-mob-link {
+      display: block;
+      padding: 12px 16px;
+      border-radius: 10px;
+      color: var(--inst-grey);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .inst-mob-link:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+    }
+
+    .inst-mob-cta {
+      background: var(--inst-green);
+      color: #fff !important;
+      text-align: center;
+      font-weight: 700;
+      margin-top: 8px;
+    }
+
+    /* ══ HERO ══ */
+    .inst-hero {
+      position: relative;
+      min-height: calc(100vh - 68px);
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* Background */
+    .inst-hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .inst-hero-bg-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.25;
+    }
+
+    .inst-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 50%, rgba(0, 177, 123, 0.12) 0%, transparent 60%),
+        linear-gradient(135deg, rgba(5, 13, 9, 0.97) 0%, rgba(5, 13, 9, 0.7) 50%, rgba(5, 13, 9, 0.95) 100%);
+    }
+
+    /* Animated grid */
+    .inst-hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0, 177, 123, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 177, 123, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridShift 20s linear infinite;
+    }
+
+    @keyframes gridShift {
+      from {
+        background-position: 0 0;
+      }
+
+      to {
+        background-position: 60px 60px;
+      }
+    }
+
+    /* Floating orbs */
+    .inst-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      animation: orbFloat 8s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .inst-orb-1 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(0, 177, 123, 0.15) 0%, transparent 70%);
+      top: -100px;
+      left: -100px;
+      animation-duration: 9s;
+    }
+
+    .inst-orb-2 {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(0, 229, 160, 0.10) 0%, transparent 70%);
+      bottom: -80px;
+      right: -80px;
+      animation-duration: 7s;
+      animation-delay: -3s;
+    }
+
+    .inst-orb-3 {
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(240, 180, 41, 0.06) 0%, transparent 70%);
+      top: 50%;
+      right: 30%;
+      animation-duration: 11s;
+      animation-delay: -6s;
+    }
+
+    @keyframes orbFloat {
+
+      0%,
+      100% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      33% {
+        transform: translate(30px, -20px) scale(1.05);
+      }
+
+      66% {
+        transform: translate(-20px, 15px) scale(0.97);
+      }
+    }
+
+    /* Hero content */
+    .inst-hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 80px 24px;
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .min-vh-wrap {
+      min-height: calc(100vh - 160px);
+    }
+
+    /* Left col */
+    .inst-hero-left {
+      padding-right: 48px;
+    }
+
+    /* Eyebrow */
+    .inst-hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(0, 177, 123, 0.10);
+      border: 1px solid rgba(0, 177, 123, 0.25);
+      border-radius: 100px;
+      padding: 8px 20px;
+      color: var(--inst-green-2);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 28px;
+      opacity: 0;
+      /* GSAP animates in */
+    }
+
+    .inst-live-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--inst-green-2);
+      border-radius: 50%;
+      animation: instPulse 2s ease infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes instPulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        box-shadow: 0 0 0 0 rgba(0, 229, 160, 0.4);
+      }
+
+      50% {
+        opacity: 0.6;
+        box-shadow: 0 0 0 6px rgba(0, 229, 160, 0);
+      }
+    }
+
+    /* Headline */
+    .inst-hero-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(40px, 5.5vw, 72px);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.08;
+      margin-bottom: 24px;
+      letter-spacing: -1px;
+      opacity: 0;
+      /* GSAP */
+    }
+
+    .inst-headline-accent {
+      background: linear-gradient(90deg, var(--inst-green), var(--inst-green-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
+    }
+
+    /* Underline decoration */
+    .inst-headline-accent::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--inst-green), transparent);
+      border-radius: 2px;
+    }
+
+    /* Sub */
+    .inst-hero-sub {
+      font-size: clamp(15px, 1.8vw, 18px);
+      color: var(--inst-grey);
+      line-height: 1.75;
+      max-width: 520px;
+      margin-bottom: 28px;
+      opacity: 0;
+      /* GSAP */
+    }
+
+    /* Trust chips */
+    .inst-hero-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 36px;
+      opacity: 0;
+      /* GSAP */
+    }
+
+    .inst-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      border-radius: 100px;
+      padding: 7px 16px;
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 12px;
+      font-weight: 600;
+      transition: all 0.25s ease;
+    }
+
+    .inst-chip:hover {
+      background: rgba(0, 177, 123, 0.12);
+      border-color: rgba(0, 177, 123, 0.3);
+      color: var(--inst-green-2);
+      transform: translateY(-2px);
+    }
+
+    /* Actions */
+    .inst-hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      opacity: 0;
+      /* GSAP */
+    }
+
+    .inst-btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--inst-green);
+      color: #fff;
+      border: none;
+      border-radius: 100px;
+      padding: 14px 28px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .inst-btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .inst-btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(0, 177, 123, 0.45);
+    }
+
+    .inst-btn-primary:hover::before {
+      opacity: 1;
+    }
+
+    .inst-btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.75);
+      border: 1.5px solid rgba(255, 255, 255, 0.2);
+      border-radius: 100px;
+      padding: 14px 28px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .inst-btn-ghost:hover {
+      border-color: var(--inst-green);
+      color: var(--inst-green-2);
+      background: rgba(0, 177, 123, 0.08);
+      transform: translateY(-3px);
+    }
+
+    /* ── RIGHT: Stats cluster ── */
+    .inst-hero-right {
+      opacity: 0;
+      /* GSAP */
+    }
+
+    .inst-stats-cluster {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 400px;
+      margin-left: auto;
+    }
+
+    /* Stat card base */
+    .inst-stat-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--inst-border);
+      border-radius: 20px;
+      padding: 24px 28px;
+      backdrop-filter: blur(12px);
+      transition: all 0.35s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .inst-stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--inst-green), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .inst-stat-card:hover {
+      background: rgba(0, 177, 123, 0.08);
+      border-color: rgba(0, 177, 123, 0.25);
+      transform: translateY(-4px);
+      box-shadow: var(--inst-glow);
+    }
+
+    .inst-stat-card:hover::before {
+      opacity: 1;
+    }
+
+    .inst-stat-icon {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .inst-stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 44px;
+      font-weight: 900;
+      color: var(--inst-green-2);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .inst-stat-label {
+      font-size: 13px;
+      color: var(--inst-grey);
+      font-weight: 500;
+    }
+
+    /* Progress bar inside main stat */
+    .inst-stat-bar {
+      height: 3px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 2px;
+      margin-top: 14px;
+      overflow: hidden;
+    }
+
+    .inst-stat-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--inst-green), var(--inst-green-2));
+      border-radius: 2px;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.8s;
+    }
+
+    .inst-stat-card:hover .inst-stat-bar-fill,
+    .inst-stat-bar-fill.animated {
+      transform: scaleX(1);
+    }
+
+    /* Row of two small stat cards */
+    .inst-stat-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .inst-stat-sm {
+      padding: 20px 22px;
+    }
+
+    .inst-stat-sm .inst-stat-num {
+      font-size: 34px;
+    }
+
+    /* Wide stat with inline layout */
+    .inst-stat-wide .inst-stat-wide-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 4px;
+    }
+
+    .inst-stat-wide-tag {
+      font-size: 11px;
+      color: var(--inst-grey);
+      line-height: 1.6;
+      text-align: right;
+      max-width: 140px;
+    }
+
+    /* Scroll hint */
+    .inst-scroll-hint {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--inst-grey-dim);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      z-index: 3;
+      animation: hintBob 2.5s ease-in-out infinite;
+    }
+
+    .inst-scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--inst-green), transparent);
+      animation: lineGrow 2.5s ease-in-out infinite;
+    }
+
+    @keyframes hintBob {
+
+      0%,
+      100% {
+        transform: translateX(-50%) translateY(0);
+      }
+
+      50% {
+        transform: translateX(-50%) translateY(6px);
+      }
+    }
+
+    @keyframes lineGrow {
+      0% {
+        transform: scaleY(0);
+        opacity: 0;
+        transform-origin: top;
+      }
+
+      50% {
+        transform: scaleY(1);
+        opacity: 1;
+        transform-origin: top;
+      }
+
+      100% {
+        transform: scaleY(0);
+        opacity: 0;
+        transform-origin: bottom;
+      }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 991px) {
+      .inst-hero-left {
+        padding-right: 0;
+        margin-bottom: 48px;
+      }
+
+      .inst-hero-right {
+        margin-left: 0;
+      }
+
+      .inst-stats-cluster {
+        max-width: 100%;
+      }
+
+      .inst-nav-links {
+        display: none;
+      }
+
+      .inst-hamburger {
+        display: flex;
+      }
+
+      .inst-nav-cta {
+        display: none;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .inst-hero-headline {
+        font-size: 36px;
+      }
+
+      .inst-hero-chips {
+        gap: 8px;
+      }
+
+      .inst-chip {
+        font-size: 11px;
+        padding: 5px 12px;
+      }
+
+      .inst-stat-row {
+        grid-template-columns: 1fr;
+      }
+
+      .inst-btn-primary,
+      .inst-btn-ghost {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    /* ══ STRATEGIC TIE-UPS ══ */
+    .inst-tieups {
+      padding: 80px 0 60px;
+      background: var(--inst-dark-2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .inst-tieups::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0, 177, 123, 0.3), transparent);
+    }
+
+    .inst-tieups-tag {
+      display: inline-block;
+      padding: 6px 16px;
+      background: rgba(0, 177, 123, 0.1);
+      border: 1px solid rgba(0, 177, 123, 0.2);
+      color: var(--inst-green);
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 24px;
+    }
+
+    .inst-tieups-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 4vw, 48px);
+      color: #fff;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+
+    .inst-tieups-desc {
+      max-width: 600px;
+      margin: 0 auto 48px;
+      color: var(--inst-grey);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .inst-marquee-wrap {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      padding: 20px 0;
+    }
+
+    .inst-marquee-wrap::before,
+    .inst-marquee-wrap::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 150px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .inst-marquee-wrap::before {
+      left: 0;
+      background: linear-gradient(to right, var(--inst-dark-2), transparent);
+    }
+
+    .inst-marquee-wrap::after {
+      right: 0;
+      background: linear-gradient(to left, var(--inst-dark-2), transparent);
+    }
+
+    .inst-marquee-track {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      width: max-content;
+      animation: scrollInfinite 30s linear infinite;
+    }
+
+    .inst-logo-item {
+      width: 140px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      filter: grayscale(100%) opacity(0.5);
+      cursor: pointer;
+    }
+
+    .inst-logo-item img {
+      max-width: 100px;
+      max-height: 40px;
+      object-fit: contain;
+    }
+
+    .inst-logo-item:hover {
+      filter: grayscale(0%) opacity(1);
+      transform: scale(1.08);
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    @keyframes scrollInfinite {
+      0% {
+        transform: translateX(0);
+      }
+
+      /* We offset half of the track taking into account the gap. */
+      100% {
+        transform: translateX(calc(-50% - 20px));
+      }
+    }
+
+    /* ══ SERVICES SECTION ══ */
+    .inst-section {
+      position: relative;
+      z-index: 2;
+    }
+
+    .inst-service-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--inst-border);
+      border-radius: 20px;
+      padding: 32px 28px;
+      height: 100%;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .inst-service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--inst-green), var(--inst-green-2));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .inst-service-card:hover {
+      background: rgba(0, 177, 123, 0.05);
+      border-color: rgba(0, 177, 123, 0.3);
+      transform: translateY(-8px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 177, 123, 0.05);
+    }
+
+    .inst-service-card:hover::before {
+      opacity: 1;
+    }
+
+    .inst-svc-icon {
+      font-size: 40px;
+      margin-bottom: 20px;
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+
+    .inst-service-card:hover .inst-svc-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .inst-svc-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    .inst-svc-desc {
+      font-size: 14px;
+      color: var(--inst-grey);
+      line-height: 1.6;
+    }
+
+    /* ══ EV SHOWCASE SECTION ══ */
+    .ev-left-col {
+      padding-right: 40px;
+    }
+
+    .ev-specs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+
+    .ev-spec-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 16px;
+      border-left: 3px solid var(--inst-green);
+    }
+
+    .ev-spec-label {
+      font-size: 12px;
+      color: var(--inst-grey);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .ev-spec-val {
+      font-family: 'DM Mono', monospace;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--inst-green-2);
+    }
+
+    .ev-timeline {
+      position: relative;
+      padding-left: 20px;
+      border-left: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .ev-time-item {
+      position: relative;
+      margin-bottom: 24px;
+    }
+
+    .ev-time-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .ev-time-dot {
+      position: absolute;
+      left: -27px;
+      top: 2px;
+      width: 12px;
+      height: 12px;
+      background: var(--inst-green);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--inst-green);
+    }
+
+    .ev-time-date {
+      font-size: 12px;
+      color: var(--inst-gold);
+      font-weight: 700;
+      margin-bottom: 6px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .ev-time-info {
+      font-size: 14px;
+      color: var(--inst-grey);
+      line-height: 1.5;
+    }
+
+    .ev-visual-container {
+      position: relative;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--inst-border);
+      border-radius: 24px;
+      padding: 24px;
+    }
+
+    .ev-viewer-placeholder {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #000;
+      aspect-ratio: 16/9;
+      cursor: ew-resize;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ev-360-badge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 100px;
+      letter-spacing: 1px;
+      z-index: 2;
+    }
+
+    .ev-placeholder-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.8;
+      transition: opacity 0.3s;
+    }
+
+    .ev-viewer-placeholder:hover .ev-placeholder-img {
+      opacity: 1;
+    }
+
+    .ev-video-wrapper {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 16/9;
+      background: #000;
+      border: 1px solid rgba(0, 177, 123, 0.3);
+      box-shadow: 0 0 30px rgba(0, 177, 123, 0.15);
+    }
+
+    .ev-video-player {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .ev-video-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 60%, rgba(0, 0, 0, 0.8) 100%);
+      pointer-events: none;
+    }
+
+    /* ══ ARTICLES SECTION ══ */
+    .inst-article-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--inst-border);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .inst-article-card:hover {
+      border-color: rgba(255, 255, 255, 0.15);
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .inst-article-img-wrap {
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .inst-article-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .inst-article-card:hover .inst-article-img {
+      transform: scale(1.08);
+    }
+
+    .inst-article-content {
+      padding: 28px 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .inst-article-meta {
+      font-size: 11px;
+      color: var(--inst-green-2);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .inst-article-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .inst-article-excerpt {
+      font-size: 14px;
+      color: var(--inst-grey);
+      line-height: 1.6;
+      margin-bottom: 24px;
+      flex: 1;
+    }
+
+    .inst-article-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 0;
+      cursor: pointer;
+      transition: color 0.2s ease;
+      margin-top: auto;
+    }
+
+    .inst-article-btn svg {
+      transition: transform 0.2s ease;
+    }
+
+    .inst-article-btn:hover {
+      color: var(--inst-green-2);
+    }
+
+    .inst-article-btn:hover svg {
+      transform: translateX(4px);
+    }
+
+    /* ══ ARTICLE MODAL ══ */
+    .inst-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.3s, visibility 0.3s;
+    }
+
+    .inst-modal-overlay.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .inst-modal-box {
+      background: var(--inst-dark-2);
+      width: 100%;
+      max-width: 700px;
+      max-height: 90vh;
+      border-radius: 24px;
+      border: 1px solid var(--inst-border);
+      position: relative;
+      overflow-y: auto;
+      transform: translateY(0);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .inst-modal-overlay.hidden .inst-modal-box {
+      transform: translateY(40px);
+    }
+
+    .inst-modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 36px;
+      height: 36px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .inst-modal-close:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .ia-modal-img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .inst-modal-body {
+      padding-bottom: 40px;
+    }
+
+    .ia-modal-meta {
+      font-size: 12px;
+      color: var(--inst-green-2);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 32px 32px 16px;
+    }
+
+    .ia-modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: #fff;
+      margin: 0 32px 24px;
+      line-height: 1.2;
+    }
+
+    .ia-modal-text {
+      color: var(--inst-grey);
+      font-size: 15px;
+      line-height: 1.8;
+      margin: 0 32px;
+    }
+
+    .ia-modal-text p {
+      margin-bottom: 16px;
+    }
+
+    /* ══ FOOTER SECTION ══ */
+    .inst-footer {
+      background: #000;
+      color: #fff;
+      position: relative;
+      border-top: 1px solid var(--inst-border);
+      z-index: 5;
+    }
+
+    .inst-footer-cta {
+      background: linear-gradient(135deg, var(--inst-dark-3) 0%, var(--inst-dark) 100%);
+      padding: 60px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .inst-f-cta-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 3vw, 36px);
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+
+    .inst-f-cta-desc {
+      font-size: 16px;
+      color: var(--inst-grey);
+      margin: 0;
+    }
+
+    .inst-footer-main {
+      padding: 80px 0;
+    }
+
+    .inst-footer-text {
+      color: var(--inst-grey);
+      font-size: 14px;
+      line-height: 1.8;
+      max-width: 300px;
+    }
+
+    .inst-footer-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 24px;
+      position: relative;
+      padding-bottom: 12px;
+    }
+
+    .inst-footer-title::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 40px;
+      height: 2px;
+      background: var(--inst-green);
+    }
+
+    .inst-footer-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .inst-footer-links li {
+      margin-bottom: 12px;
+      color: var(--inst-grey);
+      font-size: 14px;
+      transition: color 0.3s;
+    }
+
+    .inst-footer-links a {
+      color: var(--inst-grey);
+      text-decoration: none;
+      transition: color 0.3s, transform 0.3s;
+      display: inline-block;
+    }
+
+    .inst-footer-links a:hover {
+      color: var(--inst-green-2);
+      transform: translateX(4px);
+    }
+
+    .inst-footer-socials {
+      display: flex;
+      gap: 12px;
+    }
+
+    .inst-social-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .inst-social-icon:hover {
+      background: var(--inst-green);
+      border-color: var(--inst-green);
+      transform: translateY(-4px);
+      box-shadow: 0 4px 15px rgba(0, 177, 123, 0.4);
+      color: #fff;
+    }
+
+    .inst-footer-bottom {
+      padding: 24px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      background: #000;
+      color: var(--inst-grey);
+      font-size: 13px;
+    }
+
+    .inst-footer-legal a {
+      color: var(--inst-grey);
+      text-decoration: none;
+      margin-left: 20px;
+      transition: color 0.3s;
+    }
+
+    .inst-footer-legal a:hover {
+      color: var(--inst-green-2);
+    }
+
+    @media (max-width: 991px) {
+      .ev-left-col {
+        padding-right: 12px;
+      }
+    }
+
+    /* ══════════════════════════════════════════════════════
+       EV PROJECT DEDICATED PAGE CSS
+    ══════════════════════════════════════════════════════ */
+    .ev-dark-theme {
+      background-color: #030705;
+      color: #fff;
+    }
+
+    .ev-page-back {
+      position: fixed;
+      top: 30px;
+      left: 30px;
+      z-index: 9999;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .ev-page-back:hover {
+      background: #fff;
+      color: #000;
+      transform: translateX(-4px);
+    }
+
+    .ev-story-wrapper {
+      position: relative;
+      width: 100%;
+    }
+
+    .ev-pinned-visuals {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .ev-seq-layer {
+      position: absolute;
+      width: 80%;
+      max-width: 1200px;
+      height: auto;
+      object-fit: contain;
+      opacity: 0;
+      transform: scale(0.95);
+      will-change: transform, opacity;
+    }
+
+    .ev-narrative-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+    }
+
+    .ev-scroll-step {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 80px 0;
+    }
+
+    .ev-step-intro {
+      background: linear-gradient(to bottom, rgba(3, 7, 5, 0.8) 0%, rgba(3, 7, 5, 0) 100%);
+    }
+
+    .ev-content-center {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ev-main-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(40px, 6vw, 72px);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      background: linear-gradient(90deg, #fff, #aaa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .ev-reveal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(50px, 8vw, 100px);
+      font-weight: 700;
+      color: #fff;
+      text-shadow: 0 0 40px rgba(0, 177, 123, 0.5);
+    }
+
+    .ev-sub-text {
+      font-size: clamp(16px, 2vw, 22px);
+      color: var(--inst-grey);
+      max-width: 700px;
+      line-height: 1.6;
+    }
+
+    .ev-scroll-down-hint {
+      margin-top: 60px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--inst-green-2);
+      animation: evBounce 2s infinite ease-in-out;
+    }
+
+    .ev-scroll-down-hint span {
+      display: block;
+      font-size: 20px;
+      margin-top: 8px;
+    }
+
+    @keyframes evBounce {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(10px);
+      }
+    }
+
+    .ev-text-panel {
+      background: rgba(10, 22, 16, 0.6);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .ev-phase-label {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      color: var(--inst-green);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .ev-phase-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .ev-phase-desc {
+      font-size: 16px;
+      color: var(--inst-grey);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .ev-spec-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .ev-spec-list li {
+      font-size: 15px;
+      color: var(--inst-grey);
+      margin-bottom: 12px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ev-spec-list li strong {
+      color: var(--inst-green-2);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .ev-final-impact {
+      position: relative;
+      z-index: 10;
+      background: #050d09;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 100px 0;
+    }
+  </style>
+
+
+  <!-- ══════════════════════════════════════════════════════
+     INSTITUTION PORTAL JS
+     Add this block to script.js (or inside a <script> tag)
+══════════════════════════════════════════════════════ -->
+  <script>
+    // ── Navbar scroll effect ──
+    (function () {
+      const navbar = document.getElementById('inst-navbar');
+      if (!navbar) return;
+      window.addEventListener('scroll', () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 40);
+        updateInstNavActive();
+      }, { passive: true });
+    })();
+
+    // ── Smooth scroll to section ──
+    function instNavScroll(e, id) {
+      if (e) e.preventDefault();
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // ── Active nav link on scroll ──
+    function updateInstNavActive() {
+      const sections = ['inst-hero', 'inst-about', 'inst-services', 'inst-ev', 'inst-articles', 'inst-partners', 'inst-contact'];
+      const links = document.querySelectorAll('.inst-nav-link');
+      let current = sections[0];
+
+      sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top < window.innerHeight * 0.4) current = id;
+      });
+
+      links.forEach(link => {
+        const href = link.getAttribute('href')?.replace('#', '');
+        link.classList.toggle('active', href === current);
+      });
+    }
+
+    // ── Mobile menu ──
+    function toggleInstMobileMenu() {
+      const menu = document.getElementById('inst-mobile-menu');
+      if (menu) menu.classList.toggle('hidden');
+    }
+
+    function closeInstMobileMenu() {
+      const menu = document.getElementById('inst-mobile-menu');
+      if (menu) menu.classList.add('hidden');
+    }
+
+    // ── Counter animation ──
+    function animateInstCounters() {
+      document.querySelectorAll('#page-institution .inst-stat-num[data-target]').forEach(el => {
+        if (el.dataset.animated) return;
+        el.dataset.animated = '1';
+
+        const target = parseInt(el.dataset.target);
+        const suffix = el.dataset.suffix || '';
+        const duration = 2000;
+        const step = target / (duration / 16);
+        let current = 0;
+
+        const timer = setInterval(() => {
+          current = Math.min(current + step, target);
+          const display = target >= 1000
+            ? Math.round(current / 1000) + 'K' + suffix.replace('K+', '+')
+            : Math.round(current) + suffix;
+          el.textContent = display;
+          if (current >= target) clearInterval(timer);
+        }, 16);
+
+        // Animate progress bar
+        el.closest('.inst-stat-card')?.querySelector('.inst-stat-bar-fill')
+          ?.classList.add('animated');
+      });
+    }
+
+    // ── GSAP Hero & Sections Entrance ──
+    function initInstHeroGSAP() {
+      if (!window.gsap) return;
+
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+      // Ensure initial states Before animation
+      gsap.set(['#ih-eyebrow', '#ih-headline', '#ih-sub', '#ih-chips', '#ih-actions'], { opacity: 0, y: 30 });
+      gsap.set('#ih-right', { opacity: 0, x: 40 });
+
+      tl.to('#ih-eyebrow', { opacity: 1, y: 0, duration: 0.7 })
+        .to('#ih-headline', { opacity: 1, y: 0, duration: 0.9, stagger: 0.2 }, '-=0.4')
+        .to('#ih-sub', { opacity: 1, y: 0, duration: 0.7 }, '-=0.6')
+        .to('#ih-chips', { opacity: 1, y: 0, duration: 0.6 }, '-=0.5')
+        .to('#ih-actions', { opacity: 1, y: 0, duration: 0.6 }, '-=0.4')
+        .to('#ih-right', { opacity: 1, x: 0, duration: 0.9, onComplete: animateInstCounters }, '-=0.8');
+
+      // Tie-Ups Section GSAP Fade Up
+      if (window.ScrollTrigger) {
+        gsap.fromTo('#it-tag', { opacity: 0, y: 20 }, {
+          scrollTrigger: { trigger: '#inst-tieups', start: 'top 80%' },
+          opacity: 1, y: 0, duration: 0.6
+        });
+        gsap.fromTo('#it-title', { opacity: 0, y: 20 }, {
+          scrollTrigger: { trigger: '#inst-tieups', start: 'top 80%' },
+          opacity: 1, y: 0, duration: 0.6, delay: 0.2
+        });
+        gsap.fromTo('#it-desc', { opacity: 0, y: 20 }, {
+          scrollTrigger: { trigger: '#inst-tieups', start: 'top 80%' },
+          opacity: 1, y: 0, duration: 0.6, delay: 0.4
+        });
+        gsap.fromTo('#it-marquee', { opacity: 0 }, {
+          scrollTrigger: { trigger: '#inst-tieups', start: 'top 70%' },
+          opacity: 1, duration: 1, delay: 0.6
+        });
+
+        // Services section stagger
+        gsap.fromTo('.inst-service-card', { opacity: 0, y: 40 }, {
+          scrollTrigger: { trigger: '#inst-services', start: 'top 75%' },
+          opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: 'power2.out'
+        });
+
+        // EV Showcase animations
+        gsap.fromTo('.ev-left-col', { opacity: 0, x: -50 }, {
+          scrollTrigger: { trigger: '#inst-ev', start: 'top 75%' },
+          opacity: 1, x: 0, duration: 0.8, ease: 'power2.out'
+        });
+        gsap.fromTo('.ev-right-col', { opacity: 0, x: 50 }, {
+          scrollTrigger: { trigger: '#inst-ev', start: 'top 75%' },
+          opacity: 1, x: 0, duration: 0.8, ease: 'power2.out', delay: 0.2
+        });
+        gsap.fromTo('.ev-time-item', { opacity: 0, x: -20 }, {
+          scrollTrigger: { trigger: '.ev-timeline', start: 'top 85%' },
+          opacity: 1, x: 0, duration: 0.6, stagger: 0.2
+        });
+
+        // Articles stagger
+        gsap.fromTo('.inst-article-card', { opacity: 0, y: 40 }, {
+          scrollTrigger: { trigger: '#inst-articles-grid', start: 'top 80%' },
+          opacity: 1, y: 0, duration: 0.8, stagger: 0.15, ease: 'power2.out'
+        });
+      }
+    }
+
+    // ── Article Modal Logic ──
+    const articleData = {
+      'article1': {
+        img: 'YOUR_IMAGE_LINK_HERE',
+        meta: 'Research • Dec 12, 2025',
+        title: 'The Future of Edge Computing in Campus Architectures',
+        text: '<p>Integrating edge computing into local campus infrastructure allows students to run heavy machine-learning models locally with sub-millisecond latency. This fundamentally changes how research programs operate by removing dependency on costly cloud tiering.</p><p>By situating compute nodes physically closer to the EV Research Labs and IoT devices, campuses are setting up genuine smart-city prototypes inside their walls.</p>'
+      },
+      'article2': {
+        img: 'YOUR_IMAGE_LINK_HERE',
+        meta: 'Robotics • Nov 28, 2025',
+        title: 'Autonomous Navigation Systems Using Lightweight LiDar',
+        text: '<p>Our student robotics division engineered a custom SLAM (Simultaneous Localization and Mapping) implementation designed specifically to run on lightweight rovers. Using off-the-shelf microcontrollers paired with 2D LiDar, the rovers successfully navigated the entire engineering block autonomously.</p><p>The system is currently being considered for deployment in automated campus delivery networks.</p>'
+      },
+      'article3': {
+        img: 'YOUR_IMAGE_LINK_HERE',
+        meta: 'Methodology • Oct 05, 2025',
+        title: 'Integrating Agile Workflows into Semester Projects',
+        text: '<p>Shifting away from the traditional waterfall approach to semester projects, beta-testing groups implemented daily stand-ups and two-week sprint cycles. The result? A staggering 40% improvement in project completion rates and a massive reduction in end-of-semester developer burnout.</p><p>Students reported feeling far more prepared for modern corporate environments following this restructuring.</p>'
+      }
+    };
+
+    function openInstArticleModal(id) {
+      const modal = document.getElementById('inst-article-modal');
+      if (!modal || !articleData[id]) return;
+
+      const data = articleData[id];
+      document.getElementById('ia-modal-img').src = data.img;
+      document.getElementById('ia-modal-meta').textContent = data.meta;
+      document.getElementById('ia-modal-title').textContent = data.title;
+      document.getElementById('ia-modal-text').innerHTML = data.text;
+
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden'; // Stop background scrolling
+    }
+
+    function closeInstArticleModal() {
+      const modal = document.getElementById('inst-article-modal');
+      if (modal) {
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+    }
+
+    // ── GSAP fallback (CSS) if GSAP not loaded ──
+    function initInstHeroFallback() {
+      ['ih-eyebrow', 'ih-headline', 'ih-sub', 'ih-chips', 'ih-actions', 'ih-right'].forEach((id, i) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.style.transition = `opacity 0.7s ease ${i * 0.15}s, transform 0.7s ease ${i * 0.15}s`;
+        el.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+        }, 100 + i * 150);
+      });
+      setTimeout(animateInstCounters, 800);
+    }
+
+    // ── Init when institution page shows ──
+    function initInstitutionPortal() {
+      // Load GSAP if not already loaded
+      if (!window.gsap) {
+        if (!document.querySelector('script[src*="gsap"]')) {
+          const s1 = document.createElement('script');
+          s1.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js';
+          s1.onload = () => {
+            const s2 = document.createElement('script');
+            s2.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js';
+            s2.onload = () => {
+              gsap.registerPlugin(ScrollTrigger);
+              initInstHeroGSAP();
+            };
+            document.head.appendChild(s2);
+          };
+          document.head.appendChild(s1);
+        } else {
+          // Script tag exists but not loaded yet — fallback
+          initInstHeroFallback();
+        }
+      } else {
+        gsap.registerPlugin(ScrollTrigger);
+        initInstHeroGSAP();
+      }
+    }
+
+    // ── Hook into navigate() ──
+    // Call initInstitutionPortal() when institution page opens
+    // Add this line inside your existing navigate() function:
+    // else if (page === 'institution') { ... initInstitutionPortal(); }
+    // OR patch it here safely:
+    document.addEventListener('DOMContentLoaded', () => {
+      const _origNav = window.navigate;
+      if (typeof _origNav === 'function') {
+        window.navigate = function (page) {
+          _origNav(page);
+          if (page === 'institution') {
+            setTimeout(initInstitutionPortal, 100);
+          }
+        };
+      }
+    });
+  </script><!-- /page-institution -->
 
   <!-- ===== MSEED JUNIOR PORTAL ===== -->
   <div id="page-junior" class="page">

@@ -98,6 +98,7 @@ function navigate(page) {
     showSchTab('schservices');
   }
   window.scrollTo(0, 0);
+
 }
 
 // ===== TAB SYSTEM =====
