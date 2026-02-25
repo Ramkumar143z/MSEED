@@ -63,6 +63,15 @@ if (document.readyState === 'loading') {
 var _origNavigate = window.navigate;
 window.addEventListener('DOMContentLoaded', function () {
   setTimeout(setLogos, 100);
+
+  // Parse URL to auto-navigate based on ?portal= query parameter
+  const urlParams = new URLSearchParams(window.location.search);
+  const portalQuery = urlParams.get('portal');
+  if (portalQuery) {
+    if (typeof navigate === 'function') {
+      navigate(portalQuery);
+    }
+  }
 });
 
 // ===== NAVIGATION =====
