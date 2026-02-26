@@ -2,13 +2,11 @@
 var LOGO_SRC = "https://res.cloudinary.com/drlg1t6pk/image/upload/v1771854440/1_1_p0yx8f.png";
 
 function setLogos() {
-  // 1. Set src on all existing img[alt="MSEED"]
   document.querySelectorAll('img[alt="MSEED"]').forEach(function (img) {
     img.src = LOGO_SRC;
     img.style.display = 'block';
   });
 
-  // 2. If navbar-logo has no img, inject one (replace any text node)
   var navLogo = document.querySelector('.navbar-logo');
   if (navLogo) {
     var navImg = navLogo.querySelector('img');
@@ -22,7 +20,6 @@ function setLogos() {
     }
   }
 
-  // 3. Splash logo
   var splashLogo = document.querySelector('.splash-logo');
   if (splashLogo) {
     var splashImg = splashLogo.querySelector('img');
@@ -37,7 +34,6 @@ function setLogos() {
     }
   }
 
-  // 4. Footer brand logo
   var footerBrand = document.querySelector('.footer-brand');
   if (footerBrand) {
     var footerImg = footerBrand.querySelector('img');
@@ -53,18 +49,15 @@ function setLogos() {
   }
 }
 
-// Run on DOM ready + after page transitions
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', setLogos);
 } else {
   setLogos();
 }
-// Also re-run after any navigation (for SPA-style page switches)
-var _origNavigate = window.navigate;
+
 window.addEventListener('DOMContentLoaded', function () {
   setTimeout(setLogos, 100);
 
-  // Parse URL to auto-navigate based on ?portal= query parameter
   const urlParams = new URLSearchParams(window.location.search);
   const portalQuery = urlParams.get('portal');
   if (portalQuery) {
@@ -75,39 +68,69 @@ window.addEventListener('DOMContentLoaded', function () {
 });
 
 // ===== NAVIGATION =====
-const pages = ['portal', 'mseed', 'college-student', 'institution', 'junior', 'junior-student', 'school-inst'];
+// ✅ FIX: Added 'inst-partners' to pages array
+const pages = ['portal', 'mseed', 'college-student', 'institution', 'inst-partners', 'inst-ev', 'junior', 'junior-student', 'school-inst'];
 function navigate(page) {
+  // Hide all pages
   pages.forEach(p => {
     const el = document.getElementById('page-' + p);
     if (el) el.classList.remove('active');
   });
+
   ['mseed-portal-select', 'junior-portal-select'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.style.display = 'none';
   });
+
   if (page === 'portal') {
     document.getElementById('page-portal').classList.add('active');
+
   } else if (page === 'mseed') {
     document.getElementById('page-mseed').classList.add('active');
     document.getElementById('mseed-portal-select').style.display = 'block';
+
   } else if (page === 'college-student') {
     document.getElementById('page-college-student').classList.add('active');
     showTab('home');
+
   } else if (page === 'institution') {
     document.getElementById('page-institution').classList.add('active');
-    showInstTab('services');
+    setTimeout(initInstitutionPortal, 100);
+
+
+  } else if (page === 'inst-partners') {
+    // ✅ NEW: Dedicated Partnerships page
+    const el = document.getElementById('page-inst-partners');
+    if (el) {
+      el.classList.add('active');
+      setTimeout(() => {
+        initPartnersSection();
+      }, 150);
+    }
+
+  } else if (page === 'inst-ev') {
+    const el = document.getElementById('page-inst-ev');
+    if (el) el.classList.add('active');
+
   } else if (page === 'junior') {
     document.getElementById('page-junior').classList.add('active');
     document.getElementById('junior-portal-select').style.display = 'block';
+
   } else if (page === 'junior-student') {
     document.getElementById('page-junior-student').classList.add('active');
     showJrTab('jrhome');
+
   } else if (page === 'school-inst') {
     document.getElementById('page-school-inst').classList.add('active');
     showSchTab('schservices');
   }
-  window.scrollTo(0, 0);
 
+  window.scrollTo(0, 0);
+}
+
+// ✅ NEW: Open Partnerships as a separate page
+function openPartnershipsPage() {
+  navigate('inst-partners');
 }
 
 // ===== TAB SYSTEM =====
@@ -148,7 +171,6 @@ function showTab(tab) {
     }
     renderHomeCourses();
     renderPlacementSection();
-    // Always re-init carousel fresh on home tab
     setTimeout(initHeroCarousel, 80);
     animateStats();
   }
@@ -162,19 +184,11 @@ function showTab(tab) {
     currentPreCourseFilter = 'all';
     renderPreCourses();
   }
-  if (tab === 'resources') renderResources();
 
   window.scrollTo(0, 0);
 }
 
 function showInstTab(tab) {
-  document.querySelectorAll('#page-institution .inst-tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('#page-institution .nav-link').forEach(l => l.classList.remove('active'));
-  const target = document.getElementById('inst-tab-' + tab);
-  if (target) target.classList.add('active');
-  document.querySelectorAll('#page-institution .nav-link').forEach(l => {
-    if (l.getAttribute('onclick') && l.getAttribute('onclick').includes("'" + tab + "'")) l.classList.add('active');
-  });
   window.scrollTo(0, 0);
 }
 
@@ -208,6 +222,16 @@ function toggleMobileMenu() {
 }
 function closeMobileMenu() {
   const menu = document.getElementById('mobile-menu');
+  if (menu) menu.classList.add('hidden');
+}
+
+// ===== INSTITUTION MOBILE MENU =====
+function toggleInstMobileMenu() {
+  const menu = document.getElementById('inst-mobile-menu');
+  if (menu) menu.classList.toggle('hidden');
+}
+function closeInstMobileMenu() {
+  const menu = document.getElementById('inst-mobile-menu');
   if (menu) menu.classList.add('hidden');
 }
 
@@ -605,12 +629,7 @@ function renderPlacementSection() {
     </div>`).join('');
 }
 
-// ===== HERO CAROUSEL — FIXED =====
-// ✅ Auto-play only (no manual arrows/dots)
-// ✅ translateX bug fixed (no space between value and %)
-// ✅ Re-initialises fresh every time home tab is shown
-// ✅ Touch/swipe support retained
-
+// ===== HERO CAROUSEL =====
 let hcCurrent = 0;
 const HC_TOTAL = 3;
 const HC_INTERVAL = 5000;
@@ -645,7 +664,6 @@ function startHcAuto() {
 }
 
 function initHeroCarousel() {
-  // Always destroy previous instance and start fresh
   clearInterval(hcTimer);
   clearInterval(hcProgressInterval);
   hcCurrent = 0;
@@ -657,7 +675,6 @@ function initHeroCarousel() {
   resetHcProgress();
   startHcAuto();
 
-  // Swipe support (attach only once)
   const wrap = document.querySelector('.hero-carousel-wrap');
   if (wrap && !wrap.dataset.swipeReady) {
     wrap.dataset.swipeReady = '1';
@@ -1152,41 +1169,26 @@ document.addEventListener('DOMContentLoaded', () => {
   initPromoStrip();
 });
 
-
-// ============================================================
-//  YOUTUBE FLOATING GALLERY — Add to script.js
-//  Paste this block at the END of script.js (before last line)
-// ============================================================
-
-// ── Current playing video ──
+// ===== YOUTUBE GALLERY =====
 let ytCurrentVid = '';
 let ytCurrentTitle = '';
 
-// ── Open modal ──
 function openYTModal(videoId, title, tag) {
   ytCurrentVid = videoId;
   ytCurrentTitle = title;
-
-  // Set iframe src with autoplay
   const iframe = document.getElementById('yt-iframe');
   if (iframe) {
     iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&color=white`;
   }
-
-  // Set title + tag in modal header
   const titleEl = document.getElementById('yt-modal-title');
   const tagEl = document.getElementById('yt-modal-tag');
   if (titleEl) titleEl.textContent = title;
   if (tagEl) tagEl.textContent = tag;
-
-  // Show modal
   const overlay = document.getElementById('yt-modal');
   if (overlay) {
     overlay.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
   }
-
-  // GSAP micro: modal box bounce in
   if (window.gsap) {
     gsap.fromTo('.yt-modal-box',
       { scale: 0.88, opacity: 0, y: 30 },
@@ -1195,14 +1197,10 @@ function openYTModal(videoId, title, tag) {
   }
 }
 
-// ── Close modal ──
 function closeYTModal(event, force) {
-  // Close only if clicking overlay bg OR force=true (X button)
   if (!force && event && event.target !== document.getElementById('yt-modal')) return;
-
   const iframe = document.getElementById('yt-iframe');
-  if (iframe) iframe.src = ''; // stop video
-
+  if (iframe) iframe.src = '';
   const overlay = document.getElementById('yt-modal');
   if (overlay) {
     if (window.gsap) {
@@ -1220,30 +1218,23 @@ function closeYTModal(event, force) {
   }
 }
 
-// ── Open in YouTube directly ──
 function openYTDirect() {
   if (ytCurrentVid) {
-    window.open(`https://youtu.be/1KSdvJZ6zcU=${ytCurrentVid}`, '_blank', 'noopener,noreferrer');
+    window.open(`https://youtu.be/${ytCurrentVid}`, '_blank', 'noopener,noreferrer');
   }
 }
 
-// ── Bind click events on all .yt-card elements ──
 function initYTGallery() {
   document.querySelectorAll('.yt-card').forEach(card => {
     card.addEventListener('click', function () {
       const vid = this.dataset.vid;
       const title = this.dataset.title;
       const tag = this.querySelector('.yt-tag')?.textContent || 'Video';
-
-      // If no real video ID yet — show toast
       if (!vid || vid.startsWith('VIDEO_ID')) {
         showToast('🎬 Video coming soon — stay tuned!', '');
         return;
       }
-
       openYTModal(vid, title, tag);
-
-      // GSAP: card click ripple
       if (window.gsap) {
         gsap.timeline()
           .to(this, { scale: 0.93, duration: 0.1, ease: 'power1.in' })
@@ -1251,93 +1242,42 @@ function initYTGallery() {
       }
     });
 
-    // GSAP hover tilt
     if (window.gsap) {
-      card.addEventListener('mouseenter', function (e) {
-        gsap.to(this, {
-          rotateY: 6,
-          rotateX: -4,
-          scale: 1.05,
-          duration: 0.4,
-          ease: 'power2.out',
-          overwrite: 'auto'
-        });
+      card.addEventListener('mouseenter', function () {
+        gsap.to(this, { rotateY: 6, rotateX: -4, scale: 1.05, duration: 0.4, ease: 'power2.out', overwrite: 'auto' });
       });
-
       card.addEventListener('mouseleave', function () {
-        gsap.to(this, {
-          rotateY: 0,
-          rotateX: 0,
-          scale: 1,
-          duration: 0.5,
-          ease: 'elastic.out(1, 0.5)',
-          overwrite: 'auto'
-        });
+        gsap.to(this, { rotateY: 0, rotateX: 0, scale: 1, duration: 0.5, ease: 'elastic.out(1, 0.5)', overwrite: 'auto' });
       });
-
-      // Follow mouse for 3D tilt
       card.addEventListener('mousemove', function (e) {
         const rect = this.getBoundingClientRect();
-        const cx = rect.left + rect.width / 2;
-        const cy = rect.top + rect.height / 2;
-        const dx = (e.clientX - cx) / (rect.width / 2);
-        const dy = (e.clientY - cy) / (rect.height / 2);
-        gsap.to(this, {
-          rotateY: dx * 10,
-          rotateX: -dy * 10,
-          duration: 0.2,
-          ease: 'power1.out',
-          overwrite: 'auto'
-        });
+        const dx = (e.clientX - rect.left - rect.width / 2) / (rect.width / 2);
+        const dy = (e.clientY - rect.top - rect.height / 2) / (rect.height / 2);
+        gsap.to(this, { rotateY: dx * 10, rotateX: -dy * 10, duration: 0.2, ease: 'power1.out', overwrite: 'auto' });
       });
     }
   });
 
-  // Keyboard close
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeYTModal(null, true);
   });
 }
 
-// ── GSAP entrance stagger when home tab loads ──
 function animateYTGalleryEntrance() {
   if (!window.gsap) return;
   const cards = document.querySelectorAll('.yt-card');
   if (!cards.length) return;
-
   gsap.fromTo(cards,
     { opacity: 0, y: 32, scale: 0.88, rotateZ: -3 },
-    {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      rotateZ: 0,
-      duration: 0.65,
-      ease: 'back.out(1.7)',
-      stagger: 0.12,
-      delay: 0.3
-    }
+    { opacity: 1, y: 0, scale: 1, rotateZ: 0, duration: 0.65, ease: 'back.out(1.7)', stagger: 0.12, delay: 0.3 }
   );
 }
 
-// ── Init on DOM ready ──
 document.addEventListener('DOMContentLoaded', () => {
   initYTGallery();
-  // GSAP CDN load (if not already in HTML head)
-  if (!window.gsap) {
-    const script = document.createElement('script');
-    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js';
-    script.onload = () => {
-      console.log('GSAP loaded');
-      initYTGallery(); // re-bind with GSAP now available
-    };
-    document.head.appendChild(script);
-  }
 });
 
-// ── Hook into showTab to trigger entrance anim ──
-const _ytOrigShowTab = window.showTab || function () { };
-// We patch showTab after it's defined — safe override
+// Hook showTab for YT gallery entrance
 setTimeout(() => {
   const originalShowTab = showTab;
   window.showTab = function (tab) {
@@ -1347,3 +1287,203 @@ setTimeout(() => {
     }
   };
 }, 0);
+
+// ===== INSTITUTION PORTAL — GSAP INIT =====
+function initInstitutionPortal() {
+  if (!window.gsap) {
+    if (!document.querySelector('script[src*="gsap"]')) {
+      const s1 = document.createElement('script');
+      s1.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js';
+      s1.onload = () => {
+        const s2 = document.createElement('script');
+        s2.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js';
+        s2.onload = () => {
+          gsap.registerPlugin(ScrollTrigger);
+          initInstHeroGSAP();
+        };
+        document.head.appendChild(s2);
+      };
+      document.head.appendChild(s1);
+    } else {
+      initInstHeroFallback();
+    }
+  } else {
+    gsap.registerPlugin(ScrollTrigger);
+    initInstHeroGSAP();
+  }
+}
+
+function initInstHeroGSAP() {
+  if (!window.gsap) return;
+
+  const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+  gsap.set(['#ih-eyebrow', '#ih-headline', '#ih-sub', '#ih-chips', '#ih-actions'], { opacity: 0, y: 30 });
+  gsap.set('#ih-right', { opacity: 0, x: 40 });
+
+  tl.to('#ih-eyebrow', { opacity: 1, y: 0, duration: 0.7 })
+    .to('#ih-headline', { opacity: 1, y: 0, duration: 0.9, stagger: 0.2 }, '-=0.4')
+    .to('#ih-sub', { opacity: 1, y: 0, duration: 0.7 }, '-=0.6')
+    .to('#ih-chips', { opacity: 1, y: 0, duration: 0.6 }, '-=0.5')
+    .to('#ih-actions', { opacity: 1, y: 0, duration: 0.6 }, '-=0.4')
+    .to('#ih-right', { opacity: 1, x: 0, duration: 0.9, onComplete: animateInstCounters }, '-=0.8');
+
+  if (window.ScrollTrigger) {
+    gsap.fromTo('#it-tag', { opacity: 0, y: 20 }, { scrollTrigger: { trigger: '#inst-tieups', start: 'top 80%' }, opacity: 1, y: 0, duration: 0.6 });
+    gsap.fromTo('#it-title', { opacity: 0, y: 20 }, { scrollTrigger: { trigger: '#inst-tieups', start: 'top 80%' }, opacity: 1, y: 0, duration: 0.6, delay: 0.2 });
+    gsap.fromTo('#it-desc', { opacity: 0, y: 20 }, { scrollTrigger: { trigger: '#inst-tieups', start: 'top 80%' }, opacity: 1, y: 0, duration: 0.6, delay: 0.4 });
+    gsap.fromTo('#it-marquee', { opacity: 0 }, { scrollTrigger: { trigger: '#inst-tieups', start: 'top 70%' }, opacity: 1, duration: 1, delay: 0.6 });
+    gsap.fromTo('.inst-service-card', { opacity: 0, y: 40 }, { scrollTrigger: { trigger: '#inst-services', start: 'top 75%' }, opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: 'power2.out' });
+    gsap.fromTo('.ev-left-col', { opacity: 0, x: -50 }, { scrollTrigger: { trigger: '#inst-ev', start: 'top 75%' }, opacity: 1, x: 0, duration: 0.8, ease: 'power2.out' });
+    gsap.fromTo('.ev-right-col', { opacity: 0, x: 50 }, { scrollTrigger: { trigger: '#inst-ev', start: 'top 75%' }, opacity: 1, x: 0, duration: 0.8, ease: 'power2.out', delay: 0.2 });
+    gsap.fromTo('.ev-time-item', { opacity: 0, x: -20 }, { scrollTrigger: { trigger: '.ev-timeline', start: 'top 85%' }, opacity: 1, x: 0, duration: 0.6, stagger: 0.2 });
+    gsap.fromTo('.inst-article-card', { opacity: 0, y: 40 }, { scrollTrigger: { trigger: '#inst-articles-grid', start: 'top 80%' }, opacity: 1, y: 0, duration: 0.8, stagger: 0.15, ease: 'power2.out' });
+  }
+}
+
+function animateInstCounters() {
+  document.querySelectorAll('#page-institution .inst-stat-num[data-target]').forEach(el => {
+    if (el.dataset.animated) return;
+    el.dataset.animated = '1';
+    const target = parseInt(el.dataset.target);
+    const suffix = el.dataset.suffix || '';
+    const duration = 2000;
+    const step = target / (duration / 16);
+    let current = 0;
+    const timer = setInterval(() => {
+      current = Math.min(current + step, target);
+      const display = target >= 1000
+        ? Math.round(current / 1000) + 'K' + suffix.replace('K+', '+')
+        : Math.round(current) + suffix;
+      el.textContent = display;
+      if (current >= target) clearInterval(timer);
+    }, 16);
+    el.closest('.inst-stat-card')?.querySelector('.inst-stat-bar-fill')?.classList.add('animated');
+  });
+}
+
+function initInstHeroFallback() {
+  ['ih-eyebrow', 'ih-headline', 'ih-sub', 'ih-chips', 'ih-actions', 'ih-right'].forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.style.transition = `opacity 0.7s ease ${i * 0.15}s, transform 0.7s ease ${i * 0.15}s`;
+    el.style.transform = 'translateY(20px)';
+    setTimeout(() => {
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+    }, 100 + i * 150);
+  });
+  setTimeout(animateInstCounters, 800);
+}
+
+// ===== PARTNERSHIPS PAGE — GSAP INIT =====
+function initPartnersSection() {
+  // ✅ FIX: Target #page-inst-partners instead of #inst-partners (now a separate page)
+  const section = document.getElementById('page-inst-partners');
+  if (!section) return;
+
+  // Load GSAP if needed
+  if (!window.gsap) {
+    if (!document.querySelector('script[src*="gsap"]')) {
+      const s1 = document.createElement('script');
+      s1.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js';
+      s1.onload = () => {
+        const s2 = document.createElement('script');
+        s2.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js';
+        s2.onload = () => {
+          gsap.registerPlugin(ScrollTrigger);
+          _runPartnersGSAP(section);
+        };
+        document.head.appendChild(s2);
+      };
+      document.head.appendChild(s1);
+    }
+    return;
+  }
+
+  gsap.registerPlugin(ScrollTrigger);
+  _runPartnersGSAP(section);
+}
+
+function _runPartnersGSAP(section) {
+  if (!window.gsap) return;
+
+  // Reset animated flags so counters re-run each time page opens
+  section.querySelectorAll('.pstat-num[data-target]').forEach(el => {
+    delete el.dataset.animated;
+  });
+
+  gsap.set(['#p-eyebrow', '#p-headline', '#p-subtext', '#p-stats', '#p-scroll-hint'], {
+    opacity: 0, y: 36, filter: 'blur(4px)'
+  });
+
+  gsap.timeline({ defaults: { ease: 'power3.out' } })
+    .to('#p-eyebrow', { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.75 }, 0.1)
+    .to('#p-headline', { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.0 }, 0.35)
+    .to('#p-subtext', { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.75 }, 0.65)
+    .to('#p-stats', { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.7 }, 0.85)
+    .to('#p-scroll-hint', { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.6 }, 1.1);
+
+  // Counter animation
+  setTimeout(() => {
+    section.querySelectorAll('.pstat-num[data-target]').forEach(el => {
+      if (el.dataset.animated) return;
+      el.dataset.animated = '1';
+      const target = parseInt(el.dataset.target);
+      const suffix = el.dataset.suffix || '';
+      let current = 0;
+      const steps = 1800 / 16;
+      const increment = target / steps;
+      const timer = setInterval(() => {
+        current = Math.min(current + increment, target);
+        if (suffix === 'K+') el.textContent = Math.round(current / 1000) + 'K+';
+        else if (suffix) el.textContent = Math.round(current) + suffix;
+        else el.textContent = Math.round(current);
+        if (current >= target) clearInterval(timer);
+      }, 16);
+    });
+  }, 900);
+
+  gsap.fromTo('#p-label', { opacity: 0, y: 20 }, {
+    opacity: 1, y: 0, duration: 0.7, ease: 'power2.out',
+    scrollTrigger: { trigger: '#p-label', start: 'top 88%' }
+  });
+
+  section.querySelectorAll('.partner-card').forEach((card, i) => {
+    gsap.fromTo(card, { opacity: 0, y: 30, scale: 0.97 }, {
+      opacity: 1, y: 0, scale: 1, duration: 0.7, ease: 'power2.out',
+      delay: (i % 3) * 0.08,
+      scrollTrigger: { trigger: card, start: 'top 88%', toggleActions: 'play none none none' }
+    });
+  });
+
+  section.querySelectorAll('.pdl-orb').forEach((orb, i) => {
+    const speed = [0.10, 0.07, 0.13][i] || 0.09;
+    gsap.to(orb, {
+      y: () => -(window.innerHeight * speed), ease: 'none',
+      scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: 2 }
+    });
+  });
+
+  gsap.fromTo('#p-cta', { opacity: 0, y: 40 }, {
+    opacity: 1, y: 0, duration: 0.9, ease: 'power2.out',
+    scrollTrigger: { trigger: '#p-cta', start: 'top 85%' }
+  });
+
+  // Mouse interactions for partner cards
+  section.querySelectorAll('.partner-card').forEach(card => {
+    const inner = card.querySelector('.partner-card-inner');
+    if (!inner) return;
+    card.addEventListener('mouseenter', () => gsap.to(inner, { y: -3, duration: 0.35, ease: 'power2.out', overwrite: 'auto' }));
+    card.addEventListener('mouseleave', () => gsap.to(inner, { y: 0, duration: 0.55, ease: 'elastic.out(1, 0.65)', overwrite: 'auto' }));
+    const logo = card.querySelector('.partner-logo-box');
+    if (!logo) return;
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const dx = (e.clientX - rect.left - rect.width / 2) / rect.width * 8;
+      const dy = (e.clientY - rect.top - rect.height / 2) / rect.height * 8;
+      gsap.to(logo, { x: dx, y: dy, duration: 0.4, ease: 'power2.out', overwrite: 'auto' });
+    });
+    card.addEventListener('mouseleave', () => gsap.to(logo, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.5)', overwrite: 'auto' }));
+  });
+
+}

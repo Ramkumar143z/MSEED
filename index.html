@@ -1146,14 +1146,21 @@
           <li><a href="ev-project.html" class="inst-nav-link">EV Projects</a></li>
           <li><a href="#inst-articles" class="inst-nav-link" onclick="instNavScroll(event,'inst-articles')">Articles</a>
           </li>
-          <li><a href="#inst-partners" class="inst-nav-link"
-              onclick="instNavScroll(event,'inst-partners')">Partnerships</a></li>
+          <span class="inst-nav-link" onclick="openPartnershipsPage()">Partnership</span>
           <li><a href="#inst-contact" class="inst-nav-link" onclick="instNavScroll(event,'inst-contact')">Contact</a>
           </li>
         </ul>
 
         <!-- CTA + Hamburger -->
+        <!-- CTA + Hamburger -->
         <div class="inst-nav-actions">
+          <button onclick="navigate('mseed')"
+            style="display:inline-flex;align-items:center;gap:6px;background:transparent;border:1.5px solid rgba(255,255,255,0.25);color:rgba(255,255,255,0.75);border-radius:100px;padding:8px 18px;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.25s ease;margin-right:8px;">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M19 12H5M12 5l-7 7 7 7" />
+            </svg>
+            Back
+          </button>
           <button class="inst-nav-cta" onclick="instNavScroll(event,'inst-contact')">
             Partner With Us →
           </button>
@@ -1172,7 +1179,7 @@
         <a class="inst-mob-link" href="ev-project.html">EV
           Projects</a>
         <a class="inst-mob-link" onclick="instNavScroll(event,'inst-articles');closeInstMobileMenu()">Articles</a>
-        <a class="inst-mob-link" onclick="instNavScroll(event,'inst-partners');closeInstMobileMenu()">Partnerships</a>
+        <a class="inst-mob-link" onclick="openPartnershipsPage();closeInstMobileMenu()">Partnerships</a>
         <a class="inst-mob-link" onclick="instNavScroll(event,'inst-contact');closeInstMobileMenu()">Contact</a>
         <a class="inst-mob-link inst-mob-cta"
           onclick="instNavScroll(event,'inst-contact');closeInstMobileMenu()">Partner With Us →</a>
@@ -1718,6 +1725,493 @@
     </footer>
 
   </div><!-- /#page-institution -->
+
+  <!-- ===== INSTITUTION PARTNERSHIP PAGE ===== -->
+  <div id="page-inst-partners" class="page inst-partners-section">
+    <div class="container" style="padding:40px 24px">
+
+      <button class="back-btn" onclick="navigate('institution')" style="margin-bottom:24px">
+        ← Back to Institution Home
+      </button>
+
+      <!-- Floating depth orbs -->
+      <div class="partners-depth-layer">
+        <div class="pdl-orb pdl-orb-1"></div>
+        <div class="pdl-orb pdl-orb-2"></div>
+        <div class="pdl-orb pdl-orb-3"></div>
+      </div>
+
+      <!-- HERO -->
+      <div class="partners-hero">
+        <div class="partners-hero-grid"></div>
+        <div class="partners-hero-glow"></div>
+        <div class="partners-hero-inner">
+          <div class="partners-eyebrow" id="p-eyebrow">
+            <span class="partners-eyebrow-dot"></span>
+            Strategic Industry Alliances
+          </div>
+          <h1 class="partners-headline" id="p-headline">
+            Our Strategic<br>
+            <em>Industry &amp; Academic</em><br>
+            Partnerships
+          </h1>
+          <p class="partners-subtext" id="p-subtext">
+            MSEED's network of 15 industry leaders creates an unbroken pipeline
+            from campus learning to career placement — delivering real projects,
+            certified training, and direct hiring pathways for your students.
+          </p>
+          <div class="partners-stats-strip" id="p-stats">
+            <div class="pstat">
+              <span class="pstat-num" data-target="15">0</span>
+              <span class="pstat-label">Active Partners</span>
+            </div>
+            <div class="pstat">
+              <span class="pstat-num" data-target="200" data-suffix="+">0</span>
+              <span class="pstat-label">Companies Hiring</span>
+            </div>
+            <div class="pstat">
+              <span class="pstat-num" data-target="50" data-suffix="K+">0</span>
+              <span class="pstat-label">Students Placed</span>
+            </div>
+            <div class="pstat">
+              <span class="pstat-num" data-target="85" data-suffix="%">0</span>
+              <span class="pstat-label">Placement Rate</span>
+            </div>
+          </div>
+          <div class="partners-scroll-hint" id="p-scroll-hint">
+            <span>Scroll to explore</span>
+            <div class="partners-scroll-line"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section connector -->
+      <div class="section-connector">
+        <div class="section-connector-line"></div>
+        <div class="section-connector-dot"></div>
+        <div class="section-connector-line" style="height:30px;"></div>
+      </div>
+
+      <!-- Section label -->
+      <div class="partners-section-label" id="p-label">
+        <div class="psl-line"></div>
+        <span class="psl-text">01 — Partner Directory</span>
+        <div class="psl-line"></div>
+      </div>
+
+      <!-- BENTO PARTNER GRID -->
+      <div class="partners-showcase">
+        <div class="partners-grid">
+
+          <!-- 01 TCS — wide -->
+          <a href="https://www.tcs.com" target="_blank" rel="noopener" class="partner-card wide" data-p-index="1">
+            <div class="partner-card-glow"></div>
+            <span class="partner-index">01</span>
+            <div class="partner-card-inner">
+              <div class="partner-logo-box">
+                <img src="YOUR_IMAGE_LINK_HERE" alt="TCS">
+              </div>
+              <div class="partner-text">
+                <div class="partner-category-tag">IT Services</div>
+                <div class="partner-name">Tata Consultancy Services</div>
+                <div class="partner-what">India's largest IT multinational — 600,000+ employees globally.</div>
+                <p class="partner-collab">Campus recruitment drives, industry project mentorship, and mock interview
+                  sessions aligned with TCS NQT prep standards.</p>
+                <div class="partner-tags">
+                  <span class="partner-tag">🎯 Recruitment</span>
+                  <span class="partner-tag">🛠 Live Projects</span>
+                  <span class="partner-tag">📋 NQT Prep</span>
+                </div>
+              </div>
+            </div>
+            <div class="partner-arrow"><svg width="12" height="12" fill="none" stroke="white" stroke-width="2.5"
+                viewBox="0 0 24 24">
+                <path d="M7 17L17 7M17 7H7M17 7v10" />
+              </svg></div>
+          </a>
+
+          <!-- 02 Infosys — regular -->
+          <a href="https://www.infosys.com" target="_blank" rel="noopener" class="partner-card" data-p-index="2">
+            <div class="partner-card-glow"></div>
+            <span class="partner-index">02</span>
+            <div class="partner-card-inner">
+              <div class="partner-logo-box"><img src="YOUR_IMAGE_LINK_HERE" alt="Infosys"></div>
+              <div class="partner-text">
+                <div class="partner-category-tag">IT Consulting</div>
+                <div class="partner-name">Infosys</div>
+                <div class="partner-what">Global leader in next-generation digital services and consulting.</div>
+                <p class="partner-collab">Infosys Springboard curriculum integration, aptitude training aligned with
+                  InfyTQ, and campus placement tie-ups.</p>
+                <div class="partner-tags">
+                  <span class="partner-tag">📚 Curriculum</span>
+                  <span class="partner-tag">💡 InfyTQ Prep</span>
+                </div>
+              </div>
+            </div>
+            <div class="partner-arrow"><svg width="12" height="12" fill="none" stroke="white" stroke-width="2.5"
+                viewBox="0 0 24 24">
+                <path d="M7 17L17 7M17 7H7M17 7v10" />
+              </svg></div>
+          </a>
+
+          <!-- 03 Wipro — regular -->
+          <a href="https://www.wipro.com" target="_blank" rel="noopener" class="partner-card" data-p-index="3">
+            <div class="partner-card-glow"></div>
+            <span class="partner-index">03</span>
+            <div class="partner-card-inner">
+              <div class="partner-logo-box"><img src="YOUR_IMAGE_LINK_HERE" alt="Wipro"></div>
+              <div class="partner-text">
+                <div class="partner-category-tag">Technology</div>
+                <div class="partner-name">Wipro</div>
+                <div class="partner-what">Fortune 500 technology services and consulting company.</div>
+                <p class="partner-collab">ELITE programme alignment, soft skills and communication workshops
+                  co-delivered with Wipro's talent team.</p>
+                <div class="partner-tags">
+                  <span class="partner-tag">🤝 Internship</span>
+                  <span class="partner-tag">🏆 ELITE Prep</span>
+                </div>
+              </div>
+            </div>
+            <div class="partner-arrow"><svg width="12" height="12" fill="none" stroke="white" stroke-width="2.5"
+                viewBox="0 0 24 24">
+                <path d="M7 17L17 7M17 7H7M17 7v10" />
+              </svg></div>
+          </a>
+
+          <!-- 04 Cognizant — regular -->
+          <a href="https://www.cognizant.com" target="_blank" rel="noopener" class="partner-card" data-p-index="4">
+            <div class="partner-card-glow"></div>
+            <span class="partner-index">04</span>
+            <div class="partner-card-inner">
+              <div class="partner-logo-box"><img src="YOUR_IMAGE_LINK_HERE" alt="Cognizant"></div>
+              <div class="partner-text">
+                <div class="partner-category-tag">Digital Engineering</div>
+                <div class="partner-name">Cognizant</div>
+                <div class="partner-what">Global professional services transforming business through tech.</div>
+                <p class="partner-collab">CTS Cognizant Academy content licensing, digital engineering workshops,
+                  and
+                  graduate hiring facilitation.</p>
+                <div class="partner-tags">
+                  <span class="partner-tag">🌐 Digital Skills</span>
+                  <span class="partner-tag">🛠 Workshops</span>
+                </div>
+              </div>
+            </div>
+            <div class="partner-arrow"><svg width="12" height="12" fill="none" stroke="white" stroke-width="2.5"
+                viewBox="0 0 24 24">
+                <path d="M7 17L17 7M17 7H7M17 7v10" />
+              </svg></div>
+          </a>
+
+          <!-- 05 Zoho — wide -->
+          <a href="https://www.zoho.com" target="_blank" rel="noopener" class="partner-card wide" data-p-index="5">
+            <div class="partner-card-glow"></div>
+            <span class="partner-index">05</span>
+            <div class="partner-card-inner">
+              <div class="partner-logo-box"><img src="YOUR_IMAGE_LINK_HERE" alt="Zoho"></div>
+              <div class="partner-text">
+                <div class="partner-category-tag">SaaS · Chennai</div>
+                <div class="partner-name">Zoho Corporation</div>
+                <div class="partner-what">India's most successful SaaS company — 90M+ users worldwide.</div>
+                <p class="partner-collab">Zoho Schools of Learning integration, student certification in Zoho
+                  products, and campus hiring through Zoho talent programme.</p>
+                <div class="partner-tags">
+                  <span class="partner-tag">🏅 Certification</span>
+                  <span class="partner-tag">🎯 Campus Hiring</span>
+                  <span class="partner-tag">💼 SaaS Training</span>
+                </div>
+              </div>
+            </div>
+            <div class="partner-arrow"><svg width="12" height="12" fill="none" stroke="white" stroke-width="2.5"
+                viewBox="0 0 24 24">
+                <path d="M7 17L17 7M17 7H7M17 7v10" />
+              </svg></div>
+          </a>
+
+          <!-- 06 Freshworks — regular -->
+          <a href="https://www.freshworks.com" target="_blank" rel="noopener" class="partner-card" data-p-index="6">
+            <div class="partner-card-glow"></div>
+            <span class="partner-index">06</span>
+            <div class="partner-card-inner">
+              <div class="partner-logo-box"><img src="YOUR_IMAGE_LINK_HERE" alt="Freshworks"></div>
+              <div class="partner-text">
+                <div class="partner-category-tag">Cloud CRM · Chennai</div>
+                <div class="partner-name">Freshworks</div>
+                <div class="partner-what">Nasdaq-listed cloud software company — HQ Chennai.</div>
+                <p class="partner-collab">Product thinking bootcamps, developer API workshops, internship
+                  placements,
+                  and Freshworks Academy-certified training.</p>
+                <div class="partner-tags">
+                  <span class="partner-tag">🚀 Bootcamp</span>
+                  <span class="partner-tag">🏅 Certification</span>
+                </div>
+              </div>
+            </div>
+            <div class="partner-arrow"><svg width="12" height="12" fill="none" stroke="white" stroke-width="2.5"
+                viewBox="0 0 24 24">
+                <path d="M7 17L17 7M17 7H7M17 7v10" />
+              </svg></div>
+          </a>
+
+          <!-- 07 Accenture — regular -->
+          <a href="https://www.accenture.com" target="_blank" rel="noopener" class="partner-card" data-p-index="7">
+            <div class="partner-card-glow"></div>
+            <span class="partner-index">07</span>
+            <div class="partner-card-inner">
+              <div class="partner-logo-box"><img src="YOUR_IMAGE_LINK_HERE" alt="Accenture"></div>
+              <div class="partner-text">
+                <div class="partner-category-tag">Management Consulting</div>
+                <div class="partner-name">Accenture</div>
+                <div class="partner-what">Global professional services firm in 120 countries.</div>
+                <p class="partner-collab">Accenture LearnVantage curriculum adoption, cloud & AI skilling aligned
+                  with
+                  Accenture Technology roles.</p>
+                <div class="partner-tags">
+                  <span class="partner-tag">☁️ Cloud & AI</span>
+                  <span class="partner-tag">📚 LearnVantage</span>
+                </div>
+              </div>
+            </div>
+            <div class="partner-arrow"><svg width="12" height="12" fill="none" stroke="white" stroke-width="2.5"
+                viewBox="0 0 24 24">
+                <path d="M7 17L17 7M17 7H7M17 7v10" />
+              </svg></div>
+          </a>
+
+          <!-- 08 IBM — wide -->
+          <a href="https://www.ibm.com" target="_blank" rel="noopener" class="partner-card wide" data-p-index="8">
+            <div class="partner-card-glow"></div>
+            <span class="partner-index">08</span>
+            <div class="partner-card-inner">
+              <div class="partner-logo-box"><img src="YOUR_IMAGE_LINK_HERE" alt="IBM"></div>
+              <div class="partner-text">
+                <div class="partner-category-tag">Enterprise Technology</div>
+                <div class="partner-name">IBM</div>
+                <div class="partner-what">Pioneer of computing — leader in AI, cloud, and quantum research.</div>
+                <p class="partner-collab">IBM SkillsBuild integration, watsonx AI workshops, IBM badges for
+                  students,
+                  and research collaboration support for institutions.</p>
+                <div class="partner-tags">
+                  <span class="partner-tag">🤖 AI / watsonx</span>
+                  <span class="partner-tag">🏅 IBM Badges</span>
+                  <span class="partner-tag">🔬 Research</span>
+                </div>
+              </div>
+            </div>
+            <div class="partner-arrow"><svg width="12" height="12" fill="none" stroke="white" stroke-width="2.5"
+                viewBox="0 0 24 24">
+                <path d="M7 17L17 7M17 7H7M17 7v10" />
+              </svg></div>
+          </a>
+
+          <!-- 09 Microsoft — regular -->
+          <a href="https://www.microsoft.com" target="_blank" rel="noopener" class="partner-card" data-p-index="9">
+            <div class="partner-card-glow"></div>
+            <span class="partner-index">09</span>
+            <div class="partner-card-inner">
+              <div class="partner-logo-box"><img src="YOUR_IMAGE_LINK_HERE" alt="Microsoft"></div>
+              <div class="partner-text">
+                <div class="partner-category-tag">Cloud & Productivity</div>
+                <div class="partner-name">Microsoft</div>
+                <div class="partner-what">World's most valuable tech company — Azure, Office 365, AI.</div>
+                <p class="partner-collab">Microsoft Learn integration, Azure certification prep, GitHub student
+                  packs,
+                  and AI for Good skilling.</p>
+                <div class="partner-tags">
+                  <span class="partner-tag">☁️ Azure Cert</span>
+                  <span class="partner-tag">🧑‍💻 GitHub</span>
+                </div>
+              </div>
+            </div>
+            <div class="partner-arrow"><svg width="12" height="12" fill="none" stroke="white" stroke-width="2.5"
+                viewBox="0 0 24 24">
+                <path d="M7 17L17 7M17 7H7M17 7v10" />
+              </svg></div>
+          </a>
+
+          <!-- 10 Google — regular -->
+          <a href="https://grow.google" target="_blank" rel="noopener" class="partner-card" data-p-index="10">
+            <div class="partner-card-glow"></div>
+            <span class="partner-index">10</span>
+            <div class="partner-card-inner">
+              <div class="partner-logo-box"><img src="YOUR_IMAGE_LINK_HERE" alt="Google"></div>
+              <div class="partner-text">
+                <div class="partner-category-tag">Internet & AI</div>
+                <div class="partner-name">Google</div>
+                <div class="partner-what">Global internet giant powering search, cloud, and AI innovation.</div>
+                <p class="partner-collab">Google Career Certificates, Cloud skills bootcamps, Google for Education
+                  tools, and Android development labs.</p>
+                <div class="partner-tags">
+                  <span class="partner-tag">📜 Career Certs</span>
+                  <span class="partner-tag">📱 Android Dev</span>
+                </div>
+              </div>
+            </div>
+            <div class="partner-arrow"><svg width="12" height="12" fill="none" stroke="white" stroke-width="2.5"
+                viewBox="0 0 24 24">
+                <path d="M7 17L17 7M17 7H7M17 7v10" />
+              </svg></div>
+          </a>
+
+          <!-- 11 AWS — regular -->
+          <a href="https://aws.amazon.com/training" target="_blank" rel="noopener" class="partner-card"
+            data-p-index="11">
+            <div class="partner-card-glow"></div>
+            <span class="partner-index">11</span>
+            <div class="partner-card-inner">
+              <div class="partner-logo-box"><img src="YOUR_IMAGE_LINK_HERE" alt="Amazon AWS"></div>
+              <div class="partner-text">
+                <div class="partner-category-tag">Cloud Computing</div>
+                <div class="partner-name">Amazon Web Services</div>
+                <div class="partner-what">World's most comprehensive and widely adopted cloud platform.</div>
+                <p class="partner-collab">AWS Academy integration, cloud foundations certification prep, AWS Educate
+                  programme, and cloud lab infrastructure support.</p>
+                <div class="partner-tags">
+                  <span class="partner-tag">☁️ AWS Academy</span>
+                  <span class="partner-tag">🖥 Cloud Labs</span>
+                </div>
+              </div>
+            </div>
+            <div class="partner-arrow"><svg width="12" height="12" fill="none" stroke="white" stroke-width="2.5"
+                viewBox="0 0 24 24">
+                <path d="M7 17L17 7M17 7H7M17 7v10" />
+              </svg></div>
+          </a>
+
+          <!-- 12 Oracle — wide -->
+          <a href="https://education.oracle.com" target="_blank" rel="noopener" class="partner-card wide"
+            data-p-index="12">
+            <div class="partner-card-glow"></div>
+            <span class="partner-index">12</span>
+            <div class="partner-card-inner">
+              <div class="partner-logo-box"><img src="YOUR_IMAGE_LINK_HERE" alt="Oracle"></div>
+              <div class="partner-text">
+                <div class="partner-category-tag">Database & Cloud</div>
+                <div class="partner-name">Oracle</div>
+                <div class="partner-what">Global leader in enterprise database, ERP, and cloud solutions.</div>
+                <p class="partner-collab">Oracle Academy database and Java curriculum, Oracle Cloud Infrastructure
+                  student tracks, and OCA/OCP certification preparation pathways.</p>
+                <div class="partner-tags">
+                  <span class="partner-tag">🗄 Database</span>
+                  <span class="partner-tag">☕ Java Cert</span>
+                  <span class="partner-tag">🏅 OCA/OCP</span>
+                </div>
+              </div>
+            </div>
+            <div class="partner-arrow"><svg width="12" height="12" fill="none" stroke="white" stroke-width="2.5"
+                viewBox="0 0 24 24">
+                <path d="M7 17L17 7M17 7H7M17 7v10" />
+              </svg></div>
+          </a>
+
+          <!-- 13 Ola Electric — regular -->
+          <a href="https://www.olaelectric.com" target="_blank" rel="noopener" class="partner-card" data-p-index="13">
+            <div class="partner-card-glow"></div>
+            <span class="partner-index">13</span>
+            <div class="partner-card-inner">
+              <div class="partner-logo-box"><img src="YOUR_IMAGE_LINK_HERE" alt="Ola Electric"></div>
+              <div class="partner-text">
+                <div class="partner-category-tag">EV Manufacturing · India</div>
+                <div class="partner-name">Ola Electric</div>
+                <div class="partner-what">India's fastest-growing EV company — Gigafactory operator.</div>
+                <p class="partner-collab">EV Research Lab setup, live EV powertrain and BMS projects, student design
+                  challenges, and direct engineering hiring.</p>
+                <div class="partner-tags">
+                  <span class="partner-tag">⚡ EV Lab</span>
+                  <span class="partner-tag">🔋 BMS Projects</span>
+                </div>
+              </div>
+            </div>
+            <div class="partner-arrow"><svg width="12" height="12" fill="none" stroke="white" stroke-width="2.5"
+                viewBox="0 0 24 24">
+                <path d="M7 17L17 7M17 7H7M17 7v10" />
+              </svg></div>
+          </a>
+
+          <!-- 14 NASSCOM — regular -->
+          <a href="https://www.nasscom.in" target="_blank" rel="noopener" class="partner-card" data-p-index="14">
+            <div class="partner-card-glow"></div>
+            <span class="partner-index">14</span>
+            <div class="partner-card-inner">
+              <div class="partner-logo-box"><img src="YOUR_IMAGE_LINK_HERE" alt="NASSCOM"></div>
+              <div class="partner-text">
+                <div class="partner-category-tag">Industry Body · India Tech</div>
+                <div class="partner-name">NASSCOM</div>
+                <div class="partner-what">India's premier tech association — 3,000+ member companies.</div>
+                <p class="partner-collab">FutureSkills Prime alignment, industry-recognized certification
+                  endorsements, policy advocacy, and sector skill council integration.</p>
+                <div class="partner-tags">
+                  <span class="partner-tag">🏆 FutureSkills</span>
+                  <span class="partner-tag">📜 Endorsement</span>
+                </div>
+              </div>
+            </div>
+            <div class="partner-arrow"><svg width="12" height="12" fill="none" stroke="white" stroke-width="2.5"
+                viewBox="0 0 24 24">
+                <path d="M7 17L17 7M17 7H7M17 7v10" />
+              </svg></div>
+          </a>
+
+          <!-- 15 Meta — feature (full width) -->
+          <a href="https://www.metacareers.com" target="_blank" rel="noopener" class="partner-card feature"
+            data-p-index="15">
+            <div class="partner-card-glow"></div>
+            <span class="partner-index">15</span>
+            <div class="partner-card-inner">
+              <div class="partner-logo-box"><img src="YOUR_IMAGE_LINK_HERE" alt="Meta"></div>
+              <div class="partner-text">
+                <div class="partner-category-tag">Social Technology</div>
+                <div class="partner-name">Meta</div>
+                <div class="partner-what">Parent of Facebook, Instagram, WhatsApp, and the metaverse platform.</div>
+                <p class="partner-collab">Meta Blueprint certifications, AR/VR development workshops, digital
+                  marketing for social platforms, and React/PyTorch developer curriculum co-delivery.</p>
+                <div class="partner-tags">
+                  <span class="partner-tag">📱 Blueprint Cert</span>
+                  <span class="partner-tag">🥽 AR/VR Dev</span>
+                  <span class="partner-tag">⚛️ React Training</span>
+                  <span class="partner-tag">📊 Digital Marketing</span>
+                </div>
+              </div>
+            </div>
+            <div class="partner-arrow"><svg width="12" height="12" fill="none" stroke="white" stroke-width="2.5"
+                viewBox="0 0 24 24">
+                <path d="M7 17L17 7M17 7H7M17 7v10" />
+              </svg></div>
+          </a>
+
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="partners-cta">
+        <div class="partners-cta-border"></div>
+        <div class="partners-cta-inner" id="p-cta">
+          <div class="partners-cta-tag"><span>——</span> Ready to partner? <span>——</span></div>
+          <h2 class="partners-cta-title">Bring These Partnerships<br>to <em>Your Campus</em></h2>
+          <p class="partners-cta-sub">Connect your students directly with the companies shaping tomorrow's industry.
+            One conversation changes everything.</p>
+          <div class="partners-cta-actions">
+            <button class="partners-cta-btn" onclick="instNavScroll(event,'inst-contact')">
+              <span>Start the Conversation</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </button>
+            <button class="partners-cta-btn-ghost">
+              <span>View Partnership Deck</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+
 
   <!-- ══════════════════════════════════════════════════════
      INSTITUTION PORTAL — DEDICATED EV PARALLAX PAGE
@@ -3478,6 +3972,878 @@
       border-top: 1px solid rgba(255, 255, 255, 0.05);
       padding: 100px 0;
     }
+
+    /* ══ PARTNERSHIPS SECTION ══ */
+    .inst-partners-section {
+      --p-dark: #050d09;
+      --p-dark-2: #0a1610;
+      --p-dark-3: #0f1f14;
+      --p-green: #00b17b;
+      --p-green-2: #00e5a0;
+      --p-gold: #f0b429;
+      --p-white: #ffffff;
+      --p-grey: rgba(255, 255, 255, 0.55);
+      --p-grey-dim: rgba(255, 255, 255, 0.15);
+      --p-border: rgba(255, 255, 255, 0.07);
+      --p-radius: 20px;
+      --p-shadow: 0 12px 60px rgba(0, 0, 0, 0.5);
+      --p-glow: 0 0 60px rgba(0, 177, 123, 0.2);
+      background: var(--p-dark);
+      color: var(--p-white);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .inst-partners-section::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.5;
+    }
+
+    .partners-hero {
+      position: relative;
+      padding: 140px 24px 110px;
+      text-align: center;
+      overflow: hidden;
+      z-index: 2;
+    }
+
+    .partners-hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(0, 177, 123, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 177, 123, 0.04) 1px, transparent 1px);
+      background-size: 64px 64px;
+      z-index: 0;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 75%);
+      animation: partnerGridDrift 30s linear infinite;
+    }
+
+    @keyframes partnerGridDrift {
+      0% {
+        background-position: 0 0;
+      }
+
+      100% {
+        background-position: 64px 64px;
+      }
+    }
+
+    .partners-hero-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -65%);
+      width: 800px;
+      height: 800px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 177, 123, 0.12) 0%, rgba(0, 229, 160, 0.04) 35%, transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+      animation: heroGlowPulse 6s ease-in-out infinite;
+    }
+
+    @keyframes heroGlowPulse {
+
+      0%,
+      100% {
+        opacity: 0.8;
+        transform: translate(-50%, -65%) scale(1);
+      }
+
+      50% {
+        opacity: 1;
+        transform: translate(-50%, -65%) scale(1.07);
+      }
+    }
+
+    .partners-hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .partners-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(0, 177, 123, 0.08);
+      border: 1px solid rgba(0, 177, 123, 0.22);
+      border-radius: 100px;
+      padding: 9px 22px;
+      color: var(--p-green-2);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-bottom: 36px;
+      opacity: 0;
+      backdrop-filter: blur(8px);
+    }
+
+    .partners-eyebrow-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--p-green-2);
+      border-radius: 50%;
+      flex-shrink: 0;
+      animation: pdot 2.4s ease infinite;
+    }
+
+    @keyframes pdot {
+
+      0%,
+      100% {
+        opacity: 1;
+        box-shadow: 0 0 0 0 rgba(0, 229, 160, 0.5);
+      }
+
+      50% {
+        opacity: 0.5;
+        box-shadow: 0 0 0 6px rgba(0, 229, 160, 0);
+      }
+    }
+
+    .partners-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(40px, 5.8vw, 72px);
+      font-weight: 900;
+      line-height: 1.06;
+      letter-spacing: -2px;
+      color: #fff;
+      margin-bottom: 30px;
+      opacity: 0;
+    }
+
+    .partners-headline em {
+      font-style: italic;
+      font-weight: 400;
+      background: linear-gradient(110deg, var(--p-green) 0%, var(--p-green-2) 50%, var(--p-green) 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmerText 4s linear infinite;
+      position: relative;
+    }
+
+    @keyframes shimmerText {
+      0% {
+        background-position: 0% center;
+      }
+
+      100% {
+        background-position: 200% center;
+      }
+    }
+
+    .partners-subtext {
+      font-size: clamp(15px, 1.8vw, 17px);
+      color: var(--p-grey);
+      line-height: 1.85;
+      max-width: 600px;
+      margin: 0 auto 56px;
+      opacity: 0;
+      font-weight: 300;
+    }
+
+    .partners-stats-strip {
+      display: inline-flex;
+      align-items: stretch;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--p-border);
+      border-radius: 20px;
+      backdrop-filter: blur(20px);
+      overflow: hidden;
+      opacity: 0;
+    }
+
+    .pstat {
+      padding: 20px 44px;
+      border-right: 1px solid var(--p-border);
+      text-align: center;
+      transition: background 0.3s ease;
+    }
+
+    .pstat:last-child {
+      border-right: none;
+    }
+
+    .pstat:hover {
+      background: rgba(0, 177, 123, 0.06);
+    }
+
+    .pstat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 38px;
+      font-weight: 900;
+      color: var(--p-green-2);
+      line-height: 1;
+      display: block;
+    }
+
+    .pstat-label {
+      font-size: 10.5px;
+      color: rgba(255, 255, 255, 0.4);
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      margin-top: 7px;
+      display: block;
+    }
+
+    .partners-scroll-hint {
+      margin-top: 72px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      color: rgba(255, 255, 255, 0.18);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      opacity: 0;
+    }
+
+    .partners-scroll-line {
+      width: 1px;
+      height: 50px;
+      background: linear-gradient(to bottom, var(--p-green), transparent);
+      animation: scrollPulse 2.8s ease-in-out infinite;
+      transform-origin: top;
+    }
+
+    @keyframes scrollPulse {
+      0% {
+        transform: scaleY(0);
+        opacity: 0;
+        transform-origin: top;
+      }
+
+      50% {
+        transform: scaleY(1);
+        opacity: 1;
+        transform-origin: top;
+      }
+
+      100% {
+        transform: scaleY(0);
+        opacity: 0;
+        transform-origin: bottom;
+      }
+    }
+
+    .section-connector {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      position: relative;
+      z-index: 2;
+      padding: 0 0 20px;
+    }
+
+    .section-connector-line {
+      width: 1px;
+      height: 70px;
+      background: linear-gradient(to bottom, transparent, var(--p-green), transparent);
+    }
+
+    .section-connector-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--p-green);
+      box-shadow: 0 0 16px var(--p-green);
+    }
+
+    .partners-section-label {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      max-width: 1160px;
+      margin: 0 auto 40px;
+      padding: 0 40px;
+      opacity: 0;
+    }
+
+    .psl-line {
+      flex: 1;
+      height: 1px;
+      background: var(--p-border);
+    }
+
+    .psl-text {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.25);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .partners-showcase {
+      position: relative;
+      z-index: 2;
+      padding: 20px 0 120px;
+    }
+
+    .partners-grid {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--p-border);
+      border: 1px solid var(--p-border);
+      border-radius: 24px;
+      overflow: hidden;
+    }
+
+    .partner-card.wide {
+      grid-column: span 2;
+    }
+
+    .partner-card.feature {
+      grid-column: span 3;
+    }
+
+    .partner-card {
+      display: flex;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      background: var(--p-dark);
+      transition: background 0.4s ease;
+      cursor: pointer;
+    }
+
+    .partner-card:hover {
+      background: var(--p-dark-2);
+      z-index: 10;
+    }
+
+    .partner-card-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      padding: 32px 30px;
+      width: 100%;
+      position: relative;
+    }
+
+    .partner-card.wide .partner-card-inner,
+    .partner-card.feature .partner-card-inner {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 28px;
+      padding: 36px 36px;
+    }
+
+    .partner-card.feature .partner-card-inner {
+      padding: 48px 44px;
+    }
+
+    .partner-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--p-green), var(--p-green-2));
+      transition: right 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 2;
+    }
+
+    .partner-card:hover::after {
+      right: 0;
+    }
+
+    .partner-card-glow {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 20% 50%, rgba(0, 177, 123, 0.07) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .partner-card:hover .partner-card-glow {
+      opacity: 1;
+    }
+
+    .partner-index {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.18);
+      letter-spacing: 1px;
+      position: absolute;
+      top: 20px;
+      right: 22px;
+      z-index: 2;
+      transition: color 0.3s ease;
+    }
+
+    .partner-card:hover .partner-index {
+      color: rgba(0, 229, 160, 0.4);
+    }
+
+    .partner-logo-box {
+      width: 72px;
+      height: 56px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+      transition: background 0.35s ease, border-color 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      z-index: 1;
+    }
+
+    .partner-card.wide .partner-logo-box,
+    .partner-card.feature .partner-logo-box {
+      width: 88px;
+      height: 68px;
+    }
+
+    .partner-card.feature .partner-logo-box {
+      width: 100px;
+      height: 78px;
+      border-radius: 18px;
+    }
+
+    .partner-card:hover .partner-logo-box {
+      background: rgba(0, 177, 123, 0.1);
+      border-color: rgba(0, 177, 123, 0.3);
+      transform: scale(1.05) rotate(-1deg);
+    }
+
+    .partner-logo-box img {
+      width: 52px;
+      height: 36px;
+      object-fit: contain;
+      display: block;
+      filter: brightness(0) invert(1) opacity(0.5);
+      transition: filter 0.4s ease, transform 0.4s ease;
+    }
+
+    .partner-card.wide .partner-logo-box img,
+    .partner-card.feature .partner-logo-box img {
+      width: 64px;
+      height: 46px;
+    }
+
+    .partner-card:hover .partner-logo-box img {
+      filter: brightness(1) invert(0) opacity(1);
+    }
+
+    .partner-text {
+      flex: 1;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .partner-category-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: 'DM Mono', monospace;
+      font-size: 9.5px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(0, 229, 160, 0.55);
+      margin-bottom: 2px;
+    }
+
+    .partner-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 1.2;
+      transition: color 0.3s ease;
+    }
+
+    .partner-card.wide .partner-name,
+    .partner-card.feature .partner-name {
+      font-size: 22px;
+    }
+
+    .partner-card.feature .partner-name {
+      font-size: 26px;
+    }
+
+    .partner-card:hover .partner-name {
+      color: var(--p-white);
+    }
+
+    .partner-what {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.32);
+      line-height: 1.5;
+      font-style: italic;
+    }
+
+    .partner-collab {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.5);
+      line-height: 1.7;
+      margin-top: 4px;
+    }
+
+    .partner-card:not(.wide):not(.feature) .partner-collab {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      margin-top: 0;
+      transition: max-height 0.4s ease, opacity 0.4s ease, margin-top 0.3s ease;
+    }
+
+    .partner-card:not(.wide):not(.feature):hover .partner-collab {
+      max-height: 80px;
+      opacity: 1;
+      margin-top: 4px;
+    }
+
+    .partner-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 10px;
+    }
+
+    .partner-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      padding: 3px 9px;
+      border-radius: 100px;
+      background: rgba(0, 177, 123, 0.07);
+      border: 1px solid rgba(0, 177, 123, 0.13);
+      color: rgba(0, 229, 160, 0.65);
+      transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    }
+
+    .partner-card:hover .partner-tag {
+      background: rgba(0, 177, 123, 0.14);
+      border-color: rgba(0, 177, 123, 0.28);
+      color: rgba(0, 229, 160, 0.9);
+    }
+
+    .partner-arrow {
+      position: absolute;
+      bottom: 20px;
+      right: 22px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      opacity: 0;
+      z-index: 2;
+      background: transparent;
+    }
+
+    .partner-card:hover .partner-arrow {
+      opacity: 1;
+      background: var(--p-green);
+      border-color: var(--p-green);
+      transform: scale(1.1);
+    }
+
+    .partner-arrow svg {
+      transition: transform 0.3s ease;
+    }
+
+    .partner-card:hover .partner-arrow svg {
+      transform: translate(1.5px, -1.5px);
+    }
+
+    .partners-depth-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .pdl-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      animation: pOrbFloat 12s ease-in-out infinite;
+    }
+
+    .pdl-orb-1 {
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(0, 177, 123, 0.07) 0%, transparent 65%);
+      top: 0%;
+      left: -15%;
+      animation-duration: 14s;
+    }
+
+    .pdl-orb-2 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(0, 229, 160, 0.05) 0%, transparent 65%);
+      top: 35%;
+      right: -10%;
+      animation-duration: 10s;
+      animation-delay: -5s;
+    }
+
+    .pdl-orb-3 {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(240, 180, 41, 0.04) 0%, transparent 65%);
+      bottom: 15%;
+      left: 25%;
+      animation-duration: 16s;
+      animation-delay: -8s;
+    }
+
+    @keyframes pOrbFloat {
+
+      0%,
+      100% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      33% {
+        transform: translate(30px, -25px) scale(1.04);
+      }
+
+      66% {
+        transform: translate(-20px, 18px) scale(0.97);
+      }
+    }
+
+    .partners-cta {
+      position: relative;
+      z-index: 2;
+      padding: 110px 24px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .partners-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, var(--p-dark) 0%, rgba(0, 177, 123, 0.03) 50%, var(--p-dark) 100%);
+      pointer-events: none;
+    }
+
+    .partners-cta-border {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(600px, 90%);
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0, 177, 123, 0.4), transparent);
+    }
+
+    .partners-cta-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 580px;
+      margin: 0 auto;
+      opacity: 0;
+    }
+
+    .partners-cta-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: rgba(0, 229, 160, 0.5);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .partners-cta-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(30px, 4vw, 48px);
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 18px;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+    }
+
+    .partners-cta-title em {
+      font-style: italic;
+      color: var(--p-green-2);
+    }
+
+    .partners-cta-sub {
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.45);
+      max-width: 460px;
+      margin: 0 auto 44px;
+      line-height: 1.75;
+      font-weight: 300;
+    }
+
+    .partners-cta-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .partners-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--p-green);
+      color: #fff;
+      border: none;
+      border-radius: 100px;
+      padding: 16px 36px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      overflow: hidden;
+      font-family: 'DM Sans', sans-serif;
+      letter-spacing: 0.3px;
+    }
+
+    .partners-cta-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .partners-cta-btn:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 14px 44px rgba(0, 177, 123, 0.5);
+    }
+
+    .partners-cta-btn:hover::before {
+      opacity: 1;
+    }
+
+    .partners-cta-btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 100px;
+      padding: 16px 30px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .partners-cta-btn-ghost:hover {
+      color: rgba(255, 255, 255, 0.85);
+      border-color: rgba(0, 177, 123, 0.35);
+      background: rgba(0, 177, 123, 0.05);
+    }
+
+    @media (max-width: 1000px) {
+      .partners-grid {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 0 20px;
+      }
+
+      .partner-card.wide {
+        grid-column: span 1;
+      }
+
+      .partner-card.feature {
+        grid-column: span 2;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .partners-grid {
+        grid-template-columns: 1fr;
+        padding: 0 16px;
+      }
+
+      .partner-card.wide,
+      .partner-card.feature {
+        grid-column: span 1;
+      }
+
+      .partner-card.wide .partner-card-inner,
+      .partner-card.feature .partner-card-inner {
+        flex-direction: column;
+        gap: 16px;
+        padding: 28px 24px;
+      }
+
+      .partners-stats-strip {
+        flex-direction: column;
+        border-radius: 16px;
+        width: 100%;
+        max-width: 320px;
+      }
+
+      .pstat {
+        border-right: none;
+        border-bottom: 1px solid var(--p-border);
+        padding: 16px 28px;
+      }
+
+      .pstat:last-child {
+        border-bottom: none;
+      }
+
+      .partners-hero {
+        padding: 100px 20px 80px;
+      }
+
+      .partner-card:not(.wide):not(.feature) .partner-collab {
+        max-height: none;
+        overflow: visible;
+        opacity: 1;
+        margin-top: 4px;
+      }
+    }
   </style>
 
 
@@ -3719,11 +5085,78 @@
         window.navigate = function (page) {
           _origNav(page);
           if (page === 'institution') {
-            setTimeout(initInstitutionPortal, 100);
+            setTimeout(() => { initInstitutionPortal(); setTimeout(initPartnersSection, 200); }, 100);
           }
         };
       }
     });
+    /* ── Partners Section GSAP Init ── */
+    function initPartnersSection() {
+      if (!window.gsap || !window.ScrollTrigger) return;
+      gsap.registerPlugin(ScrollTrigger);
+      const section = document.getElementById('inst-partners');
+      if (!section) return;
+
+      gsap.set(['#p-eyebrow', '#p-headline', '#p-subtext', '#p-stats', '#p-scroll-hint'], { opacity: 0, y: 36, filter: 'blur(4px)' });
+
+      gsap.timeline({ defaults: { ease: 'power3.out' } })
+        .to('#p-eyebrow', { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.75 }, 0.1)
+        .to('#p-headline', { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.0 }, 0.35)
+        .to('#p-subtext', { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.75 }, 0.65)
+        .to('#p-stats', { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.7 }, 0.85)
+        .to('#p-scroll-hint', { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.6 }, 1.1);
+
+      /* Counter animation */
+      const statNums = section.querySelectorAll('.pstat-num[data-target]');
+      setTimeout(() => {
+        statNums.forEach(el => {
+          const target = parseInt(el.dataset.target);
+          const suffix = el.dataset.suffix || '';
+          let current = 0;
+          const steps = 1800 / 16;
+          const increment = target / steps;
+          const timer = setInterval(() => {
+            current = Math.min(current + increment, target);
+            if (suffix === 'K+') el.textContent = Math.round(current / 1000) + 'K+';
+            else if (suffix) el.textContent = Math.round(current) + suffix;
+            else el.textContent = Math.round(current);
+            if (current >= target) clearInterval(timer);
+          }, 16);
+        });
+      }, 900);
+
+      gsap.fromTo('#p-label', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', scrollTrigger: { trigger: '#p-label', start: 'top 88%' } });
+
+      section.querySelectorAll('.partner-card').forEach((card, i) => {
+        gsap.fromTo(card, { opacity: 0, y: 30, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: 'power2.out', delay: (i % 3) * 0.08, scrollTrigger: { trigger: card, start: 'top 88%', toggleActions: 'play none none none' } });
+      });
+
+      section.querySelectorAll('.pdl-orb').forEach((orb, i) => {
+        const speed = [0.10, 0.07, 0.13][i] || 0.09;
+        gsap.to(orb, { y: () => -(window.innerHeight * speed), ease: 'none', scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: 2 } });
+      });
+
+      gsap.fromTo('#p-cta', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out', scrollTrigger: { trigger: '#p-cta', start: 'top 85%' } });
+
+      section.querySelectorAll('.partner-card').forEach(card => {
+        const inner = card.querySelector('.partner-card-inner');
+        card.addEventListener('mouseenter', () => gsap.to(inner, { y: -3, duration: 0.35, ease: 'power2.out', overwrite: 'auto' }));
+        card.addEventListener('mouseleave', () => gsap.to(inner, { y: 0, duration: 0.55, ease: 'elastic.out(1,0.65)', overwrite: 'auto' }));
+        const logo = card.querySelector('.partner-logo-box');
+        if (!logo) return;
+        card.addEventListener('mousemove', e => {
+          const rect = card.getBoundingClientRect();
+          const dx = (e.clientX - rect.left - rect.width / 2) / rect.width * 8;
+          const dy = (e.clientY - rect.top - rect.height / 2) / rect.height * 8;
+          gsap.to(logo, { x: dx, y: dy, duration: 0.4, ease: 'power2.out', overwrite: 'auto' });
+        });
+        card.addEventListener('mouseleave', () => gsap.to(logo, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1,0.5)', overwrite: 'auto' }));
+      });
+    }
+
+    /* Hook into initInstitutionPortal — add this line at the END of initInstitutionPortal() function: */
+    // initPartnersSection();
+
   </script><!-- /page-institution -->
 
   <!-- ===== MSEED JUNIOR PORTAL ===== -->
@@ -3732,8 +5165,8 @@
       <div class="portal-hero" style="background:linear-gradient(135deg,#1a2420 0%,var(--green) 100%)">
         <div class="container">
           <div style="margin-bottom:20px"><button class="back-btn" onclick="navigate('portal')"
-              style="border-color:rgba(255,255,255,0.3);color:#fff;background:rgba(255,255,255,0.1)"><svg width="14"
-                height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              style="border-color:rgba(255,255,255,0.3);;background:rgba(255,255,255,0.1)"><svg width="14" height="14"
+                fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path d="M19 12H5M12 5l-7 7 7 7" />
               </svg> Back</button></div>
           <div class="tag" style="background:rgba(255,255,255,0.2);color:#fff;margin-bottom:20px">MSEED Junior</div>
